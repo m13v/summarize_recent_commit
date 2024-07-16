@@ -2,9 +2,9 @@
 
 # Summarize commits of your team members with a single command
 
-I hate reading thousands of commits of my team. It takes a lot of time, the commit messages are often incomplete, the files diffs don't give immediate understanding of the commits logic. Also, copying commit manually to chat gpt is frustrating. 
+I hate reading through thousands of commits from my team. It takes a lot of time, the commit messages are often incomplete, and the file diffs don't provide an immediate understanding of the commit logic. Additionally, copying commits manually to ChatGPT is frustrating.
 
-Solved! Use your normal git command to summarize all commits of your team in a single markdown text file
+Solved! Use your normal git commands to summarize all commits from your team into a single markdown text file.
 
 ## Next steps
 
@@ -41,7 +41,7 @@ echo "OPENAI_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" > .env
 
 Build it
 ```bash
-cargo build --release   # enter cloned repo
+cargo build --release
 ```
 
 Run it # enter path of your git project repo (# under the hood it runs a separate command to get details of each commit)
@@ -51,7 +51,7 @@ cargo run --release /Users/matthewdi/Desktop/screenpipe/screen-pipe git log HEAD
 
 ## Overview
 
-Summarize Recent Commit is a tool that helps you quickly understand the changes made in the most recent commit of your project. It provides a concise summary of the commit message, files changed, and the impact of those changes.
+Summarize Recent Commit is a tool that helps you quickly understand the changes made in the most recent commit of your project which are ahead of your local directory. It provides a concise summary of the commit message, files changed, and the impact of those changes.
 
 ## Features
 
