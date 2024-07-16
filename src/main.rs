@@ -32,7 +32,7 @@ fn run_git_command(repo_path: &str, git_command: &[String]) -> Result<String, St
 
 async fn summarize_changes(changes: &str) -> Result<String, String> {
     let client = reqwest::Client::new();
-    let api_key = "OPENAI_API_KEY"; // Replace with your actual API key
+    let api_key = env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY not found in .env file");
     let url = "https://api.openai.com/v1/chat/completions";
 
     let response = client.post(url)
