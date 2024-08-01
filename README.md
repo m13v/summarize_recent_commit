@@ -59,6 +59,9 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - **File Changes**: See which files were added, modified, or deleted.
 - **Impact Analysis**: Understand the potential impact of the changes.
 
+## TO-DO
+
+- Overall summary for the commits ahead
 
 Written in Rust
 
