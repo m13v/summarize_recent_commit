@@ -5,6 +5,7 @@ use regex::Regex;
 use std::fs::File;
 use std::io::Write;
 use colored::*;
+use futures::future::join_all;
 
 fn run_git_command(repo_path: &str, git_command: &[String]) -> Result<String, String> {
     let mut command = Command::new(&git_command[0]);
@@ -110,24 +111,52 @@ async fn main() {
             writeln!(file, "-----------------------------------------------------------------------").expect("Failed to write to file");
             writeln!(file, "Total number of commits: {}\n", commit_hashes.len()).expect("Failed to write to file");
 
+            let mut tasks = Vec::new();
+
             for (index, commit_hash) in commit_hashes.iter().enumerate() {
-                let git_show_command = vec!["git".to_string(), "show".to_string(), commit_hash.to_string()];
-                match run_git_command(repo_path, &git_show_command) {
-                    Ok(commit_details) => {
-                        // println!("Commit details for {}: {}", commit_hash, commit_details); // Debug log
-                        match summarize_changes(&commit_details).await {
-                            Ok(summary) => {
-                                writeln!(file, "<details>\n<summary>Summary for commit {} ({})</summary>\n\n{}\n</details>\n", index + 1, commit_hash, summary)
-                                    .expect("Failed to write to file");
-                                writeln!(file, "------------------------------------------------------------------------\n")
-                                    .expect("Failed to write to file");
+                let repo_path = repo_path.to_string();
+                let commit_hash = commit_hash.to_string();
+                let task = tokio::spawn(async move {
+                    let git_show_command = vec!["git".to_string(), "show".to_string(), commit_hash.clone()];
+                    match run_git_command(&repo_path, &git_show_command) {
+                        Ok(commit_details) => {
+                            match summarize_changes(&commit_details).await {
+                                Ok(summary) => Some((index, commit_hash, summary)),
+                                Err(e) => {
+                                    eprintln!("Error summarizing changes for {}: {}", commit_hash, e);
+                                    None
+                                }
                             }
-                            Err(e) => eprintln!("Error summarizing changes for {}: {}", commit_hash, e),
+                        }
+                        Err(e) => {
+                            eprintln!("Error running git show for {}: {}", commit_hash, e);
+                            None
                         }
                     }
-                    Err(e) => eprintln!("Error running git show for {}: {}", commit_hash, e),
+                });
+                tasks.push(task);
+            }
+
+            let results = join_all(tasks).await;
+
+            let mut combined_changes = Vec::new();
+
+            for result in results {
+                if let Ok(Some((index, commit_hash, summary))) = result {
+                    writeln!(file, "<details>\n<summary>Summary for commit {} ({})</summary>\n\n{}\n</details>\n", index + 1, commit_hash, summary)
+                        .expect("Failed to write to file");
+                    writeln!(file, "------------------------------------------------------------------------\n")
+                        .expect("Failed to write to file");
+                    combined_changes.push(summary);
                 }
             }
+
+            // Generate overall summary
+            let overall_summary = summarize_changes(&combined_changes.join("\n")).await
+                .unwrap_or_else(|e| format!("Error generating overall summary: {}", e));
+
+            writeln!(file, "# Overall Summary of Changes\n\n{}", overall_summary)
+                .expect("Failed to write overall summary to file");
 
             open_md_in_preview(file_path_str);
         }
