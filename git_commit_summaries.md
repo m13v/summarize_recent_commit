@@ -7,342 +7,236 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 22
+Total number of commits: 20
 
 <details>
-<summary>Summary for commit 1 (ee266580b2b703b64cff62885f7ea2df90048962)</summary>
+<summary>Summary for commit 1 (d5b1fa3952c403fdff62ef0dd82b960a07183021)</summary>
 
-### Summary of Git Commit
+The commit by Louis Beaumont on August 7, 2024, updates the `README.md` file in the `examples/typescript/meeting-summaries-in-obsidian` directory. The changes include:
 
-**Commit ID:** ee266580b2b703b64cff62885f7ea2df90048962  
-**Author:** Louis Beaumont <louis.beaumont@gmail.com>  
-**Date:** Mon Jul 15 15:53:34 2024 +0200
+- Removing the previous link to the partnership with `file-organizer-2000` for a smoother version.
+- Adding new information that the example has been added as a "pipe" (plugin) in the "pipe store."
+- Including a new image link and updating the call-to-action link to direct users to `screenpi.pe/onboarding` for obtaining the plugin.
 
-#### Commit Message:
-- **chore:** add simple bench for vision
-
-#### Changes Made:
-
-1. **`Cargo.toml` Updates:**
-   - Added a new benchmark target named `vision_benchmark` with `harness = false` under the `[bench]` section.
-
-2. **`vision_benchmark.rs` Updates:**
-   - Refactored the benchmark for `continuous_capture` in the `
+Overall, the update improves the guidance for users on where to find and install the enhanced version of the example.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 2 (63f86d6c0f94c7adc54357a8b95dd064f354a4e1)</summary>
+<summary>Summary for commit 2 (8f3f586de7e24e143b065b0224a89c45d7cd7602)</summary>
 
-### Summary of Git Changes
-#### Commit Information
-- **Commit Hash:** 63f86d6c0f94c7adc54357a8b95dd064f354a4e1
-- **Author:** Louis Beaumont <louis.beaumont@gmail.com>
-- **Date:** Mon Jul 15 15:14:08 2024 +0200
-- **Summary:** Implemented the new indexing feature `#37`.
-
-### Detailed Changes
-#### `CONTRIBUTING.md`
-- Added sections for Benchmarks and Migration Creation under "Other Hacks".
-- Added instructions for running `cargo bench` and creating new migrations with `sqlx-cli`.
-- Additional instructions for performance optimization using Xcode Instruments.
-
-#### `
+This commit involves a minor version bump for the `screenpipe-app` package in the `Cargo.toml` file located in `examples/apps/screenpipe-app-tauri/src-tauri/`. The version has been updated from `0.1.23` to `0.1.24`. No other changes were made in this commit.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 3 (8043f71ec8762ba45207f0157ccb6535f30a2147)</summary>
+<summary>Summary for commit 3 (6957193ca4f50d12c8ed3a3e482bf30753ca1220)</summary>
 
-The commit 8043f71ec8762ba45207f0157ccb6535f30a2147, authored by Louis Beaumont on July 15, 2024, merges pull request #44 addressing issue #32. The changes include:
-
-- Integration of Tokio in the screenpipe-vision module.
-- Utilizing multiple parallel tasks to maintain previous behavior.
-- Addition of a feature to skip frames during OCR if the CPU is overloaded (configurable).
-- Enabling the ability to turn devices on or off via the API in screenpipe-audio.
-- Enhancing the vision module to be controlled via the API for turning on/off.
-- Ensuring that disconnecting an audio device in use stops the listening service, with a requirement for
+The commit adds a new example entry to the `README.md` file located in the `examples/typescript` directory. Specifically, it introduces a new example titled "TypeScript Perplexity-alike Asking Confirmation RAG Agent," which is a Retrieval-Augmented Generation agent inspired by Perplexity, requiring user confirmation. The corresponding link `[Perplexity RAG Agent](./perplexity-alike-asking-confirmation-rag-agent)` is also added to the examples list. Additionally, an extra line is inserted at the end of the file.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 4 (0a6b5479cfee4a6b50d809a4581c703999a15f6c)</summary>
+<summary>Summary for commit 4 (6347dfc2fbe8ea378ab369a8848c35ea2e5a87f3)</summary>
 
-The commit made by Louis Beaumont on July 15, 2024, includes the following change:
+The commit updates the `README.md` file for a TypeScript example project located in `examples/typescript/perplexity-alike-asking-confirmation-rag-agent/`. The changes include:
 
-- **Bug Fix**: Ensure that the software listens to all audio devices.
-- **Code Change**: In the `screenpipe-server/src/bin/screenpipe-server.rs` file:
-  - Import the `warn` function from the `log` module within a conditional compilation block for Linux and Windows operating systems.
-  - Add a warning log that alerts Linux and Windows users that Screenpipe has not been extensively tested on their operating systems and encourages feedback.
+- Adding a link to a GitHub asset (https://github.com/user-attachments/assets/5a5f8a50-9ff9-4374-85c0-461478fa25c8).
+- Suggesting the possibility of using `ollama` as an alternative.
+- Mentioning a potential issue with function calling when using models other than `llama3.1`.
+
+Additionally, a couple of blank lines were added for better readability.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 5 (a41384fb3397f043693e59f18ba9380747226c1a)</summary>
+<summary>Summary for commit 5 (97a5ba53a41992285cf3bdade495298ce2d497f9)</summary>
 
-The commit `a41384fb3397f043693e59f18ba9380747226c1a` introduces changes to ensure the system listens to all audio devices properly. Authored by Louis Beaumont, the key modifications include:
+The changes made in this commit included several additions and modifications primarily for integrating a meeting summarizer into the Screenpipe application. Here are the key points summarizing the changes:
 
-1. **Dependency Cleanup:**
-   - The `DeviceControl` import is removed from `screenpipe-audio/src/bin/screenpipe-audio.rs`.
+1. **Addition of a Meeting Summarizer Component**:
+   - The `meeting-summarized.tsx` component was added, which provides functionalities for starting/stopping meeting transcription, streaming transcripts, processing them with AI models, and displaying the summarized content.
 
-2. **Enhanced Device Handling:**
-   - The `record_audio` function in `screenpipe-server/src/core.rs` is modified to:
-     - Use a non-blocking check (`try_recv`) to receive new device controls.
-     - Abort device-related threads when the device control signals to stop.
-     - Consistently process recording and
+2. **Changes to the Chat List Component**:
+   - Within `chat-list-openai-v2.tsx`, a new import for settings and a change to dynamically set the model based on those settings were made.
+   - The old `chat-list-openai.tsx` file was removed, signifying a
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 6 (1f3f19a5b513a7f780c49acbbdbcf408b83c226d)</summary>
+<summary>Summary for commit 6 (29c06b2c6f834feb20ac43545dad4a40e4052a29)</summary>
 
-### Commit Summary
-
-**Commit ID**: 1f3f19a5b513a7f780c49acbbdbcf408b83c226d  
-**Author**: Louis Beaumont  
-**Date**: Mon Jul 15 13:29:33 2024 +0200  
-
-**Summary**: This commit introduces the enhancement to stop listening to an audio device upon its disconnection. Additionally, refactoring and clean-up are performed across various files.
-
-### Detailed Changes
-
-1. **Core Functionality Updates**:
-    - **Enhanced Error Handling**:
-        - Added functionality to stop listening to an audio device if it disconnects or becomes invalid.
-        - Introduced a more specific error handling mechanism for `
+The commit with hash `29c06b2c6f834feb20ac43545dad4a40e4052a29` was authored by Louis Beaumont and dated Wednesday, August 7, 2024. It merges a pull request (#117) from the branch `louis030195/update-formula-x86_64-apple-darwin-55f90e488c3586c143acad7b51a2aa917130d7f3`. The purpose of the merge is to update the Homebrew formula for the x86_64-apple-darwin platform.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 7 (7affe52e8332404b58b088c086414665b8420feb)</summary>
+<summary>Summary for commit 7 (af776e83b36aaef03795b018401e000bc49d944e)</summary>
 
-The commit `7affe52e8332404b58b088c086414665b8420feb` by Louis Beaumont fixes issues with handling audio devices in the project. Major changes include:
+The commit merges the 'main' branch into the branch 'update-formula-x86_64-apple-darwin-55f90e488c3586c143acad7b51a2aa917130d7f3'. 
 
-1. **File `screenpipe-audio/src/core.rs`:**
-   - Removed `tokio` dependencies from async functions and switched to using synchronous `std::thread` operations.
-   - Modified `record_and_transcribe` and `create_whisper_channel` functions to be synchronous.
-   - Adjusted logic to start recording in a separate thread and switched waiting mechanisms from `tokio` to `std::thread`.
-
-2. **File `screenpipe-audio/src/stt.rs`:**
-   - Replaced `tokio::sync::
+The changes in the `Formula/screenpipe.rb` file are:
+1. For macOS on ARM hardware:
+   - The `sha256` checksum for the `aarch64-apple-darwin` tarball is updated from `4b269e85d1008268357a7ea4ee49aa392d84488993340d808988a76af7be900c` to `ba52b189602438147185e4181377cfbe7
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 8 (b9fc5e0afa96aad6711d14fa43570115e429b879)</summary>
+<summary>Summary for commit 8 (1f241d338a7b9df9e97da55492703492fad7ea8f)</summary>
 
-Here’s a summary of the changes introduced in commit `b9fc5e0afa96aad6711d14fa43570115e429b879`:
+The git changes can be summarized as follows:
 
-### General Changes:
-- Introduced async support using Tokio across the project to replace synchronous operations with asynchronous ones for better efficiency.
-- Updated various Cargo.toml files to include `tokio` and dependencies related to async operations.
-- Added configuration files and dependencies to assist with tracing and monitoring the async runtime, like `tracing-subscriber` and `console-subscriber`.
-
-### Detailed Changes:
-
-#### Configuration and Dependencies:
-- **Added** a `.cargo/config.toml` file for enabling `tokio_unstable` features.
-- **Updated** dependencies in `Cargo.toml`
+A new commit (ID: 1f241d338a7b9df9e97da55492703492fad7ea8f) by Louis Beaumont merges a pull request (#118) from another branch. The purpose of this merge is to update the Homebrew formula specifically for the platform `aarch64-apple-darwin`. The merge occurred on August 7, 2024.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 9 (43efd4fecdd827fe91ad85c007d7112beb435fd0)</summary>
+<summary>Summary for commit 9 (cbea94fdc61ad5594c08b446695ba398f6d7f5bf)</summary>
 
-The commit made the following changes to the `screenpipe-audio` and `screenpipe-server` components:
+The commit with hash `cbea94fdc61ad5594c08b446695ba398f6d7f5bf`, authored by Louis Beaumont on August 7, 2024, updates the README.md file. 
 
-### `screenpipe-audio` Changes:
-1. **Main Entry Point (`screenpipe-audio.rs`):**
-   - Changed import `parse_device_spec` to `parse_audio_device`.
-   - Added a TODO comment about the CLI.
-   - Updated the logic to parse the audio device using `parse_audio_device`.
-
-2. **Core Module (`core.rs`):**
-   - Introduced a new `DeviceType` enum and updated the `AudioDevice` struct to use it.
-   - Refactored `DeviceSpec` into `AudioDevice` and provided relevant methods and trait implementations.
-   - Updated functions to use `
+The specific change is within the "Status" section, where the description of the project's alpha testing environment is modified. The original text stated that the project runs 24/7 on a "Macbook pro m3 32 GB ram". The updated description adds that it also runs on a "$400 Windows laptop" alongside the Macbook, implying broader testing across different hardware configurations.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 10 (050aed5111cb0c6d284acf0252d03a908d7bdb86)</summary>
+<summary>Summary for commit 10 (352d4ace0089224ae5e0a27e76c2d3ad7194f80f)</summary>
 
-### Summary
-
-This commit involves multiple changes and additions across various files, primarily aimed at enhancing the `screenpipe-audio` and `screenpipe-server` functionalities. Below are the key highlights:
-
-1. **Dependency Updates**:
-   - Added `tokio` as a development dependency in `screenpipe-audio/Cargo.toml`.
-   - Added `tower` dependency in `screenpipe-server/Cargo.toml`.
-
-2. **Audio Recording Enhancements**:
-   - Introduced `DeviceControl` structure to manage the state of audio devices, including fields for running and paused status.
-   - Modified `record_and_transcribe` function to integrate `DeviceControl` for more granular control of recording operations.
-   - Adjusted the duration for
+The commit with ID `352d4ace0089224ae5e0a27e76c2d3ad7194f80f` authored by Louis Beaumont on August 7, 2024, updates the `README.md` file. The changes made include:
+- Adding two new items, "Brilliant Frames" and "Vercel AI SDK," to the list of items under the Alpha section.
+- Changing the status of "multion" from unchecked to checked.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 11 (6dac6cd988fcf8526cace4fc77442f4d21b058dc)</summary>
+<summary>Summary for commit 11 (1b8daabef3d039736607e4bc4bf27dc940e598e4)</summary>
 
-The commit with hash `6dac6cd988fcf8526cace4fc77442f4d21b058dc` is a merge commit authored by Louis Beaumont. This merge incorporates changes from the `main` branch of the contributor `wangshifeng`, as indicated by pull request #46. The primary purpose of the merge is to address and fix the issue related to `InvalidFilename` on Windows. The commit was made on Monday, July 15, 2024, at 12:54 PM (GMT+2).
+The commit `1b8daabef3d039736607e4bc4bf27dc940e598e4` by Louis Beaumont updates the `README.md` file. Specifically, the update adds a clarification to the "Pipe Store" description within a feature list. The new text states that the Pipe Store runs in the Deno Typescript engine within screenpipe on the user's computer.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 12 (77ff3fd6c0af2f5991e1425fa04fc0d0f87d9e2d)</summary>
+<summary>Summary for commit 12 (629f3d8c4d59e3c2e1abfc7324b1fac09ebcca3c)</summary>
 
-This commit carries out a change in the way timestamps are handled within the codebase, specifically switching from local time (using `chrono::Local`) to Coordinated Universal Time (UTC) (using `chrono::Utc`). The files affected by this change are:
+The git commit with hash `629f3d8c4d59e3c2e1abfc7324b1fac09ebcca3c`, authored by Louis Beaumont on August 7, 2024, updates the `NOTES.md` file. The changes made include modifying the headings of two troubleshooting sections:
 
-1. `screenpipe-server/src/bin/screenpipe-video.rs`
-   - Changed from `chrono::Local` to `chrono::Utc` in the import statement.
-   - Altered the variable assignment from `Local::now()` to `Utc::now()`.
+1. The section originally titled "Audio does not work" has been renamed to "MacOS Audio does not work".
+2. The section originally titled "Screen capture does not work" has been renamed to "MacOS Screen capture does not work".
 
-2. `screenpipe-server/src/video.rs`
-   - Similarly, modified the import statement from `chrono::Local` to `chrono::Utc`.
-   - Updated the code to replace `Local::now()` with `
+These updates likely aimed to clarify that the troubleshooting tips provided are specific to MacOS.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 13 (fa88c1d4f197cb22e0b78f354a36304d1f562c83)</summary>
+<summary>Summary for commit 13 (cb58c48f8ef5b8ee40abe74762ce4762734b4c06)</summary>
 
-The commit `fa88c1d4f197cb22e0b78f354a36304d1f562c83` authored by Wang Shifeng on July 13, 2024, indicates the renaming of a demo file. Specifically, a new binary file named `2024-07-12_01-14-14.mp4` was added to the `data` directory. There is no indication of what the previous name of the file was before renaming.
+The commit with hash `cb58c48f8ef5b8ee40abe74762ce4762734b4c06`, authored by Louis Beaumont, updates the `NOTES.md` file. The update includes the addition of a new section wrapped in a `<details>` tag, specifically addressing a "WindowsCoreError HRESULT" issue. The note explains that this error can occur when a computer goes to sleep for an extended period and suggests restarting the computer as a temporary fix, with an indication that an automatic fix will be implemented soon.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 14 (5472087f29fee50d1b86ff384a1de86074c60704)</summary>
+<summary>Summary for commit 14 (55074aca5423ca2e3abe6294e73c5031b1425a0f)</summary>
 
-The commit with hash `5472087f29fee50d1b86ff384a1de86074c60704` was authored by Wang Shifeng on July 13, 2024. It merges changes from the branch `louis030195-main` into the current branch. The parent commits are `6ef5c6f` and `877d11c`.
+The commit updates the Homebrew formula for the `screenpipe` package to version 0.1.49 for the `aarch64-apple-darwin` architecture. Key changes include:
+
+- The URL for downloading the package tarball is updated to reflect the new version 0.1.49.
+- The version number within the formula is updated from 0.1.48 to 0.1.49.
+- The SHA-256 checksum for the ARM64 architecture (`aarch64-apple-darwin`) is updated to ensure the integrity of the new package version.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 15 (877d11c22597c1b91430ba83427c804732bdea6c)</summary>
+<summary>Summary for commit 15 (808cbb90b241364fabf5ced0af4333a0da15fd27)</summary>
 
-The commit is a merge of branch 'main' from the repository 'https://github.com/louis030195/screen-pipe' into another branch named 'louis030195-main'. The specific change involves modifying the `README.md` file to correct the file path format in a code snippet demonstrating how to play a sample frame recording from the database. The corrected path format is now consistent with the existing examples.
+The commit with the hash `808cbb90b241364fabf5ced0af4333a0da15fd27` updates the `brew` formula for the project `screenpipe` to version `0.1.49` for `x86_64-apple-darwin` architecture. The changes include:
 
-Key points:
-- Fixed path format in a sample command.
-- Merged two branches into one.
-
+1. Updating the version number from `0.1.48` to `0.1.49` in the `Formula/screenpipe.rb` file.
+2. Changing the SHA256 checksum for the x86_64 binary to reflect the new release. The old checksum `0258b890c5cec2334e959ef2ec2f0a67fb136b6477187
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 16 (6ef5c6f5402e8a751dc02762c663de6ebd10697b)</summary>
+<summary>Summary for commit 16 (6408f08cf116cfe7012fa86986ab4de085cec448)</summary>
 
-The commit addresses filename issues on Windows by modifying timestamp handling and file paths to use a format that is compatible with the Windows filesystem. 
+The commit with the hash `6408f08cf116cfe7012fa86986ab4de085cec448` authored by Louis Beaumont on August 7, 2024, updates the `NOTES.md` file located in `content/docs/`. The changes include the following:
 
-Here are the key changes:
+1. Addition of a new troubleshooting section:
+   - A collapsible `<details>` block titled "Permission error in Windows" was added.
+   - It provides instructions for resolving permission errors in the CMD terminal by running it as an administrator.
 
-1. **README.md**:
-   - The sample `ffplay` command was updated to use a filename format that replaces spaces and colons with underscores and dashes.
-     ```diff
-     -ffplay "screen-pipe/data/2024-07-12 01:14:14.078958 UTC.mp4"
-     +ffplay "screen-pipe/data/2024-07-12_01-14-14.mp4"
-     ```
-
-2. **File Deletion**:
-   - The file named `2024-07-12 
+2. Update to an existing troubleshooting section:
+   - In the section regarding the `TESSDATA_PREFIX` error, new instructions are included for trying an experimental OCR engine by adding `--ocr-engine windows-native
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 17 (37aea8649ff092b1abf6e156962d3e3e48064085)</summary>
+<summary>Summary for commit 17 (dffc4c0245e9f176e39f23409f3cfc8e40028d54)</summary>
 
-The commit `37aea8649ff092b1abf6e156962d3e3e48064085` is a merge commit by Matthew Diakonov. It merges changes from the branch associated with pull request #45, which was contributed by louis030195. The specific update involved is labeled "Readme 3," indicating changes or additions were made to the README file. The merge took place on July 12, 2024.
+The commit with hash `dffc4c0245e9f176e39f23409f3cfc8e40028d54` authored by Louis Beaumont on August 7, 2024, updates the `NOTES.md` document. Key changes include:
+
+1. Added a notice for troubleshooting issues with a link for scheduling a problem-solving session or contacting via email.
+2. Added detailed instructions to resolve the `TESSDATA_PREFIX` error on Windows.
+3. Included guidance on handling false-positive virus detections from Windows Defender by classifying the screenpipe app as authorized.
+4. Clarified the process for bypassing Windows Defender SmartScreen, reassuring users about app security and open-source nature.
+5. Structured the document
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 18 (c5523c1c41c6d0f5753de1090cba2fce657e4f1d)</summary>
+<summary>Summary for commit 18 (55f90e488c3586c143acad7b51a2aa917130d7f3)</summary>
 
-The commit made by matthew-heartful on July 12, 2024, simplifies the instructions and structure of the README.md file for the screen-pipe project. Here are the key changes:
+The commit `55f90e488c3586c143acad7b51a2aa917130d7f3` by Louis Beaumont addresses a bug where the OpenAI/Ollama user icon was not showing up. The changes are made in three TypeScript files related to a chat application. Here's an overview of the modifications:
 
-1. **Added Sections with Expanded Details**:
-   - Introduced sections for `BACKEND` and `FRONTEND` each with collapsible `<details>` tags.
-   - The `BACKEND` section includes instructions for installation using both a pre-built binary (`Option I: Library`) and from the source (`Option II: Install from the source`).
+1. **File: `chat-list-openai-v2.tsx`**
+   - Removed `md:-ml-12` from the class list in a `div` element within the `SpinnerMessage` component to correct positioning of UI elements.
 
-2. **Installation Steps Reorganized**:
-   - Installation commands for MacOS dependencies have been restructured for clarity.
-   - Detailed steps to install dependencies, clone the repository, build
+2. **File: `chat-message-v2.tsx`**
+   - Similarly, removed `md:-ml-12` from the class list of
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 19 (b41414de3e1e38d0e38adb7b0a121975401f7e42)</summary>
+<summary>Summary for commit 19 (21b86652dfbee6915df5a0d420f3ecc8b8e3fde2)</summary>
 
-The commit with the hash `b41414de3e1e38d0e38adb7b0a121975401f7e42` is a merge commit. The author of the commit is Wang Shifeng, who merged changes from another branch (specifically the branch `main` from the repository of the user `louis030195`) into their current branch. The purpose of this merge was to fetch updates from the upstream repository. The parent commits involved in this merge are `9e0476a` and `0a1b860`. The commit was made on July 13, 2024.
+This commit merges changes from a pull request (#116) into the main branch. The pull request was made by the user louis030195 and involves modifications to the README file. The commit was authored by Matthew Diakonov on August 6, 2024.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 20 (a8533745bbb8ad0979b02551dc1ca5c568d76e94)</summary>
+<summary>Summary for commit 20 (82ed69f8cc50c0475c070e1d38902be9e3821b1a)</summary>
 
-The commit with ID `a8533745bbb8ad0979b02551dc1ca5c568d76e94` authored by "matthew-heartful" on July 12, 2024, adds new "dislike" and "like" buttons to the `README.md` file.
-
-### Changes in `README.md`:
-- Added two new badge-style buttons:
-  1. A button labeled "😭_It didn't work_😭" that likely directs users to an error-report link.
-  2. A button labeled "Like" that points to a serverless function URL to register a 'like'.
-  
-The `README.md` now includes:
-```markdown
-[![It didn't work](https
+This commit represents a merge of branch `readme-modifications` into the main branch. The changes introduced by this merge include modifications to the README file related to the title and OCR (Optical Character Recognition) engines. The commit was authored by Matthew Diakonov on August 6, 2024. The specific pull request merged was #115 by the contributor louis030195.
 </details>
 
 ------------------------------------------------------------------------
 
-<details>
-<summary>Summary for commit 21 (7bae4af1bd44f8708450867cdff81e5d19596cf4)</summary>
+# Overall Summary of Changes
 
-The given commit, authored by Matthew Heartful on July 12, 2024, includes a small modification in the `README.md` file. Specifically, it changes the URL in a link that users can click if they encounter issues setting up their OPENAI API KEY. The original link, which directed users to a page to report a new dislike issue with the title "New dislike," has been updated to direct users to report a new dislike issue with the title "vercel app didn't work."
+The series of commits primarily involves updates to various `README.md` and `NOTES.md` files, bug fixes, and version bumps for Homebrew formulas and specific packages. Here’s a detailed summary:
 
-Details:
-- **File Modified**: `README.md`
-- **Line Changed**: The link under the section for setting up the OPENAI API KEY.
-- **Change Description**: The link title in the URL changed from "New+dis
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 22 (cd02b4fff9bffa1dc3da97e801afca34d2a4ad48)</summary>
-
-### Commit Summary
-- **Commit ID:** cd02b4fff9bffa1dc3da97e801afca34d2a4ad48
-- **Author:** Matthew Heartful
-- **Date:** Fri, Jul 12, 2024 at 12:25:02 -0700
-- **Message:** trying out dislike button
-
-### Changes Made
-- **File Modified:** `README.md`
-- **Modifications:**
-  - Added a line encouraging the submission of issues if something didn't work, with a new "dislike" button:
-    ```markdown
-    [😭 It didn't work 😭](https://github.com/louis030195/screen-pipe/issues/new?assignees=&
-</details>
-
-------------------------------------------------------------------------
-
+1. **Documentation Updates:**
+   - **`examples/typescript/meeting-summaries-in-obsidian/README.md`**:
+     - Removed outdated links and added new information about the pipe store plugin.
+     - Included a new image and updated the call-to-action link.
+   - **`examples/typescript/README.md`**:
+     - Added a new example titled "TypeScript Perplexity-alike Asking Confirmation RAG Agent" along with a link.
+   - **`examples/typescript/perplexity-alike
