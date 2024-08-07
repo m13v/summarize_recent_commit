@@ -61,7 +61,17 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 
 ## TO-DO
 
-- Overall summary for the commits ahead
+[*] Overall summary for the commits ahead
+[*] Parallel execution
+[ ] Debug: appears to be cut off sometimes
+[ ] Debug: improve prompt to avoid repetative text
+[ ] Save summaries to a folder by dates
+[ ] Auto-trigger summaries daily
+[ ] Send summaries over e-mail daily
+[ ] Simplify run commands
+[ ] Package into brew
+[ ] Allow for multi-turn chat with commits to ask follow-up questions
+[ ] Standard metadata structure: files changed, lines of code changed, etc.
 
 Written in Rust
 
