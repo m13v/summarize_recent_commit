@@ -78,7 +78,7 @@ async fn main() {
     let git_command = if args.len() > 2 {
         args[2..].to_vec()
     } else {
-        let command: String = Input::new().with_prompt("Enter the git command (try this: 'log HEAD..origin/main')").interact_text().unwrap();
+        let command: String = Input::new().with_prompt("Enter the git command (try this: 'git log HEAD..origin/main')").interact_text().unwrap();
         command.split_whitespace().map(String::from).collect()
     };
 
