@@ -63,6 +63,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 
 - [x] Overall summary for the commits ahead
 - [x] Parallel execution
+- [x] Ask user for missing arguments in a CLI dialogue
 - [ ] Debug: appears to be cut off sometimes
 - [ ] Debug: improve prompt to avoid repetitive text
 - [ ] Save summaries to a folder by dates
