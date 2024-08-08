@@ -6,6 +6,7 @@ use std::fs::File;
 use std::io::Write;
 use colored::*;
 use futures::future::join_all;
+use dialoguer::Input;
 
 fn run_git_command(repo_path: &str, git_command: &[String]) -> Result<String, String> {
     let mut command = Command::new(&git_command[0]);
@@ -68,15 +69,20 @@ fn open_md_in_preview(file_path: &str) {
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = env::args().collect();
-    if args.len() < 3 {
-        eprintln!("Usage: {} <repo_path> <git_command> [<args>...]", args[0]);
-        return;
-    }
+    let repo_path = if args.len() > 1 {
+        args[1].clone()
+    } else {
+        Input::new().with_prompt("Enter the repository absolut path (e.g. /Users/matthewdi/Desktop/screenpipe/screen-pipe)").interact_text().unwrap()
+    };
 
-    let repo_path = &args[1];
-    let git_command = &args[2..];
+    let git_command = if args.len() > 2 {
+        args[2..].to_vec()
+    } else {
+        let command: String = Input::new().with_prompt("Enter the git command (try this: 'log HEAD..origin/main')").interact_text().unwrap();
+        command.split_whitespace().map(String::from).collect()
+    };
 
-    match run_git_command(repo_path, git_command) {
+    match run_git_command(&repo_path, &git_command) {
         Ok(changes) => {
             if changes.trim().is_empty() {
                 eprintln!("No changes found in the specified range.");
