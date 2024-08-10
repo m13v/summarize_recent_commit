@@ -26,7 +26,7 @@ i@m13v.com. Discord: matthew.ddy
 
 Install [Rust](https://www.rust-lang.org/tools/install).
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+brew install rust # or curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 Clone the repo:
