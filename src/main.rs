@@ -8,13 +8,10 @@ use colored::*;
 use futures::future::join_all;
 use dialoguer::Input;
 
-fn run_git_command(repo_path: &str, git_command: &[String]) -> Result<String, String> {
-    let mut command = Command::new(&git_command[0]);
-    command.arg("-C").arg(repo_path);
-    for arg in &git_command[1..] {
-        command.arg(arg);
-    }
-
+fn run_git_command(repo_path: &str, git_command: &str) -> Result<String, String> {
+    let mut command = Command::new("sh");
+    command.arg("-c")
+           .arg(format!("cd {} && {}", repo_path, git_command));
     println!("Running command: {:?}", command); // Print the command
 
     let output = command.output().map_err(|e| format!("Failed to execute command: {}", e))?;
@@ -72,14 +69,13 @@ async fn main() {
     let repo_path = if args.len() > 1 {
         args[1].clone()
     } else {
-        Input::new().with_prompt("Enter the repository absolut path (e.g. /Users/matthewdi/Desktop/screenpipe/screen-pipe)").interact_text().unwrap()
+        Input::new().with_prompt("Enter the repository absolute path").interact_text().unwrap()
     };
 
     let git_command = if args.len() > 2 {
-        args[2..].to_vec()
+        args[2].clone()
     } else {
-        let command: String = Input::new().with_prompt("Enter the git command (try this: 'git log HEAD..origin/main')").interact_text().unwrap();
-        command.split_whitespace().map(String::from).collect()
+        Input::new().with_prompt("Enter the full git command").interact_text().unwrap()
     };
 
     match run_git_command(&repo_path, &git_command) {
@@ -123,7 +119,7 @@ async fn main() {
                 let repo_path = repo_path.to_string();
                 let commit_hash = commit_hash.to_string();
                 let task = tokio::spawn(async move {
-                    let git_show_command = vec!["git".to_string(), "show".to_string(), commit_hash.clone()];
+                    let git_show_command = format!("git show {}", commit_hash);
                     match run_git_command(&repo_path, &git_show_command) {
                         Ok(commit_details) => {
                             match summarize_changes(&commit_details).await {
