@@ -161,6 +161,9 @@ async fn main() {
                 .expect("Failed to write overall summary to file");
 
             open_md_in_preview(file_path_str);
+
+            println!("{}", "Job finished successfully!".green());
+            println!("Summary file created at: {}", file_path_str);
         }
         Err(e) => eprintln!("Error running git command: {}", e),
     }
