@@ -12,19 +12,18 @@ fn run_git_command(repo_path: &str, git_command: &str) -> Result<String, String>
     let mut command = Command::new("sh");
     command.arg("-c")
            .arg(format!("cd {} && {}", repo_path, git_command));
-    println!("Running command: {:?}", command); // Print the command
+    println!("{}", format!("Running git command: {}", git_command).cyan());
 
     let output = command.output().map_err(|e| format!("Failed to execute command: {}", e))?;
-    println!("Git: {}", output.status); // Debug log
     if output.status.success() {
-        println!("{}", "all good".green());
+        println!("{}", "Git command executed successfully".green());
         let stdout = str::from_utf8(&output.stdout)
             .map_err(|e| format!("Failed to convert output to string: {}", e))?;
         Ok(stdout.to_string())
     } else {
         let stderr = str::from_utf8(&output.stderr)
             .map_err(|e| format!("Failed to convert error to string: {}", e))?;
-        println!("Git command error: {}", stderr); // Debug log
+        println!("{}", format!("Git command error: {}", stderr).red());
         Err(stderr.to_string())
     }
 }
@@ -81,10 +80,9 @@ async fn main() {
     match run_git_command(&repo_path, &git_command) {
         Ok(changes) => {
             if changes.trim().is_empty() {
-                eprintln!("No changes found in the specified range.");
+                eprintln!("{}", "No changes found in the specified range.".yellow());
                 return;
             }
-            // println!("Git changes: {}", changes); // Debug log
 
             // Extract commit hashes
             let re = Regex::new(r"commit (\b[0-9a-f]{5,40}\b)").unwrap();
@@ -145,6 +143,7 @@ async fn main() {
 
             for result in results {
                 if let Ok(Some((index, commit_hash, summary))) = result {
+                    println!("{}", format!("Processing commit {} of {}: {}", index + 1, commit_hashes.len(), commit_hash).cyan());
                     writeln!(file, "<details>\n<summary>Summary for commit {} ({})</summary>\n\n{}\n</details>\n", index + 1, commit_hash, summary)
                         .expect("Failed to write to file");
                     writeln!(file, "------------------------------------------------------------------------\n")
@@ -153,6 +152,7 @@ async fn main() {
                 }
             }
 
+            println!("{}", "Generating overall summary...".cyan());
             // Generate overall summary
             let overall_summary = summarize_changes(&combined_changes.join("\n")).await
                 .unwrap_or_else(|e| format!("Error generating overall summary: {}", e));
@@ -163,8 +163,8 @@ async fn main() {
             open_md_in_preview(file_path_str);
 
             println!("{}", "Job finished successfully!".green());
-            println!("Summary file created at: {}", file_path_str);
+            println!("{}", format!("Summary file created at: {}", file_path_str).green());
         }
-        Err(e) => eprintln!("Error running git command: {}", e),
+        Err(e) => eprintln!("{}", format!("Error running git command: {}", e).red()),
     }
 }
