@@ -41,7 +41,7 @@ async fn summarize_changes(changes: &str) -> Result<String, String> {
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": format!("Summarize the following git changes:\n\n{}", changes)}
             ],
-            "max_tokens": 150,
+            "max_tokens": 1000,
         }))
         .send()
         .await
