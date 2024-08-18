@@ -80,6 +80,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [ ] Package into brew
 - [ ] Allow for multi-turn chat with commits to ask follow-up questions
 - [ ] Standard metadata structure: files changed, lines of code changed, etc.
+- [ ] CLI GUI
 
 Written in Rust
 
