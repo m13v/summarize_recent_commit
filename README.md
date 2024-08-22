@@ -68,21 +68,21 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 
 ## TO-DO
 
-[x] Overall summary for the commits ahead
-[x] Parallel execution
-[x] Ask user for missing arguments in a CLI dialogue
-[x] Debug: appears to be cut off sometimes, expand token limit
-[ ]: which command is running?
-[ ] Debug: improve prompt to avoid repetitive text
-[ ] Save summaries to a folder by dates
-[ ] Auto-trigger summaries daily
-[ ] Send summaries over e-mail daily
-[ ] Simplify run commands
-[ ] Package into brew
-[ ] Allow for multi-turn chat with commits to ask follow-up questions
-[ ] Standard metadata structure: files changed, lines of code changed, etc.
-[ ] CLI GUI
-[ ] Python implementation
+- [x] Overall summary for the commits ahead
+- [x] Parallel execution
+- [x] Ask user for missing arguments in a CLI dialogue
+- [x] Debug: appears to be cut off sometimes, expand token limit
+- [ ]: which command is running?
+- [ ] Debug: improve prompt to avoid repetitive text
+- [ ] Save summaries to a folder by dates
+- [ ] Auto-trigger summaries daily
+- [ ] Send summaries over e-mail daily
+- [ ] Simplify run commands
+- [ ] Package into brew
+- [ ] Allow for multi-turn chat with commits to ask follow-up questions
+- [ ] Standard metadata structure: files changed, lines of code changed, etc.
+- [ ] CLI GUI
+- [ ] Python implementation
 
 Written in Rust
 
