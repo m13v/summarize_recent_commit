@@ -72,7 +72,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [x] Parallel execution
 - [x] Ask user for missing arguments in a CLI dialogue
 - [x] Debug: appears to be cut off sometimes, expand token limit
-- [ ]: which command is running?
+- [ ] which command is running?
 - [ ] Debug: improve prompt to avoid repetitive text
 - [ ] Save summaries to a folder by dates
 - [ ] Auto-trigger summaries daily
