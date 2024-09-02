@@ -83,6 +83,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [ ] Standard metadata structure: files changed, lines of code changed, etc.
 - [ ] CLI GUI
 - [ ] Python implementation
+- [ ] Package distribution
 
 Written in Rust
 
