@@ -8,15 +8,17 @@ use colored::*;
 use futures::future::join_all;
 use dialoguer::Input;
 
-fn run_git_command(repo_path: &str, git_command: &str) -> Result<String, String> {
+fn run_git_command(repo_path: &str, git_command: &str, index: Option<usize>) -> Result<String, String> {
     let mut command = Command::new("sh");
     command.arg("-c")
            .arg(format!("cd {} && {}", repo_path, git_command));
-    println!("{}", format!("Running git command: {}", git_command).cyan());
+    
+    let index_str = index.map_or("".to_string(), |i| format!("[{}] ", i + 1));
+    println!("{}", format!("{}Running git command: {}", index_str, git_command).cyan());
 
     let output = command.output().map_err(|e| format!("Failed to execute command: {}", e))?;
     if output.status.success() {
-        println!("{}", "Git command executed successfully".green());
+        println!("{}", format!("{}Git command executed successfully", index_str).green());
         let stdout = str::from_utf8(&output.stdout)
             .map_err(|e| format!("Failed to convert output to string: {}", e))?;
         Ok(stdout.to_string())
@@ -41,7 +43,7 @@ async fn summarize_changes(changes: &str) -> Result<String, String> {
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": format!("Summarize the following git changes:\n\n{}", changes)}
             ],
-            "max_tokens": 1000,
+            "max_tokens": 10000,
         }))
         .send()
         .await
@@ -77,7 +79,7 @@ async fn main() {
         Input::new().with_prompt("Enter the full git command").interact_text().unwrap()
     };
 
-    match run_git_command(&repo_path, &git_command) {
+    match run_git_command(&repo_path, &git_command, None) {
         Ok(changes) => {
             if changes.trim().is_empty() {
                 eprintln!("{}", "No changes found in the specified range.".yellow());
@@ -118,7 +120,7 @@ async fn main() {
                 let commit_hash = commit_hash.to_string();
                 let task = tokio::spawn(async move {
                     let git_show_command = format!("git show {}", commit_hash);
-                    match run_git_command(&repo_path, &git_show_command) {
+                    match run_git_command(&repo_path, &git_show_command, Some(index)) {
                         Ok(commit_details) => {
                             match summarize_changes(&commit_details).await {
                                 Ok(summary) => Some((index, commit_hash, summary)),
