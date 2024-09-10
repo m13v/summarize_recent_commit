@@ -73,8 +73,8 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [x] Ask user for missing arguments in a CLI dialogue
 - [x] Debug: appears to be cut off sometimes, expand token limit
 - [x] which command is running atm?
-- [ ] to fix hash issue
-- [ ] fatal error with git command
+- [x] to fix hash issue, handle invalid hashes
+- [x] fatal error with git command
 - [ ] Debug: improve prompt to avoid repetitive text
 - [ ] Save summaries to a folder by dates
 - [ ] Auto-trigger summaries daily
