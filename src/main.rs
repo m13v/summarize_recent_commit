@@ -30,6 +30,16 @@ fn run_git_command(repo_path: &str, git_command: &str, index: Option<usize>) -> 
     }
 }
 
+fn is_valid_commit(repo_path: &str, commit_hash: &str) -> bool {
+    let output = Command::new("sh")
+        .arg("-c")
+        .arg(format!("cd {} && git cat-file -e {}", repo_path, commit_hash))
+        .output()
+        .expect("Failed to execute git cat-file command");
+
+    output.status.success()
+}
+
 async fn summarize_changes(changes: &str) -> Result<String, String> {
     let client = reqwest::Client::new();
     let api_key = env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY not found in .env file");
@@ -43,7 +53,7 @@ async fn summarize_changes(changes: &str) -> Result<String, String> {
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": format!("Summarize the following git changes:\n\n{}", changes)}
             ],
-            "max_tokens": 10000,
+            "max_tokens": 4000,
         }))
         .send()
         .await
@@ -118,6 +128,10 @@ async fn main() {
             for (index, commit_hash) in commit_hashes.iter().enumerate() {
                 let repo_path = repo_path.to_string();
                 let commit_hash = commit_hash.to_string();
+                if !is_valid_commit(&repo_path, &commit_hash) {
+                    eprintln!("Invalid commit hash: {}", commit_hash);
+                    continue;
+                }
                 let task = tokio::spawn(async move {
                     let git_show_command = format!("git show {}", commit_hash);
                     match run_git_command(&repo_path, &git_show_command, Some(index)) {
