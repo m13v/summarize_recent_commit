@@ -75,6 +75,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [x] which command is running atm?
 - [x] to fix hash issue, handle invalid hashes
 - [x] fatal error with git command
+- [ ] Loading button after git command executed successfully
 - [ ] Debug: improve prompt to avoid repetitive text
 - [ ] Save summaries to a folder by dates
 - [ ] Auto-trigger summaries daily
