@@ -90,6 +90,58 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [ ] Python implementation
 - [ ] Package distribution
 
-Written in Rust
+## Example output
+
+# Overall Summary of Changes
+
+### Summary of Git Changes
+
+This series of commits primarily involve improvements to documentation, refactoring for better application performance, enhancements to UI/UX, and codebase changes. Here's a detailed summary:
+
+1. **Documentation Enhancements:**
+   - **New `README.md` (b16149887161cee...):**
+     - **Project Documentation:** Added to describe a TypeScript project that automates logging of engineering work to Notion via Screenpipe and Phi 3.5 AI.
+     - **Setup Instructions:** Detailed installation and setup steps.
+     - **Customization Options:** Instructions to adjust logging frequency and AI output via configuration.
+
+   - **Overall Documentation Updates:**
+     - Expanded content for various `mdx` (Markdown with JSX) files.
+     - Added FAQs, integration details, architecture overview, and detailed "getting started" guides for different platforms.
+     - Standardized titles and organized content for improved readability and consistency.
+     - Removed experimental feature notices.
+
+2. **Codebase Changes:**
+   - **Interface and State Updates:**
+     - Renamed interface fields to camelCase and introduced new fields (`tags`, `deviceName`, `deviceType`) for better data handling.
+     - Added new UI states (`isRefreshing`, `isClearing`) and methods (`handleRefresh`, `handleClearMeetings`) for enhanced functionality.
+     - Incorporated new icon and tooltip imports to improve the UI.
+
+   - **Async Function Conversion:**
+     - Replaced blocking calls with asynchronous requests (`reqwest`) to enhance performance and prevent runtime errors, particularly handling asynchronous function calls properly in Rust using `.await`.
+
+   - **Voice Activity Detection (VAD):**
+     - Introduced VAD sensitivity settings in both CLI and application UI, improving customization in audio processing.
+     - Added support for configuring VAD in the recording settings and sync functionality for VAD across various components.
+
+3. **UI/UX Improvements:**
+   - Redesigned meeting dialogs adding buttons for refreshing and clearing data.
+   - Enhanced transcription sections with copy functionality and customizable prompts.
+   - Added persistence to log viewer data using `localforage` for better user experience.
+
+4. **Version Updates and Merge Fixes:**
+   - Incremented package versions to reflect new features and fixes.
+   - Addressed merge conflicts and compilation issues, particularly for MacOS, ensuring alignment with the main codebase.
+   - Incorporated metadata configuration in `_app.tsx` for better SEO and social media sharing.
+
+5. **Refactoring for Better Maintenance:**
+   - Moved and renamed files for better clarity and maintainability (e.g., `motionDiv.tsx` to `motion-div.tsx`).
+   - Simplified and streamlined code structure in various component and function definitions.
+
+These changes aim to improve the documentation's usability, enhance application performance, and provide a more interactive and user-friendly interface for users.
+
+
+
+
+Project written in Rust
 
 Matthew Diakonov
