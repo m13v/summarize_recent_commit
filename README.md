@@ -80,7 +80,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [ ] Loading button after git command executed successfully
 - [ ] Debug: improve prompt to avoid repetitive text
 - [ ] Save summaries to a folder by dates
-- [ ] Auto-trigger summaries daily
+- [ ] (priority) Auto-trigger summaries daily
 - [ ] Send summaries over e-mail daily (g-mail app password)
 - [ ] Simplify run commands
 - [ ] Package into brew
