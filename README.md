@@ -81,7 +81,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [ ] Debug: improve prompt to avoid repetitive text
 - [ ] Save summaries to a folder by dates
 - [ ] Auto-trigger summaries daily
-- [ ] Send summaries over e-mail daily
+- [ ] Send summaries over e-mail daily (g-mail app password)
 - [ ] Simplify run commands
 - [ ] Package into brew
 - [ ] Allow for multi-turn chat with commits to ask follow-up questions
