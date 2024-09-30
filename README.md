@@ -89,6 +89,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [ ] CLI GUI
 - [ ] Python implementation
 - [ ] Package distribution
+- [ ] Other languages
 
 ## Example output
 
