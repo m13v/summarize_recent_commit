@@ -75,6 +75,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [x] which command is running atm?
 - [x] to fix hash issue, handle invalid hashes
 - [x] fatal error with git command
+- [ ] scroll to the top when opening summary file by default
 - [ ] (number 1 priority) Auto-trigger summaries daily
 - [ ] Error summarizing changes for aefc2769dc98dc9aa6028fe8c3ead977f71cbc65: Failed to send request: error sending request for url (https://api.openai.com/v1/chat/completions): error trying to connect: connection closed via error
 - [ ] Error summarizing changes for d6fc795c624988fa3244d5737488ec7610f7a215: Failed to extract content
