@@ -7,320 +7,203 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 20
+Total number of commits: 11
 
 <details>
-<summary>Summary for commit 1 (0c0f4c403c27a6b73055b781aac5e9a90a518f9d)</summary>
+<summary>Summary for commit 1 (b027372dc1b92f831494bcc64b5419214b3cbe41)</summary>
 
-The git commit involves several changes aimed at optimizing the download and caching process for the Silero model, refining build configurations, updating dependencies, and making minor adjustments to the code. Here is a summary of the key changes:
-
-1. **GitHub Actions Workflow (`release-app.yml`)**:
-   - Uncommented build configurations for Intel-based Macs, Ubuntu, and Windows platforms in the workflow. This re-enables these build targets in the CI pipeline.
-   - Increased V8 memory limit size from 4096 to 8192.
-
-2. **Version Bump**:
-   - Incremented the version of `screenpipe-app` from `0.2.90-beta` to `0.2.91`.
-
-3. **`screenpipe-audio` Cargo.toml Updates**:
-   - Added new dependencies: `dirs` version `5.0.1` and `lazy_static` version `1.4.0`.
-
-4. **Code Refactoring for Model Download (`vad_engine.rs`)**:
-   - Refactored the VAD engine to use a caching mechanism, downloading the Silero model only once and storing it in a cache directory.
-   - Introduced `lazy_static` and `tokio::sync::Mutex` to manage the path and state of the model download operation.
-   - Improved logging from `debug` to `info` for certain operations.
-
-5. **Miscellaneous Code Cleanups**:
-   - Removed unused imports in `screenpipe-core/src/pipes.rs`, simplifying the module dependencies.
-
-Overall, these changes enhance efficiency by reducing redundant downloads, improve build support across platforms, and tidy up unused code.
+The commit simplifies and modifies the script `pre_build.js` to address an issue specific to Windows. Previously, the script set certain environment variables at the start of the file if the platform was detected as Windows. These variables were necessary for a vcpkg download fix. In this update, the redundant block of code defining the variables globally has been removed. Instead, the necessary environment variables (`SystemDrive`, `SystemRoot`, `windir`) are set inline when the vcpkg command is executed. This change aims to resolve Windows-related issues more concisely without cluttering the beginning of the script.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 2 (e2045a2f6ee277847f7d2e8a15a6efced67fc7fd)</summary>
+<summary>Summary for commit 2 (131957629ed7873df544329c5e2febf55bcf88aa)</summary>
 
-The commit `e2045a2f6ee277847f7d2e8a15a6efced67fc7fd` is a merge commit by Louis Beaumont, done on October 4, 2024. It merges changes from a pull request (#428) submitted by a user named charpeni. The purpose of this pull request was to fix typos in the `CONTRIBUTING.md` file.
+The commit with ID `131957629ed7873df544329c5e2febf55bcf88aa`, authored by Louis Beaumont, attempts to fix issues related to Windows in the `release-app.yml` GitHub Actions workflow. The changes remove separate steps for running `pre_build.js` on Windows and non-Windows platforms, consolidating them into a single step. Previously, `pre_build.js` was run with a condition that checked if the runner was not Windows for one step and was Windows for another step, using different shells (bash for non-Windows and PowerShell for Windows). Now, the script is run unconditionally without distinguishing between operating systems and uses a bash shell in a single unified step, while maintaining the essential environment setup.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 3 (549aa5fadc8264895457fad125b3baf962687432)</summary>
+<summary>Summary for commit 3 (5bce6f4da65dadaca307663539ca0480d038167b)</summary>
 
-This commit indicates a merge of the `QuincySan-CN_support` branch into the current branch. The merge was committed by Louis Beaumont on October 4, 2024. During the merge, the decision was made to retain the existing `bun.lockb` file from the current branch.
+The git commit made by Louis Beaumont, identified as `5bce6f4da65dadaca307663539ca0480d038167b`, involves changes to the `.github/workflows/release-app.yml` file. Specifically, it updates the `vcpkgGitCommitId` for the `lukka/run-vcpkg` action from `"5b1214315250939257ef5d62ecdcbca18cf4fb1c"` to `"7adc2e4d49e8d0efc07a369079faa6bc3dbb90f3"`. This change is part of a job that runs when the matrix platform is set to 'windows-latest', suggesting an attempt to fix issues related to Windows builds by using a different version of vcpkg.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 4 (989ab32365b520b1a23b2e26e01f22f0bbb24015)</summary>
+<summary>Summary for commit 4 (c488d307e17979517c6cede49270dc385435d581)</summary>
 
-The commit by Louis Beaumont on October 4, 2024, involved the deletion of two files in the `screenpipe-app-tauri` project. The files removed were:
+The commit c488d307e17979517c6cede49270dc385435d581, authored by Louis Beaumont on October 4, 2024, includes modifications to the GitHub Actions workflow file `release-app.yml` in an attempt to fix issue #432. The changes refine how the `pre_build.js` script is run on different platforms:
 
-1. `bun.lockb` - a binary file used by the Bun toolkit, commonly associated with project dependency locks.
-2. `acl-manifests.json` - a JSON configuration file containing detailed permission settings and schemas for different components and functionalities within a Tauri-based application. This file defined permissions for resources like notifications, filesystem access, process management, and more.
+1. **Separation of Platform-Specific Steps**:
+   - The script execution has been separated for non-Windows and Windows platforms.
+   
+2. **For Non-Windows Platforms**:
+   - The script `pre_build.js` is run only when the runner OS is not Windows.
+   - The `bash` shell is used for execution.
+   - An environment variable `SKIP_SCREENPIPE_SETUP` is set to `true`.
+   - The `working-directory` is set to `./screenpipe-app-tauri`.
 
-The commit was broadly labeled as a "fix," suggesting these deletions were part of a corrective measure in the project's development process.
+3. **For Windows Platforms**:
+   - The script `pre_build.js` is run only when the runner OS is Windows.
+   - The `pwsh` (PowerShell) shell is used for execution.
+   - The same environment variable `SKIP_SCREENPIPE_SETUP` is set to `true`.
+   - The script output uses `Get-ChildItem -Recurse` to list directory contents.
+   - The `working-directory` is maintained as `./screenpipe-app-tauri`.
+
+These changes appear aimed at improving the build process by ensuring the script runs correctly on both Windows and non-Windows environments.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 5 (325c68384e522c4023a73569e74c6dff846c23fc)</summary>
+<summary>Summary for commit 5 (dfeab2f271c73aa679519a03105cb00b70a2d9f2)</summary>
 
-The git commit with hash `325c68384e522c4023a73569e74c6dff846c23fc`, authored by Nicolas Charpentier, makes two minor textual corrections in the `CONTRIBUTING.md` file. The word "personnally" was corrected to "personally," and the lowercase "i" in "i use" was corrected to "I use."
+The commit made by Louis Beaumont attempts to fix issue #432. It modifies the GitHub Actions workflow file `.github/workflows/release-app.yml`. Specifically, it slightly adjusts the syntax of a conditional assignment within the "Run pre_build.js" step. The change is simply a correction in spacing or formatting for the condition that selects the shell to use, but the logic itself remains unchanged (`bash` for non-Windows platforms, `pwsh` for Windows).
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 6 (b9e3bdf1d8905668a4056ed29b5810d08f0ea91c)</summary>
+<summary>Summary for commit 6 (1cd05d5acab433fb52288d5c5d8e14aa5d610ac6)</summary>
 
-The git commit with hash `b9e3bdf1d8905668a4056ed29b5810d08f0ea91c` involves the deletion of the file `acl-manifests.json` from the `screenpipe-app-tauri/src-tauri/gen/schemas` directory. The author of the commit is Ren, and the deletion was carried out as requested on October 4, 2024. The file contained detailed configurations for various permissions related to autostart, CLI, app settings, events, notifications, file system, and other core functionality described in JSON. The removal indicates that these configurations are no longer needed or are being replaced.
+The recent commit, authored by Louis Beaumont, includes updates aimed at addressing issue #432. The changes involve:
+
+1. **GitHub Actions Workflow Update:**
+   - The `release-app.yml` file was modified to improve compatibility across different platforms (`windows-latest` and others).
+   - The shell used in the "Run pre_build.js" step now dynamically switches between `bash` for non-Windows platforms and `pwsh` (PowerShell) for Windows.
+   - Pre-existing Windows-specific environment variable exports were removed and replaced with platform-appropriate commands for running scripts (`bun ./scripts/pre_build.js`) and listing directory contents (`ls -R .` or `Get-ChildItem -Recurse`).
+
+2. **Version Bump in Cargo.toml:**
+   - The version of the `screenpipe-app` package was incremented from "0.2.94" to "0.2.95", indicating a minor update likely related to the adjustments made in the workflow. 
+
+These changes aim to enhance build reliability and platform compatibility as part of the release process.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 7 (6b6607289c1a712ee93f223b9968e1924fdbd676)</summary>
+<summary>Summary for commit 7 (d79644a7c59e7674f87e61b8a5501902b2075a1f)</summary>
 
-This commit includes the following changes:
+The commit `d79644a7c59e7674f87e61b8a5501902b2075a1f` by Louis Beaumont includes the following changes:
 
-1. **Cargo.toml Modifications:**
-   - The `axum` dependency version "0.7" was removed from both `Cargo.toml` files located in the root and `screenpipe-vision` directories.
+1. **Code Simplification**: In the `health_check` function of `server.rs`, code related to application initialization status has been removed. Specifically, a block checking if the application was still initializing (within the first 120 seconds after start) and returning a "loading" status has been deleted. This change removes the initial "loading" status check from the health check response.
 
-2. **New File Added:**
-   - A new JSON file named `acl-manifests.json` was created under `screenpipe-app-tauri/src-tauri/gen/schemas/`. This file contains a comprehensive set of permission configurations for various application features such as auto-start, CLI interactions, application core functionalities, event actions, and more.
+2. **Search Params Change**: In a line involving a `curl` command for a search request, the `limit` parameter has been changed from 50 to 5. This reduces the number of search results returned by the search query example.
 
-3. **screenpipe-vision's Cargo.toml Adjustments:**
-   - In the `screenpipe-vision/Cargo.toml`, the specification of the `version`, `authors`, `description`, and `repository` fields were modified to refer to the workspace settings instead of specific values.
+3. **Minor Cleanup**: A redundant empty line has been removed at the end of the file, indicating a minor cleanup.
+
+These updates address issue #433 as indicated by the commit message.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 8 (6093aa445f941843a169f527666c810f59698b66)</summary>
+<summary>Summary for commit 8 (765d12dbb71140f26c25ef253a1162cc153252a2)</summary>
 
-The commit "try fix" by Louis Beaumont updates the `entitlements.plist` file in the `screenpipe-app-tauri` project. Specifically, it adds three new entitlements related to Apple's security settings:
+The commit made by Louis Beaumont on October 4, 2024, introduces a change to the `main.rs` file in the `screenpipe-app-tauri` project. The modification adds a notification feature when the "update_now" event is triggered. 
 
-1. `com.apple.security.cs.allow-jit`: Allows just-in-time (JIT) compilation.
-2. `com.apple.security.cs.allow-unsigned-executable-memory`: Allows the use of unsigned executable memory.
-3. `com.apple.security.cs.disable-library-validation`: Disables library validation to allow dynamically loaded unsigned code bundles.
+Key changes include:
+- Importing the `NotificationExt` from the `tauri_plugin_notification` library.
+- Adding a notification that pops up with the title "screenpipe" and the body message "installing latest version" before proceeding with updating tasks.
 
-These changes are likely intended to provide the application with greater flexibility in executing code, possibly to support functionality related to the Deno runtime.
+This change enhances user experience by informing them about the ongoing installation of the latest version of the application.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 9 (d6ba7a68ce89ee694f1dfd763fb76e624ed7f403)</summary>
+<summary>Summary for commit 9 (1b4cac33e8d36ba2c28a1781aab1e5653926f44e)</summary>
 
-The git commit with hash `d6ba7a68ce89ee694f1dfd763fb76e624ed7f403` by Louis Beaumont introduces changes to the `screenpipe-core/src/pipes.rs` file. The main update involves modifying the V8 JavaScript engine's memory configuration parameters within a function. Previously, the code set the maximum old space size to 4GB using a single `heap_limits` method call. 
+The commit authored by Louis Beaumont makes the following changes to the update functionality in the application:
 
-The updated code now breaks down the memory configuration into two separate values: 
-- `max_old_space_size` is adjusted to 2GB.
-- `initial_old_space_size` is set to 512MB.
+1. **Update Check Interval Changed**: The update check interval is modified from being specified in hours to being specified in minutes. Specifically, the call to `start_update_check` is changed to pass `5` instead of `1`, indicating a change from every hour to every 5 minutes.
 
-These values are then used to set the heap limits in the V8 `CreateParams`. Additionally, a new platform parameter, `v8_platform`, which uses a default V8 platform configuration, is introduced and added to `RuntimeOptions`. These adjustments aim to control memory usage more precisely.
+2. **Constructor Parameter Updated**: The `UpdatesManager::new` function now takes an interval in minutes instead of hours. The conversion for the duration is updated from `hours * 3600` to `minutes * 60`.
+
+3. **Text Modifications**: Several text strings in the update manager are changed from title case to lowercase:
+   - `"Screenpipe is up to date"` becomes `"screenpipe is up to date"`.
+   - `"Downloading Latest Version of Screenpipe"` becomes `"downloading latest version of screenpipe"`.
+   - `"Update Now"` becomes `"update now"`.
+
+These changes collectively adjust the update checking mechanism to run more frequently and modify some text strings for consistency in formatting.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 10 (a288b17866815c00e90147adc2c6c6be3ca06a15)</summary>
+<summary>Summary for commit 10 (dcbde84686ed5255f0fe588575565bc812ac8e2b)</summary>
 
-**Git Commit Summary:**
+The commit `dcbde84686ed5255f0fe588575565bc812ac8e2b` by Louis Beaumont includes the following changes:
 
-**Commit Hash**: a288b17866815c00e90147adc2c6c6be3ca06a15  
-**Author**: Louis Beaumont <louis.beaumont@gmail.com>  
-**Date**: Thu Oct 3 20:06:28 2024 -0700  
-**Commit Message**: try fix
+1. **GitHub Actions Workflow Update**:
+   - In the `release-app.yml` workflow file, a condition specific to the `windows-latest` platform was added. If the platform is Windows, environment variables `SystemDrive`, `SystemRoot`, and `windir` are exported to match environment values (`$SYSTEMDRIVE`, `$SYSTEMROOT`, `$WINDIR`). This is likely intended to address issues related to the Windows environment when running scripts.
 
-**Changes Made**: 
-1. **File Modified**: `screenpipe-core/src/pipes.rs`
+2. **JavaScript Script Modification**:
+   - In `scripts/pre_build.js`, a minor change was made: a `TODO` comment regarding possible lack of mp3 on Windows was removed from the `windows` object configuration.
 
-**Key Modifications**:
-- **Imports Added**:
-  - Added several `deno_core::v8` related imports: `Platform`, `SharedRef`, and `CreateParams`.
-  - Added import for `deno_core::RuntimeOptions`.
-- **Logic Changes**:
-  - Introduced `platform_params` for setting up V8's heap limits using `v8::CreateParams`, with max old space size specified as 4GB.
-  - Updated the creation of the `JsRuntime` to include `create_params`, allowing for custom V8 configuration.
-- **Purpose**: These changes appear to be aimed at configuring the memory management behavior of the V8 JavaScript engine used within the Deno runtime environment, particularly by setting heap limits for performance and resource management.
+3. **Version Update in Cargo.toml**:
+   - The version of the `screenpipe-app` package in `Cargo.toml` was incremented from `0.2.93` to `0.2.94`.
 
-Overall, the commit attempts to fix or optimize the execution environment by modifying the memory allocation settings through newly introduced parameters and imports.
+These changes suggest improvements to the build process for Windows and a version bump for the `screenpipe-app`.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 11 (524b7a252b4affd7562c37d5d6be01c38fbc8882)</summary>
+<summary>Summary for commit 11 (f7c63aa6ab0fd09a7adb8dbbeccab3058caf2721)</summary>
 
-The commit with hash `524b7a252b4affd7562c37d5d6be01c38fbc8882`, made by Louis Beaumont, renames files in different directories of example TypeScript projects, changing their names from `main.js` to `pipe.js`. The change note mentions that this update is "untested." The contents of the files remain unchanged as indicated by the similarity index of 100%.
-</details>
+The commit introduces several changes primarily related to telemetry and user settings management in the `screenpipe` application. 
 
-------------------------------------------------------------------------
+- **GitHub Actions**: Removed some commented code related to the cargo build process in the workflow file.
 
-<details>
-<summary>Summary for commit 12 (390633ab28297c547a91ffcb90c953e4679d481e)</summary>
+- **Frontend (React components)**:
+  - Integrated `posthog` for analytics in the `recording-settings.tsx` component.
+  - Introduced functionality to toggle telemetry with the ability to enable or disable it based on user preference.
+  - Added a switch component to the UI for users to toggle telemetry data collection.
+  - Moved the telemetry handling logic from `settings.tsx` to `recording-settings.tsx`, suggesting a restructuring of how settings are managed.
 
-The commit by Louis Beaumont adds a new step to the GitHub Actions workflow file `release-app.yml`. Specifically, it introduces a step to upload build artifacts. This step is conditional, only executing when the build matrix specifies the `macos-latest` platform and the build arguments include targeting `aarch64-apple-darwin` with the `metal` features. The artifacts are uploaded using the `actions/upload-artifact@v3` action, and they are named `build-artifacts-2`, with the specified path for the artifacts being `./screenpipe-app-tauri/src-tauri/screenpipe-aarch64-apple-darwin`.
-</details>
+- **Backend (Rust)**:
+  - Updated the `Cargo.toml` files:
+    - The app version was bumped from `0.2.91` to `0.2.93`.
+    - Added a `highlightio` dependency for telemetry purposes.
+  - In the sidecar and server code:
+    - Introduced logic to check and potentially disable telemetry based on configuration settings.
+    - Added support for a command-line argument to disable telemetry in the server application.
+  - Added a JSON schema for access control to manage permissions related to the app's storage and behavior at different levels of access.
 
-------------------------------------------------------------------------
+- **Scripts and Pre-Build Modifications**:
+  - Added a fix specific to Windows for downloading necessary components using `vcpkg`.
 
-<details>
-<summary>Summary for commit 13 (4d075d6f7c86b69ffaa67b0b0c81d610560412af)</summary>
-
-The commit refactors a GitHub Actions workflow configuration file, `.github/workflows/release-app.yml`. Specifically, it uncomments a job named `draft` that was previously commented out. This job runs on the latest Ubuntu environment and consists of steps to check out the repository and create a draft release using the `crabnebula-dev/cloud-release` GitHub Action. The `draft` job makes use of some secrets, namely `CN_APP_SLUG` and `CN_API_KEY`, to execute the `release draft` command with the `tauri` framework. The `publish-tauri` job seems to be dependent on the `draft` job, although the `needs` parameter for the dependency is commented out in this commit.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 14 (cc12df6fd9e15f3b94133adeb4beba5affb26bef)</summary>
-
-The commit made by Louis Beaumont on October 3, 2024, includes changes to the GitHub Actions workflow file `release-app.yml`. The notable changes in this commit are:
-
-1. **Modification of Comments:**
-   - A comment related to the Windows ARM platform was adjusted for formatting clarity.
-
-2. **Uncommented Sections:**
-   - Several previously commented-out sections related to build processes, dependency installation, and artifact uploading were uncommented:
-     - A pre-build script is run to prepare the CLI.
-     - Usage of `esaxx` is identified on Windows using `cargo tree`.
-     - Installation of `vcpkg` for Windows builds.
-     - Setup of `MSVC` and installation of LLVM & Clang on Windows.
-     - The entire build process is now active using the `tauri-apps/tauri-action`.
-     - Assets are being uploaded to CrabNebula Cloud.
-
-3. **Conditional Artifact Upload:**
-   - The upload of build artifacts is conditioned specifically for macOS with certain build arguments: targeting `aarch64-apple-darwin` with `metal` features.
-
-This commit essentially re-enables previously disabled workflow steps to ensure they are executed when the build runs, particularly addressing different platform configurations.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 15 (4433eb236fecbc35e280210c473c193fcdedc235)</summary>
-
-The commit, authored by Louis Beaumont, makes a change to the GitHub Actions workflow file located at `.github/workflows/release-app.yml`. Specifically, it comments out a line of code that previously set the `RUSTFLAGS` environment variable within a conditional block for the `macos-latest` platform. The `RUSTFLAGS` previously configured linker arguments related to dynamic library paths, but after this change, those flags will no longer be set during the build process.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 16 (9b38ecc8974f8d9b182e44765299992fc265f3b0)</summary>
-
-The commit made by Louis Beaumont updates the GitHub Actions workflow file `.github/workflows/release-app.yml`. Specifically, the changes include:
-
-1. Modifying the `cargo build` command within a job to include the `--release` flag, which means the project will be built in release mode instead of the default debug mode.
-
-2. Updating the path for the upload of build artifacts to point to the release directory instead of the debug directory. The path changes from `./target/aarch64-apple-darwin/debug/screenpipe` to `./target/aarch64-apple-darwin/release/screenpipe`.
-
-These changes adjust the workflow to build and upload release-mode artifacts.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 17 (f49141d12c7df710b9a2602aeda99799d0585019)</summary>
-
-The `release-app.yml` GitHub Actions workflow file was updated in the following ways:
-
-1. The entire `draft` job was commented out. This job originally ran on `ubuntu-latest` and included steps to check out the code and create a draft release using the `crabnebula-dev/cloud-release` action, leveraging secrets for the app slug and API key.
-
-2. The dependency on the `draft` job was commented out in the `publish-tauri` job. This change means that `publish-tauri` no longer depends on the completion of the `draft` job.
-
-3. In the `publish-tauri` job, the path for the artifacts uploaded by the `actions/upload-artifact@v3` step was modified. The path changed from `./target/debug` to `./target/aarch64-apple-darwin/debug/screenpipe`, indicating a specific target architecture for the build artifacts.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 18 (5e9f427c16c60935d801181a239cac03d9c35bfc)</summary>
-
-The commit `5e9f427c16c60935d801181a239cac03d9c35bfc` made by Louis Beaumont on October 3, 2024, involves the deletion of the file `acl-manifests.json` located in the `screenpipe-app-tauri/src-tauri/gen/schemas/` directory. This file contained JSON data related to various permissions, commands, and configurations across different modules such as `acr`, `cli`, `core:app`, `core:event`, `core:image`, and others. Each module specified default permissions and detailed structures for granting or denying permissions to different commands and functions. The removal signifies that this schema configuration file is no longer needed in the project.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 19 (63b92d0bf86a2cc1e8dbcf796ff1445e0e2ec828)</summary>
-
-The commit includes several changes to a Rust project and its components, focusing on adding support for OCR (Optical Character Recognition) of Chinese text. Here are the main changes:
-
-1. **`Cargo.toml` Updates:**
-   - Added the `axum` dependency version "0.7" to the main Cargo.toml file and also to `screenpipe-vision`'s Cargo.toml.
-   - Updated the `tower` plugin from version "0.4" to version "0.5" with the "util" feature in `screenpipe-server`'s Cargo.toml.
-   - Changed the version of `screenpipe-vision` from `{ workspace = true }` to "0.1.93".
-
-2. **Source Code Changes in `screenpipe-vision`:**
-   - Modified the `performOCR` function in `ocr.swift` to adjust image preprocessing. Commented out some filters to return directly the original image (`ciImage`). Enhanced text request capabilities by adding support for Chinese languages ("zh-Hans", "zh-Hant") and enabling language correction.
-
-3. **Testing Enhancements:**
-   - Added a new test `test_apple_native_ocr_chinese` in `screenpipe-vision/tests/apple_vision_test.rs` to verify OCR functionality with a Chinese test image.
-   - Introduced a new test image file `testing_OCR_chinese.png` for the above test.
-
-4. **Binary Files:**
-   - The binary library files (`libscreenpipe.dylib`, `libscreenpipe_arm64.dylib`, `libscreenpipe_x86_64.dylib`) were updated, possibly recompiled with the changes.
-
-These changes collectively aim to enhance the OCR capabilities of the project, especially for Chinese text recognition, by updating dependencies, fine-tuning the OCR pipeline, and introducing specific tests.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 20 (6478ff6c2962c3ba28fe5f116c57cf39dde366ea)</summary>
-
-This commit includes several changes across multiple files in the `screenpipe-app-tauri` project:
-
-1. **Binary File Change**: 
-   - The binary file `bun.lockb` in the `screenpipe-app-tauri` directory was modified.
-
-2. **Updates to `package.json`**:
-   - A new field `"trustedDependencies"` was added with `@sentry/cli` as a trusted dependency.
-
-3. **Changes to `acl-manifests.json`**:
-   - The file contents were replaced entirely. The replacement still includes configurations for permissions and permission sets within the application, with a detailed JSON specifying various permission-related settings.
-
-4. **Updates to JSON Schema Files**:
-   - In both `desktop-schema.json` and `macOS-schema.json`, the word "programmatic" was corrected to "programatic" in the "Capability" object descriptions. 
-
-These changes indicate an initial setup of a new project (`初始提交` means "initial commit" in Chinese), with updates that involve dependency management, permission configurations, and schema documentation corrections.
+Overall, this commit enhances the app's telemetry capabilities, allowing users to toggle telemetry settings and introducing infrastructure to handle telemetry data more effectively. It also includes structural changes and updates to manage settings more efficiently across different components.
 </details>
 
 ------------------------------------------------------------------------
 
 # Overall Summary of Changes
 
-The commits involve a variety of changes across different aspects of a project, primarily focusing on optimizing processes, updating configurations, and making textual corrections. Here's a concise summary of key updates:
+This summary captures several Git-related changes made by Louis Beaumont aimed at improving the functionality and fix issues in the `screenpipe` application. Here's a breakdown of the key modifications:
 
-1. **GitHub Actions Workflows**:
-   - Re-enabled build configurations for multiple platforms, increased memory limits, and added artifact upload steps for specific macOS builds.
-   - Commented out or modified various sections to streamline building and releasing processes.
+1. **GitHub Actions Workflow**:
+   - A significant rewrite of the `release-app.yml` file consolidates platform-specific steps for running `pre_build.js`. The script is run unconditionally using a bash shell to simplify platform handling.
+   - Updates include modifying environment variable exports for Windows to facilitate script execution without extra steps.
 
-2. **File and Dependency Modifications**:
-   - Updated `Cargo.toml` files to adjust dependencies, focusing on introducing new packages like `dirs` and `lazy_static`, and removing or modifying existing ones like `axum`. 
-   - Adjustments ensure support for OCR, particularly with Chinese text.
+2. **Code and Script Simplifications**:
+   - The `pre_build.js` script was refined on Windows by removing global environment variable declarations and setting them inline with the vcpkg command to combat platform-specific issues.
+   - A minor adjustment in `main.rs` introduces user notifications when updates are being installed, enhancing user interaction.
+   
+3. **Version Control and Dependencies**:
+   - Updates in `Cargo.toml` reflect version increments and additional dependencies, like `highlightio`, to enhance telemetry functionalities.
 
-3. **Code Adjustments**:
-   - Refactored model download logic to reduce redundancy by implementing caching.
-   - Increased logging verbosity for better debugging and visibility.
+4. **Frontend and Backend Enhancements**:
+   - Telemetry features were integrated into the `recording-settings.tsx` React component using `posthog` to collect analytics.
+   - Backend updates in Rust allow toggling telemetry settings and incorporate control at different access levels.
 
-4. **Typos and Textual Fixes**:
-   - Corrected minor typographical errors in documentation files like `CONTRIBUTING.md`.
+5. **Configuration Management**:
+   - Changes involved tweaking the update check frequency from hourly to every 5 minutes and refining script execution logic.
+   - The addition of new configuration management capabilities ensures that the app's storage and operational behavior are aligned with user preferences.
 
-5. **File Deletions and Renames**:
-   - Deletions of configuration files such as `acl-manifests.json`, suggesting either redundancy or a shift in configuration approach.
-   - Renaming of JavaScript files from `main.js` to `pipe.js` in TypeScript projects.
-
-6. **Security and Permissions**:
-   - Updated macOS entitlements to enable certain security capabilities that support Deno runtime execution.
-
-7. **Memory and Performance Optimization**:
-   - Adjusted V8 JavaScript engine memory settings to better manage resources, particularly for old space and initial space sizes.
-
-Overall, these changes aim to enhance the build process, improve efficiency through caching, and ensure smoother functionality across platforms while responding to project needs like language recognition and security flexibility.
+Overall, these commits concentrate on streamlining build processes for different operating systems, enhancing user experience during updates, managing application telemetry better, and preparing the framework for future improvements in feature settings and data handling within the `screenpipe` application.
