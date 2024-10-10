@@ -7,198 +7,202 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 11
+Total number of commits: 8
 
 <details>
-<summary>Summary for commit 1 (b027372dc1b92f831494bcc64b5419214b3cbe41)</summary>
+<summary>Summary for commit 1 (cdbd6472d0f9420fe4e378dd10ac9e8a07cdc902)</summary>
 
-The commit attempts to fix issues on Windows by modifying the `screenpipe-app-tauri/scripts/pre_build.js` script. Previously, the script set certain environment variables (`SystemDrive`, `SystemRoot`, `windir`) globally when the platform was detected as Windows. These lines have been removed, and instead, these environment variables are now set inline when the `vcpkg` command is executed. This change aims to resolve problems related to downloading or installing packages on Windows by ensuring the necessary environment variables are explicitly set during the `vcpkg` package installation process.
+This commit, identified by hash `cdbd6472`, introduces integration tests for an end-to-end "screenpipe" feature, which includes both audio and screen functionalities for Linux and Windows environments. The commit adds several shell scripts and configuration files to automate testing and setup within GitHub Actions.
+
+**Key Additions:**
+1. **New Binary:**
+   - `.github/scripts/audio_test.wav`: A binary file for audio testing purposes.
+
+2. **Shell Scripts:**
+   - `check_logs.sh`: Validates logs for errors such as crashes and confirms expected service startups.
+   - `install_dependencies.sh`: Installs required dependencies on Linux using `apt-get`.
+   - `run_screenpipe.sh`: Executes the screenpipe application and logs the output.
+   - `setup_audio.sh`: Configures audio settings using PulseAudio for Linux.
+   - `setup_display.sh`: Sets up a virtual display environment using Xvfb and Openbox for Linux.
+   - `stop_screenpipe.sh`: Stops the screenpipe application.
+   - `test_audio_capture.sh`: Tests audio capture capabilities by playing a sample audio file and checking logs.
+   - `test_ocr.sh`: Tests OCR functionality by creating and displaying an image to be recognized.
+   - `verify_tesseract.sh`: Confirms the installation and availability of Tesseract OCR.
+
+3. **GitHub Actions Workflows:**
+   - `linux-integration-test.yml`: Defines a workflow for running integration tests on Ubuntu, setting up dependencies, configuring a virtual display and audio, building the CLI, running tests, and capturing logs.
+   - `windows-integration-test.yml`: A similar workflow for Windows, including steps for handling Windows audio services and using Chocolatey for dependency installation.
+
+Overall, these changes aim to automate the process of testing the screenpipe feature's functionality on both Linux and Windows, ensuring compatibility and reliability across platforms.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 2 (131957629ed7873df544329c5e2febf55bcf88aa)</summary>
+<summary>Summary for commit 2 (08ca82909681cd34ee94d9fbc68cf417e6977601)</summary>
 
-The commit "131957629ed7873df544329c5e2febf55bcf88aa" by Louis Beaumont on October 4, 2024, contains changes to the GitHub Actions workflow for building a project. The commit modifies the `.github/workflows/release-app.yml` file primarily to simplify the conditional platform-specific build steps:
+The recent commit primarily adds audio normalization for input devices, while also including several other updates and fixes:
 
-1. Previously, the workflow had separate steps to run `pre_build.js` for non-Windows and Windows platforms.
-2. The non-Windows step used a bash shell and the Windows step used a PowerShell shell. The differentiation was based on the operating system (`runner.os`).
-3. In this commit, these steps are consolidated into a single step to run `pre_build.js`, removing the platform-specific conditions. Now, the script is run using bash without the operating system check.
-4. Environment variable `SKIP_SCREENPIPE_SETUP` is set to true in both cases to avoid copying screenpipe binaries that have not yet been built.
-5. The Windows-specific commands using PowerShell have been removed.
+1. **Version Update**: The version of the `screenpipe-app` package is incremented from `0.3.1` to `0.3.2`.
 
-This change simplifies the workflow by unifying the script execution across platforms.
+2. **Dependency Changes**:
+   - Removed `pyannote-rs` from `screenpipe-audio/Cargo.toml`.
+   - Added `tracing-subscriber` version `0.3.16`.
+
+3. **Code Modifications**:
+   - Changed the function `default_output_device` from asynchronous (`async`) to synchronous.
+   - Integrated audio normalization only for input devices by updating the `stt` function.
+   - Adjusted `VadSensitivity` speech ratio thresholds for `Low`, `Medium`, and `High`.
+
+4. **Testing and Test Data**:
+   - Added new test files `accuracy5.mp4` and `accuracy5.wav`.
+   - Updated the `accuracy_test.rs`, adding a new transcription test case with these files and setting up tracing for debug purposes.
+   - Adjusted test code to use `default_input_device` and synchronous `default_output_device`.
+
+5. **Miscellaneous**:
+   - Removed debug logging related to audio format detection in `pcm_decode.rs`.
+
+Overall, the changes improve the audio processing capabilities and update the test suite to ensure accuracy and functionality.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 3 (5bce6f4da65dadaca307663539ca0480d038167b)</summary>
+<summary>Summary for commit 3 (6bb82de286f64ac82785166cbb29f4df1d41c591)</summary>
 
-The commit with hash `5bce6f4da65dadaca307663539ca0480d038167b` by author Louis Beaumont, aims to address issues on the Windows platform in a GitHub workflow file. Specifically, the `.github/workflows/release-app.yml` file was modified. The change involves updating the `vcpkgGitCommitId` for the `lukka/run-vcpkg@v11` action from `"5b1214315250939257ef5d62ecdcbca18cf4fb1c"` to `"7adc2e4d49e8d0efc07a369079faa6bc3dbb90f3"`. This update suggests a change to the version or state of vcpkg used for the Windows build process.
+The commit by Louis Beaumont refactors the code to improve the Speech-to-Text (STT) accuracy by 4%. Key changes include:
+
+1. **Audio Normalization**: A new function `normalize_v2` is added in `audio_processing.rs`, which normalizes the audio data by adjusting its root mean square (RMS) and peak values. This function is used in the STT process to standardize audio input.
+
+2. **STT Modifications**: The STT functions `stt_sync` and `stt` in `stt.rs` are updated to incorporate the new normalization method. Audio data is normalized before processing, potentially enhancing accuracy.
+
+3. **Encoding Toggle**: A new boolean parameter `skip_encoding` is added to the `stt` function, allowing control over whether audio encoding should be skipped or not.
+
+4. **Test Updates**: The tests are modified to use the updated STT configuration. Specifically, a different audio transcription engine, `WhisperLargeV3Turbo`, is employed in tests, and the `skip_encoding` flag is set to `true` in some test scenarios.
+
+5. **File Structure Changes**: The `audio_processing` module is added to the project, making the new normalization functions accessible in the core library.
+
+Overall, these enhancements aim to streamline audio processing and improve STT functionality by ensuring audio input is consistently normalized and accurately transcribed.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 4 (c488d307e17979517c6cede49270dc385435d581)</summary>
+<summary>Summary for commit 4 (f22a85fd9ff09c618716223ec6a0b8b162735e9e)</summary>
 
-The Git commit with hash `c488d307e17979517c6cede49270dc385435d581` authored by Louis Beaumont introduces changes to the GitHub Actions workflow specified in the `release-app.yml` file. The modification targets the pre-build step in the automated release workflow by splitting it into two separate tasks based on the operating system.
+The commit introduces changes to the `screenpipe-audio` project to add a benchmarking feature focused on measuring transcription accuracy. Here is a summary of the modifications:
 
-Here are the key changes:
-- The pre-build process has been separated into two distinct tasks: one for non-Windows platforms and one specifically for Windows.
-- For non-Windows systems, the pre-build step now runs a Bash shell script with a conditional check (`if: runner.os != 'Windows'`) and executes the `pre_build.js` script using Bun. It sets an environment variable `SKIP_SCREENPIPE_SETUP` to `true` and lists directory contents using recursive listing.
-- For Windows systems, the pre-build step uses PowerShell with a corresponding conditional (`if: runner.os == 'Windows'`). It similarly sets the `SKIP_SCREENPIPE_SETUP` to `true`, runs the `pre_build.js` script using Bun with environment parameters, and lists files recursively using `Get-ChildItem`.
+1. **Dependencies Update in `Cargo.toml`:**
+   - Added new dependencies: `pyannote-rs` version `0.2.7`, `strsim` version `0.10.0`, and `futures` version `0.3.31`. These additions likely support the new transcription accuracy testing functionality.
 
-This restructuring is likely intended to address issue #432, ensuring that the pre-build script executes correctly across different operating system environments.
+2. **New Test Data Files:**
+   - Added several new audio files to the repository for use in testing transcription accuracy:
+     - `accuracy1.wav`
+     - `accuracy2.wav`
+     - `accuracy3.wav`
+     - `accuracy4.wav`
+     - `accuracy4.mp4`
+
+3. **New Test Implementation `accuracy_test.rs`:**
+   - A new test file `accuracy_test.rs` was created to automate transcription accuracy testing.
+   - The test uses various Rust async features and libraries (`tokio`, `futures`) to execute concurrently.
+   - It tests audio files against expected transcriptions by processing them through the Screenpipe Audio's speech-to-text pipeline.
+   - The transcription accuracy is computed using the Levenshtein distance, and a minimum threshold of 55% average accuracy is asserted in the test.
+
+By adding this benchmarking test, the project now has a structured way to evaluate the accuracy of its speech-to-text transcription capabilities, which is crucial for validating and improving its performance.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 5 (dfeab2f271c73aa679519a03105cb00b70a2d9f2)</summary>
+<summary>Summary for commit 5 (8212fbefec67a59fd3f93eef96e1ce948082ba23)</summary>
 
-The commit made by Louis Beaumont, intended to address issue #432, includes a minor change in the GitHub Actions workflow file `.github/workflows/release-app.yml`. Specifically, the change pertains to the `shell` statement in a script run step. The syntax for the conditional operator within the `shell` configuration remains the same but is reformatted slightly, although it might appear identical due to unchanged characters. This suggests the edit may have been aimed at resolving a subtle issue (such as formatting or an overlooked mistake) affecting the workflow's execution.
+The commit titled "revert mkl" by Louis Beaumont modifies the `.github/workflows/release-app.yml` file, specifically affecting how certain platforms are built in a GitHub Actions workflow. The changes remove the `mkl` features from the build arguments for both the `ubuntu-22.04` and `windows-latest` platforms. 
+
+- For `ubuntu-22.04`, the previous build argument `--features mkl` is now removed.
+- For `windows-latest`, the previous build argument `--target x86_64-pc-windows-msvc --features mkl` is changed to `--target x86_64-pc-windows-msvc`, effectively removing the `mkl` feature.
+- Additionally, the export of `RUSTFLAGS` with `-C target-cpu=native` for both `ubuntu-22.04` and `windows-latest` has been removed. 
+
+These changes suggest a rollback or removal of support/build optimization related to Intel's Math Kernel Library (MKL) for these platforms.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 6 (1cd05d5acab433fb52288d5c5d8e14aa5d610ac6)</summary>
+<summary>Summary for commit 6 (1a5838ebc1214c323a7fe0b7b17c873ab2625bef)</summary>
 
-The commit by Louis Beaumont attempts to address issue #432 and introduces the following changes:
+The Git commit `1a5838ebc1214c323a7fe0b7b17c873ab2625bef`, made by Louis Beaumont on October 8, 2024, includes updates to the GitHub Actions workflow file `release-app.yml`. This commit adds platform-specific `RUSTFLAGS` configuration for Ubuntu 22.04 and Windows:
 
-1. **GitHub Actions Workflow (`release-app.yml`):**
-   - The shell command in the `Run pre_build.js` step is modified to dynamically choose between `bash` and `pwsh` based on the platform. It uses `pwsh` for Windows (`windows-latest`) and `bash` for other platforms.
-   - The commands within the `run` block are similarly adjusted to accommodate the platform-specific syntax for executing scripts and listing directory contents:
-     - On non-Windows platforms, it runs the `pre_build.js` script and lists the directory contents using Unix-style commands.
-     - On Windows, it uses Windows PowerShell syntax to run the script and list directory contents.
+- For the `ubuntu-22.04` platform, it sets `RUSTFLAGS` to `-C target-cpu=native`.
+- For the `windows-latest` platform, it also sets `RUSTFLAGS` to `-C target-cpu=native`.
 
-2. **Version Update in `Cargo.toml`:**
-   - The version of the `screenpipe-app` package is incremented from `0.2.94` to `0.2.95`.
-
-These changes aim to improve cross-platform compatibility in the build workflow by adapting command execution based on the operating system.
+These changes are likely meant to optimize the build process by using CPU-specific instructions on these platforms.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 7 (d79644a7c59e7674f87e61b8a5501902b2075a1f)</summary>
+<summary>Summary for commit 7 (392dc3bfeec7013a9097a9a6f0831d3d4c3999b3)</summary>
 
-The commit `d79644a` by Louis Beaumont addresses issue #433 and involves modifications to `server.rs` in the `screenpipe-server` project. The changes made include:
+The commit by Louis Beaumont on October 8, 2024, involves two main changes:
 
-1. **Removal of Code Block:**
-   - A section of code responsible for returning a "loading" response during the application's initialization phase was removed. This block checked if the time since the application start was less than a specified loading threshold (120 seconds) and returned a "loading" status if the application was still starting up.
+1. **GitHub Workflow Updates**:
+    - In the `.github/workflows/release-app.yml` file, the build arguments for both Ubuntu and Windows platforms were modified. The `cuda` feature was removed from the build arguments, leaving only `mkl` specified. This change appears to be a refinement of the build options, possibly due to issues or updates with CUDA.
 
-2. **Adjustment in Search Script:**
-   - In the search example using `curl`, the limit parameter was adjusted from 50 to 5 for a search query that retrieves content between 2 hours ago and 1 hour ago.
+2. **Pre-build Script Enhancement**:
+    - In the `screenpipe-app-tauri/scripts/pre_build.js` file, the command to download FFMPEG on the Windows platform was updated. The new command includes additional options for `wget`, such as `--tries=5`, `--retry-connrefused`, `--waitretry=10`, and `--secure-protocol=auto`. These options improve the robustness of the download process by specifying retry behavior and protocol security. 
 
-3. **Minor Cleanup:**
-   - A trailing newline at the end of a script was removed. 
-
-Overall, the commit simplifies the health check logic by removing the initial loading state check and slightly adjusts a search query example to use a smaller limit.
+These changes collectively aim to improve the build and test process, focusing on reliability and adjusting build feature sets.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 8 (765d12dbb71140f26c25ef253a1162cc153252a2)</summary>
+<summary>Summary for commit 8 (83d81a3e83ed0e205af672fae1731b211bb6211a)</summary>
 
-The commit with ID `765d12dbb71140f26c25ef253a1162cc153252a2` adds a notification feature to a Rust application's `main.rs` file within the `screenpipe-app-tauri` project. Specifically, when the `"update_now"` event is triggered, a notification is created using the `tauri_plugin_notification` library. The notification displays the title "screenpipe" and the body text "installing latest version" to inform users that the latest version is being installed. This addition is encapsulated within an existing asynchronous function.
-</details>
+The commit titled "fix: build and test" made several changes to the codebase:
 
-------------------------------------------------------------------------
+1. **GitHub Workflow:** 
+   - In the `.github/workflows/release-app.yml` file, a change was made to the caching mechanism. The key used for cache identification was updated from `${{ matrix.platform }}-${{ matrix.args }}-pre-build` to `${{ matrix.platform }}-${{ matrix.target }}-pre-build`.
 
-<details>
-<summary>Summary for commit 9 (1b4cac33e8d36ba2c28a1781aab1e5653926f44e)</summary>
+2. **Version Update:**
+   - The version number in `screenpipe-app-tauri/src-tauri/Cargo.toml` was incremented from `0.3.0` to `0.3.1`.
 
-The git commit updates the interval for checking application updates from hours to minutes in a Tauri application. Specifically:
+3. **Test Module Imports:**
+   - In the `screenpipe-audio/tests/core_tests.rs` file, an import statement was modified. The import of `stt` from `screenpipe_audio::stt` no longer imports `self`. Additionally, `AudioDevice` was removed from the imports, suggesting it might not be necessary in the test file anymore.
 
-1. In the `main.rs` file, the update check function is now called with a parameter of `5` (assumed to be minutes) instead of `1` (previously hours).
-2. The `UpdatesManager` structure in `updates.rs` is modified to accept an interval in minutes instead of hours. Consequently, the calculation of the interval in seconds now multiplies the minutes by 60 instead of the previous hours by 3600.
-3. Text strings in the update menu items have been converted to lowercase to maintain consistency (e.g., "Screenpipe is up to date" is changed to "screenpipe is up to date").
-Overall, the changes focus on configuring the update interval to be specified in minutes, increasing the frequency of checks, and adjusting some display strings.
-</details>
+4. **Example Code:**
+   - In `screenpipe-core/examples/llama.rs`, a configuration-dependent code block was added. If the "llm" feature is not enabled, it now prints a message indicating that the LLM feature is not available.
 
-------------------------------------------------------------------------
+5. **Server Code Clean-up:**
+   - In `screenpipe-server/src/bin/screenpipe-server.rs`, the import of `highlightio::HighlightConfig` was removed, and an unused item `Log`, `Metadata`, and `Record` from the `log` crate were cleaned up from the imports.
 
-<details>
-<summary>Summary for commit 10 (dcbde84686ed5255f0fe588575565bc812ac8e2b)</summary>
-
-The commit with hash `dcbde84686ed5255f0fe588575565bc812ac8e2b` made the following changes:
-
-1. **GitHub Actions Workflow**:
-   - Modified the `release-app.yml` workflow to add a specific step for the `windows-latest` platform under the `run` command.
-   - The new step exports three environment variables (`SystemDrive`, `SystemRoot`, and `windir`) from existing system environment variables (`$SYSTEMDRIVE`, `$SYSTEMROOT`, and `$WINDIR`) on Windows systems.
-
-2. **JavaScript Script**:
-   - Removed the TODO comment in the `pre_build.js` file, which questioned a potential issue with Windows lacking MP3 support. The comment was directly above the configuration related to the Windows platform.
-
-3. **Rust Project Configuration**:
-   - Updated the version of the `screenpipe-app` package in the `Cargo.toml` file, changing it from `0.2.93` to `0.2.94`.
-
-Overall, the changes focus on improving Windows-specific configurations and bumping the application version.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>Summary for commit 11 (f7c63aa6ab0fd09a7adb8dbbeccab3058caf2721)</summary>
-
-This commit includes several modifications across different files in the project. Here’s a summarized view of the changes:
-
-1. **GitHub Workflow**: 
-   - Removed commented lines related to the build process in `release-app.yml`.
-
-2. **Tauri Components (React/TypeScript)**:
-   - Introduced telemetry capabilities using `posthog-js` and `@opentelemetry/api` in `recording-settings.tsx`.
-   - Added UI elements allowing users to enable or disable telemetry and updated related console logs.
-   - The telemetry toggle state updates settings accordingly. 
-
-3. **Settings Adjustment**:
-   - Made changes in `settings.tsx` related to telemetry management, consolidating this functionality into `recording-settings.tsx`.
-   - Deleted code that handled telemetry settings from `settings.tsx`, suggesting these were moved or redesigned.
-
-4. **Hooks and Build Scripts**:
-   - Added console logging to help track loading settings in `use-settings.tsx`.
-   - Added a platform-specific fix for Windows in `pre_build.js`.
-
-5. **Cargo.toml and Schemas**:
-   - Updated the version in `Cargo.toml` and added dependencies for telemetry (`highlightio`).
-   - Added a new JSON schema file `acl-manifests.json` for handling permissions and command configurations. This file seems extensive and details various command permissions and defaults.
-
-6. **Sidecar Implementation**:
-   - Integrated telemetry-related arguments in `sidecar.rs`, allowing runtime checks and toggling of telemetry (`--disable_telemetry`).
-
-7. **Server Configuration**:
-   - Added telemetry support in `screenpipe-server` using the `highlightio` package.
-   - Modified CLI to include a `--disable-telemetry` option, which affects telemetry behavior during runtime.
-   - Included checks to activate or disable telemetry and log relevant feedback or warnings based on the telemetry status.
-
-These changes enhance the application by incorporating telemetry features with user-level control, improving telemetry data handling, and ensuring platform-specific issues (on Windows) are addressed with a script fix.
+These changes collectively improve the build configuration, update the versioning, clean up code imports, and handle feature-specific conditions in the code.
 </details>
 
 ------------------------------------------------------------------------
 
 # Overall Summary of Changes
 
-Here is a summary of the git changes across multiple commits, examining both improvements to cross-platform compatibility and the introduction of new telemetry features:
+Here's a concise summary of the Git changes described:
 
-1. **Cross-Platform Workflow Improvements**:
-   - **Environment Variables in Scripts**: The `pre_build.js` script was modified to set Windows-specific environment variables (`SystemDrive`, `SystemRoot`, and `windir`) directly inline with the `vcpkg` command execution instead of globally. This resolves issues related to Windows package installations.
-   - **Simplification of GitHub Actions**: Changes in the `.github/workflows/release-app.yml` file simplify the build process for different operating systems, moving away from separate steps for Windows and non-Windows platforms. The workflow now uses a unified Bash shell for running pre-build scripts across platforms, with a specific focus on using Bash instead of PowerShell for Windows. This unifies the steps and removes unnecessary conditions, improving maintainability.
-   - **Vcpkg Update**: The vcpkg version was updated in the GitHub workflow to ensure compatibility with the latest package management features on Windows.
+1. **Integration Tests for Screenpipe:**
+   - Introduced integration tests for the "screenpipe" feature, which includes audio and screen functionalities on Linux and Windows.
+   - Several shell scripts and GitHub Actions workflows were added to automate testing and setup, enhancing cross-platform compatibility.
 
-2. **Telemetry Introduction and Enhancements**:
-   - **Tauri Frontend Updates**: In `recording-settings.tsx`, telemetry capabilities were introduced using `posthog-js` and `@opentelemetry/api`, allowing users to toggle telemetry settings through the UI.
-   - **Settings Management Consolidation**: Telemetry settings were moved from `settings.tsx` to `recording-settings.tsx`, consolidating related functionalities.
-   - **Addition of New JSON Schema**: A new schema file `acl-manifests.json` was introduced for managing command permissions and configurations.
-   - **Sidecar and Server Adjustments**: Added telemetry arguments in `sidecar.rs` and support using the `highlightio` package in `screenpipe-server`. A CLI option `--disable-telemetry` was introduced to provide runtime control over telemetry features.
-   - **Update Notifications**: A new feature in the `main.rs` file triggers notifications for update events, informing users about the installation of the latest version.
+2. **Audio Normalization and STT Improvement:**
+   - Added audio normalization for input devices to improve Speech-to-Text (STT) accuracy.
+   - The STT functions were updated, resulting in a 4% increase in transcription accuracy.
 
-3. **Version Updates and Code Cleanup**:
-   - Versions in the `Cargo.toml` file were incremented, reflecting updates like introducing telemetry and smoothing out Windows-specific configurations.
-   - Code cleanup involved removing unnecessary comments and adjusting code blocks for improved logic flow, particularly simplifying the health check logic on initialization.
+3. **Benchmarking Feature:**
+   - Introduced new dependencies and a test suite to benchmark transcription accuracy, using audio test files to compute metrics like Levenshtein distance.
 
-Overall, these changes improve the application's build workflow, especially on Windows, and introduce comprehensive telemetry capabilities, enhancing the user's control over data settings and improving operational transparency.
+4. **GitHub Actions Adjustments:**
+   - Removed Intel MKL support for specific platforms, reverting build optimizations.
+   - Refined build configurations, including platform-specific `RUSTFLAGS` and removal of the CUDA feature in workflows.
+
+5. **Project Updates:**
+   - Version updates and code refactoring for better code management and feature handling.
+   - Enhanced robustness of scripts downloading dependencies, such as FFMPEG, with additional options to handle connectivity issues.
+
+These changes focus on improving cross-platform support, enhancing audio processing capabilities, and refining the build and test processes for better reliability and performance in the screenpipe feature.
