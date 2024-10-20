@@ -75,7 +75,7 @@ Summarize Recent Commit is a tool that helps you quickly understand the changes 
 - [x] which command is running atm?
 - [x] to fix hash issue, handle invalid hashes
 - [x] fatal error with git command
-- [ ] maintain state of commits that were already processed, and last fetch date
+- [x] maintain state of commits that were already processed, and last fetch date
 - [ ] ask to refetch when running to avoid rerunning commits
 - [ ] scroll to the top when opening summary file by default
 - [ ] return cursor when finishing the summary
