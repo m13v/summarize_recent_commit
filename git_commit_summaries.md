@@ -7,188 +7,173 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 9
+Total number of commits: 11
 
 <details>
-<summary>Summary for commit 1 (78a8db7b21c7421f4f6e767ce692e858c65fa31f)</summary>
+<summary>summary for commit 1 (21d0137a281ec213588d6595ee5cb980fe3806dd)</summary>
 
-The commit `78a8db7b21c7421f4f6e767ce692e858c65fa31f` by Louis Beaumont introduces several UI improvements and refactorings in a project related to a screen recording application. Here is a summary of the changes:
-
-1. **New Component**: Added a new file `cli-command-dialog.tsx`, which contains the `CliCommandDialog` component responsible for generating and displaying CLI commands based on current settings. It includes functionality to copy these commands to the clipboard.
-
-2. **Refactoring**: Removed duplicate code for generating CLI commands from `recording-settings.tsx` and instead, integrated the newly created `CliCommandDialog` component. This reduces redundancy and centralizes the CLI command generation logic.
-
-3. **UI Adjustments**: 
-   - Improved button placement and dialog components across various files like `recording-settings.tsx` and `screenpipe-status.tsx`.
-   - Included the `CliCommandDialog` component in multiple places to provide consistent access to the CLI command throughout the UI.
-
-4. **Code Cleanup**: Removed commented-out code and unnecessary state management from components to streamline the implementation and improve maintainability.
-
-5. **Visual and UX Enhancements**: 
-   - Updated dialogs and buttons for better visual consistency.
-   - Updated health status messages and tooltips to improve user guidance and troubleshooting steps.
-
-6. **Sidecar Logic Simplification**: Simplified the logic in `sidecar.rs` related to determining the path for screenpipe execution and cleaned unnecessary environment variable manipulations.
-
-These changes aim to enhance the user experience and maintainability of the code by streamlining the command generation process and enhancing UI elements for clarity and ease of use.
+The commit authored by Louis Beaumont on October 19, 2024, includes a modification aimed at fixing tests in the `screenpipe-audio/examples/stt.rs` file. The changes introduce the use of the `Language` module from `screenpipe_core`. Specifically, a new language parameter, `vec![Language::English]`, has been added to a function call within the `async fn main` function.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 2 (929ed254447f10c9cd6d674914258eaf67eeee79)</summary>
+<summary>summary for commit 2 (88b6d679d4612a1f3115816a1cef2273aada953f)</summary>
 
-The recent git commit introduces several changes across different files related to audio processing and speech-to-text functionalities:
+The commit titled "bump wayland support" involves several changes across two `Cargo.toml` files related to updating dependencies:
+1. **Version Update**: The version of the `screenpipe-app` package was incremented from `0.6.0` to `0.6.1` in `screenpipe-app-tauri/src-tauri/Cargo.toml`.
+2. **Dependency Updates**:
+   - In `screenpipe-vision/Cargo.toml`, the `xcap` dependency was removed from the main dependencies section but was added or uncommented for specific operating systems.
+   - For Windows, `xcap` version `0.0.12` is now an active dependency.
+   - For macOS, `xcap` was updated to version `0.0.13`.
+   - For Linux, `xcap` was updated to version `0.0.14`.
 
-1. **Whisper Decoder Enhancements:**
-   - Added a repetition penalty feature to the Whisper decoder. This involves tracking recent tokens using `token_history` and applying a penalty to the logits during token generation, reducing the probability of repeating recent tokens.
-   - Introduced a new function `apply_repetition_penalty` to adjust logits based on recent tokens.
-
-2. **Audio Processing Adjustment:**
-   - Simplified the creation of `padded_audio` by directly converting the input audio slice to a vector and appending zeros, replacing the manual loop used previously.
-
-3. **Code Cleanup and Refinements:**
-   - Removed unnecessary code redundancy, such as eliminating the explicit closure in `unwrap_or_else` for `deepgram_api_key`.
-   - Consistently formatted comments and code in `vad_engine.rs` to improve readability and maintain consistency.
-
-Overall, these changes enhance the functionality of the Whisper decoder by implementing a mechanism to reduce repeated token generation and streamline some aspects of the audio processing code.
+These changes likely aim to improve Wayland support across different platforms by updating package versions and dependencies accordingly.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 3 (54e74fa823e35819d5d7850b9e263ea556a99453)</summary>
+<summary>summary for commit 3 (eb0eb04b22af7f7d797799c3549ee42710fd65e3)</summary>
 
-The commit titled "fix: revert health check" by Louis Beaumont on October 17, 2024, makes several changes to the project's codebase:
+The commit adds Wayland support to the `screenpipe-vision` project. The specific changes include:
 
-1. **GitHub Actions Workflow**:
-   - In the `.github/workflows/release-app.yml` file, the build arguments for MacOS platforms have been updated to include the `beta` feature, resulting in the lines:
-     - `--target aarch64-apple-darwin --features metal` to `--target aarch64-apple-darwin --features metal,beta`
-     - `--target x86_64-apple-darwin --features metal` to `--target x86_64-apple-darwin --features metal,beta`
+1. In `Cargo.toml`, a new dependency for `xcap` is added with the source code being referenced directly from a Git repository (`https://github.com/nashaofu/xcap.git`). This replaces hardcoded version references for `xcap` in platform-specific dependency sections for Windows, macOS, and Linux where they are now commented out.
 
-2. **Screenpipe Status Component**:
-   - The `screenpipe-status.tsx` file sees the removal of the `forceRestartHealthCheck` function. This includes:
-     - Deleting its import and definition within the file.
-     - Removing the function call `forceRestartHealthCheck()` after invoking certain screenpipe commands.
+2. The specific line `"xcap = "0.0.12"` for Windows and Linux, and `"xcap = "0.0.13"` for macOS are commented out, indicating that the project now relies on the Git version of the `xcap` library, which is presumably updated for better support or additional features like Wayland.
 
-3. **useHealthCheck Hook**:
-   - In `use-health-check.tsx`:
-     - Removed the `useCallback` for `fetchHealth` and the `forceRestartHealthCheck` function.
-     - The `fetchHealth` function is now a simple async function instead of a callback.
-     - The interval in `useEffect` no longer depends on `restartKey`.
-     - The `restartKey` state and references to `forceRestartHealthCheck` have been eliminated.
-
-4. **Cargo.toml Update**:
-   - The version number of the `screenpipe-app` package is incremented from `0.5.96` to `0.5.97`.
-
-Overall, these changes revert a health check mechanism and update the package version, while also updating build features in the release workflow configuration.
+Overall, these changes suggest that the project is accommodating a platform-independent setup by utilizing the latest `xcap` library directly from the Git repository rather than using specific versions, possibly to address compatibility with Wayland.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 4 (8530cffc12c57ac8f47019b86e9d2dc3416a5cc2)</summary>
+<summary>summary for commit 4 (9222b4c97d8dbce2080976adbb28cb3a662f5e3b)</summary>
 
-The commit made by Louis Beaumont on October 17, 2024, includes changes to the GitHub Actions workflow file `release-app.yml`. The modifications focus on updating the platform names for different build environments:
+The commit made by Louis Beaumont with the ID `9222b4c97d8dbce2080976adbb28cb3a662f5e3b` includes the following changes:
 
-1. Changed the platform name for the Ubuntu build from `"big-linux"` to `"ubuntu-22.04"`.
-2. Changed the platform name for the Windows build from `"big-windows"` to `"windows-latest"`.
+1. **Version Update**: 
+   - The version of the "screenpipe-app" package in its Cargo.toml file was updated from "0.5.99" to "0.6.0". This suggests a minor version release.
 
-These updates likely aim to clarify or update the specifications for the build environments used in the workflow.
+2. **Code Simplification**:
+   - In the file `screenpipe-audio/src/stt.rs`, the import statement was modified. The `DeviceType` import was removed from the list of imported components, indicating that `DeviceType` was likely unused in this portion of the code.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 5 (6f90cd3fe8e30ab06e209fed06a394cd279d6005)</summary>
+<summary>summary for commit 5 (3e8aa37c9bf1310362c1eb490069dd30330aa034)</summary>
 
-The commit made by Louis Beaumont, with commit hash `6f90cd3`, includes the following changes:
-
-1. **Cargo.toml Update:**
-   - The version of the `screenpipe-app` package was updated from `0.5.91` to `0.5.96`.
-
-2. **Code Changes in `sidecar.rs`:**
-   - Removed the retrieval of the `dataDir` value from the `store`. The corresponding logic to handle the `dataDir` was also removed, simplifying the code.
-   - Specifically, the code no longer fetches the `dataDir` from the store or checks if it is set to "default". The conditional logic that added `--data-dir` and its value to the arguments has been removed.
-
-These changes suggest a refactoring to simplify the code concerning data directory handling in the `spawn_sidecar` function, likely to address a build issue, as per the commit message "fix: build".
+This commit merges a pull request (#534) from the contributor Ezra Ellette into the main branch. The purpose of the pull request was to fix an issue related to displaying audio by converging interleaved audio samples. The merge was performed by Louis Beaumont on October 19, 2024.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 6 (3939a9e5f8db7625f11217d3682b4d0edac3488f)</summary>
+<summary>summary for commit 6 (78987f8733ce5d092f221df413337c2878cafe9d)</summary>
 
-The git commit titled "fix macos version script" by Louis Beaumont involves changes to the `.github/workflows/release-app.yml` file, specifically the configurations for macOS platforms. The `args` for both Arm-based Macs (M1 and above) and Intel-based Macs have been updated. The feature flag `beta` has been removed from the `--features` option. Now, both configurations use `--features metal` instead of `--features metal,beta`.
+The commit modifies the function `stereo_to_mono` to `audio_to_mono` in the file `audio_processing.rs`. This function is generalized to handle audio with arbitrary numbers of channels rather than just stereo (two channels). The updated function computes mono audio by iterating over audio data in chunks corresponding to the number of channels, summing and averaging the values in each chunk to create mono samples. The capacity for the mono samples vector is calculated based on the audio length and the number of channels.
+
+In the `core.rs` file, all usages of `stereo_to_mono` are updated to use the new `audio_to_mono` function, reflecting the change in the function's name and its updated logic. This ensures the application correctly processes audio data with varying numbers of channels.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 7 (a6e9d50e1e8b154904054721a53e1d52efb297d7)</summary>
+<summary>summary for commit 7 (18fbf24120e36769f3688c28f9a90d6e2bb778f5)</summary>
 
-The commit `a6e9d50e1e8b154904054721a53e1d52efb297d7` by Louis Beaumont updates the GitHub Actions workflow file `release-app.yml` to fix the version update script for macOS. The changes involve modifying the `sed` command used to update the version in `Cargo.toml`. The script now checks for the `OSTYPE` environment variable to determine if it's running on macOS (`darwin`) and adjusts the `sed` syntax accordingly by adding an empty `''` argument required for macOS compatibility. Additionally, it updates some YAML entries to use double quotes instead of single quotes in descriptions.
+The commit with hash `18fbf24120e36769f3688c28f9a90d6e2bb778f5` is a merge commit authored by Louis Beaumont on October 19, 2024. It merges changes from the pull request #533, which was submitted by the user 'devnoname120'. The purpose of the merge is to apply a fix that ensures the build process ignores the `~/.wgetrc` file to avoid any interference that could occur due to user-specific configurations.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 8 (aaa881c15682b169e373f5dc509e702eca0c5fd7)</summary>
+<summary>summary for commit 8 (3af2ff7840014a7ba2980b6494ac3b1017a86d46)</summary>
 
-The commit made by Louis Beaumont updates the GitHub Actions workflow file `release-app.yml`. The following changes have been made:
-
-1. The platform label for the `ubuntu-22.04` runner has been changed to `big-linux`.
-2. The platform label for the `windows-latest` runner has been changed to `big-windows`.
-
-These changes suggest an update to use 64-core runners, potentially indicating a shift to more powerful build environments labeled as "big-linux" and "big-windows".
+The commit made by Ezra Ellette on Fri Oct 18, 2024, updates the `stt.rs` file in the `screenpipe-audio` project. The change involves modifying the `encode_single_audio` function call to encode audio as mono instead of the previous channel configuration. This is achieved by changing the `audio_input.channels` parameter to `1`, which specifies a single audio channel.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>Summary for commit 9 (1c2047754ee7180105c25950348456468f1d080e)</summary>
+<summary>summary for commit 9 (510650c84d7d10ba530a667f02a7e5cac85929e9)</summary>
 
-The commit titled "vercel like revert version ci" updates a GitHub Actions workflow located in the file `.github/workflows/release-app.yml`. Here are the specific changes:
+The commit made by Ezra Ellette on October 18, 2024, involves renaming a function in the codebase. The function `converge_to_mono` has been renamed to `stereo_to_mono`. This change is reflected in two files:
 
-1. **Inputs for Workflow Dispatch:**
-   - New optional inputs are added for the `workflow_dispatch` event:
-     - `commit_hash`: Describes the specific commit hash to build from, if provided.
-     - `version`: Indicates the version to set in the `Cargo.toml` file, required if a `commit_hash` is provided.
-   
-2. **Job Modifications:**
-   - In the `draft` job and another unnamed job, there are modifications to the `actions/checkout` step:
-     - The `ref` parameter is set to `${{ github.event.inputs.commit_hash || github.ref }}`, allowing the workflow to check out a specific commit if `commit_hash` is specified, or the default ref otherwise.
-   - A new step for updating the version in the `Cargo.toml` file is added in both jobs:
-     - This step uses `sed` to replace the version number in `Cargo.toml` if both `commit_hash` and `version` inputs are specified.
+1. **`screenpipe-audio/src/audio_processing.rs`**: 
+   - The function definition itself is changed from `converge_to_mono` to `stereo_to_mono`.
 
-These updates enable a more flexible workflow that can be triggered to build from specific commits and update version numbers dynamically when necessary.
+2. **`screenpipe-audio/src/core.rs`**:
+   - All instances where the `converge_to_mono` function was called have been updated to use `stereo_to_mono` instead.
+
+The purpose of this change is likely to improve clarity and accuracy in describing the function's behavior.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 10 (23be7622a02457440c776b423d3fc563035e5834)</summary>
+
+The git commit with ID `23be7622a02457440c776b423d3fc563035e5834` introduces changes primarily aimed at processing audio samples to convert them to mono when dealing with interleaved audio data. Here are the key changes made in the commit:
+
+1. **New Function Added:**
+   - A new function `converge_to_mono` was added in `audio_processing.rs`. This function converts stereo (or multi-channel) audio data to mono by averaging the left and right channel samples.
+
+2. **Integration in Core:**
+   - The `converge_to_mono` function is used in several places within the `screenpipe-audio/src/core.rs` file, particularly in the `record_and_transcribe` function. The function ensures that the audio data passed around is converted to mono before it is pushed to the audio queue.
+
+3. **Code Simplification in STT:**
+   - Within `screenpipe-audio/src/stt.rs`, the code was simplified by removing a conditional operation that treated audio normalization differently based on the device type. The normalization process now uniformly uses the `normalize_v2` function, eliminating earlier complexity that only applied normalization to certain device types.
+
+4. **Minor Fixes and Changes:**
+   - Corrected the determination of output device types by moving from a specific property check to a more flexible `is_output_device` check on macOS.
+   - Adjusted how channels are read to directly use the channel count as a `u16` for consistency.
+
+These combined changes aim to enhance the processing of audio data by ensuring all audio, whether initially multi-channel or not, is treated uniformly as mono throughout the application, potentially reducing errors related to channel mismatches.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 11 (7a2d765e20a3fce9f6ab3133bcbb721ee0bbf48a)</summary>
+
+The commit, authored by Paul, updates the `pre_build.js` script used in the build process for the `screenpipe-app-tauri`. The main change involves modifying several `wget` commands within the script to include the `--no-config` option. This addition prevents the local `~/.wgetrc` configuration file from interfering with network requests. These changes are applied across various setups within the script, including configurations for FFMPEG, Tesseract, ONNX Runtime libraries, OpenBlas, CLBlast, and Macintosh setups, as well as in the function `installOllamaSidecar`.
 </details>
 
 ------------------------------------------------------------------------
 
 # Overall Summary of Changes
 
-Here's a consolidated summary of the recent git changes made by Louis Beaumont:
+Here is a summary of the described git changes:
 
-1. **UI Improvements and Refactoring** (`78a8db7b21c7421f4f6e767ce692e858c65fa31f`):
-   - A new `CliCommandDialog` component was added to centralize CLI command generation.
-   - Removed redundant code and streamlined UI elements for better user experience and maintainability.
-   - Performance and visual improvements across multiple components related to screen recording.
+### Commit by Louis Beaumont (October 19, 2024)
+1. **Test Fix in `stt.rs`:**
+   - Modified `screenpipe-audio/examples/stt.rs` to introduce a language parameter `vec![Language::English]` within the `async fn main` function.
+   - Utilizes the `Language` module from `screenpipe_core`.
 
-2. **Audio Processing Enhancements**:
-   - Introduced a repetition penalty to reduce token repetition in the Whisper decoder.
-   - Simplified audio processing by refactoring code for creating padded audio.
+2. **Wayland Support and Dependency Updates:**
+   - **Version Increment:** Updated `screenpipe-app` from `0.6.0` to `0.6.1` in `Cargo.toml`.
+   - **Dependency Handling:**
+     - Removed `xcap` from general dependencies in `screenpipe-vision/Cargo.toml`.
+     - Added or updated platform-specific versions: `0.0.12` for Windows, `0.0.13` for macOS, `0.0.14` for Linux, signifying platform-specific Wayland setup.
+   - Shifted to using the `xcap` library from a Git repository for consistent versioning across platforms, enhancing Wayland support.
 
-3. **Health Check Reversion**:
-   - Reverted health check functionalities in the `screenpipe-status.tsx` and related files.
-   - Updated the version in `Cargo.toml` and adjusted GitHub Actions workflows to include specific build features.
+3. **Function Generalization:**
+   - Renamed `stereo_to_mono` to `audio_to_mono` in `audio_processing.rs` to handle arbitrary channel audio processing.
+   - Updated all instances in `core.rs` to use the new function, allowing for varied channel processing.
 
-4. **Version and Build Environment Updates**:
-   - Updated platform labels in the GitHub Actions workflow for clarity and updated runner specifications.
-   - Fixed macOS compatibility in scripts and adjusted feature flags for build configurations.
+### Pull Requests Merged by Louis Beaumont
+1. **#534 - Audio Display Fix (Ezra Ellette):**
+   - Converged interleaved audio samples in the main branch.
+2. **#533 - Build Process Fix:**
+   - Merged a change that ensures the build process ignores the `~/.wgetrc` configuration to prevent user-specific issues.
 
-5. **Workflow Flexibility Enhancements**:
-   - Added options to build from specific commits and update version numbers dynamically in GitHub Actions workflows.
-   - These updates aim to increase the flexibility and efficiency of the CI/CD processes.
+### Additional Commits
+1. **Channel Adjustment by Ezra Ellette (October 18, 2024):**
+   - Updated `stt.rs` to encode audio in mono (`channels` parameter set to `1`).
+   - Renamed function `converge_to_mono` to `stereo_to_mono` across relevant files for clearer function behavior.
 
-These collective changes focus on improving the codebase's maintainability, user interface experience, and build processes.
+2. **`pre_build.js` Script Update by Paul:**
+   - Added `--no-config` option to `wget` commands to prevent interference from local `~/.wgetrc` settings across various configurations in the build script.
+
+These changes collectively aim to improve audio processing consistency, support for different platforms, and build process reliability.
