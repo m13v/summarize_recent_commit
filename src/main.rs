@@ -2,11 +2,13 @@ use std::env;
 use std::process::Command;
 use std::str;
 use regex::Regex;
-use std::fs::File;
-use std::io::Write;
+use std::fs::{File, create_dir_all};
+use std::io::{Write, Read};
+use std::path::Path;
 use colored::*;
 use futures::future::join_all;
 use dialoguer::Input;
+use serde::{Serialize, Deserialize};
 
 fn run_git_command(repo_path: &str, git_command: &str, index: Option<usize>) -> Result<String, String> {
     let mut command = Command::new("sh");
@@ -74,6 +76,30 @@ fn open_md_in_preview(file_path: &str) {
         .expect("Failed to open file in VS Code preview mode");
 }
 
+#[derive(Serialize, Deserialize)]
+struct CommitState {
+    processed_commits: Vec<String>,
+}
+
+fn load_commit_state(data_dir: &Path) -> CommitState {
+    let file_path = data_dir.join("commit_state.json");
+    if file_path.exists() {
+        let mut file = File::open(file_path).expect("failed to open commit state file");
+        let mut contents = String::new();
+        file.read_to_string(&mut contents).expect("failed to read commit state file");
+        serde_json::from_str(&contents).unwrap_or_else(|_| CommitState { processed_commits: vec![] })
+    } else {
+        CommitState { processed_commits: vec![] }
+    }
+}
+
+fn save_commit_state(data_dir: &Path, state: &CommitState) {
+    let file_path = data_dir.join("commit_state.json");
+    let mut file = File::create(file_path).expect("failed to create commit state file");
+    let json = serde_json::to_string_pretty(state).expect("failed to serialize commit state");
+    file.write_all(json.as_bytes()).expect("failed to write commit state file");
+}
+
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = env::args().collect();
@@ -108,6 +134,11 @@ async fn main() {
             println!("Total number of commits: {}", commit_hashes.len());
 
             let current_dir = env::current_dir().expect("Failed to get current directory");
+            let data_dir = current_dir.join("data");
+            create_dir_all(&data_dir).expect("failed to create data directory");
+
+            let mut commit_state = load_commit_state(&data_dir);
+
             let file_path = current_dir.join("git_commit_summaries.md");
             let file_path_str = file_path.to_str().expect("Failed to convert file path to string");
             let mut file = File::create(&file_path).expect("Failed to create file");
@@ -129,7 +160,11 @@ async fn main() {
                 let repo_path = repo_path.to_string();
                 let commit_hash = commit_hash.to_string();
                 if !is_valid_commit(&repo_path, &commit_hash) {
-                    eprintln!("Invalid commit hash: {}", commit_hash);
+                    eprintln!("invalid commit hash: {}", commit_hash);
+                    continue;
+                }
+                if commit_state.processed_commits.contains(&commit_hash) {
+                    println!("{}", format!("skipping already processed commit: {}", commit_hash).yellow());
                     continue;
                 }
                 let task = tokio::spawn(async move {
@@ -159,12 +194,13 @@ async fn main() {
 
             for result in results {
                 if let Ok(Some((index, commit_hash, summary))) = result {
-                    println!("{}", format!("Processing commit {} of {}: {}", index + 1, commit_hashes.len(), commit_hash).cyan());
-                    writeln!(file, "<details>\n<summary>Summary for commit {} ({})</summary>\n\n{}\n</details>\n", index + 1, commit_hash, summary)
+                    println!("{}", format!("processing commit {} of {}: {}", index + 1, commit_hashes.len(), commit_hash).cyan());
+                    writeln!(file, "<details>\n<summary>summary for commit {} ({})</summary>\n\n{}\n</details>\n", index + 1, commit_hash, summary)
                         .expect("Failed to write to file");
                     writeln!(file, "------------------------------------------------------------------------\n")
                         .expect("Failed to write to file");
                     combined_changes.push(summary);
+                    commit_state.processed_commits.push(commit_hash);
                 }
             }
 
@@ -180,6 +216,8 @@ async fn main() {
 
             println!("{}", "Job finished successfully!".green());
             println!("{}", format!("Summary file created at: {}", file_path_str).green());
+
+            save_commit_state(&data_dir, &commit_state);
         }
         Err(e) => eprintln!("{}", format!("Error running git command: {}", e).red()),
     }
