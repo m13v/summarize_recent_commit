@@ -1,0 +1,173 @@
+(base) matthewdi@MacBook-Pro-58 summarize_recent_commit % cargo run --release -- /Users/matthewdi/Desktop/screenpipe/screen-pipe "git log HEAD..origin/main"
+
+    Finished `release` profile [optimized] target(s) in 0.21s
+     Running `target/release/summarize_recent_commit /Users/matthewdi/Desktop/screenpipe/screen-pipe 'git log HEAD..origin/main'`
+Running git command: git log HEAD..origin/main
+Git command executed successfully
+-----------------------------------------------------------------------
+Once all commits are processed the script will open a summary text file
+_______________________________________________________________________
+Total number of commits: 87
+[1] Running git command: git show b4fdfccfbd52b28ab5f2c6cdd34fcb3b127a3389
+[2] Running git command: git show 2b35ed7466160c974dab634638b7e4cec4a2e403
+[1] Git command executed successfully
+[3] Running git command: git show b6294a173e89adb1fa93d1508d3f4ebd73a8ce9a
+[2] Git command executed successfully
+[4] Running git command: git show 639eb8428d620be2cdc6c2c3a508fe715c9f08b6
+[3] Git command executed successfully
+[5] Running git command: git show 783b58a201752f3cdc3cac14dfb3f3d3a5b54ca6
+[4] Git command executed successfully
+[6] Running git command: git show e021f3a760bcf0e44b137b81e6e63db4d23b3eec
+[5] Git command executed successfully
+[7] Running git command: git show d279acb05cb8a636b7e543cf3e89ce2ffd6ea9de
+[6] Git command executed successfully
+[8] Running git command: git show 76314e5036f74d85a1cc1f6ed34b25764b20763c
+[7] Git command executed successfully
+[9] Running git command: git show 779a00c0a9d0b3528977156b9edb758d6f900e77
+[8] Git command executed successfully
+[10] Running git command: git show e9bc60ebc2e7142e57e73450e35b50478de7b547
+[9] Git command executed successfully
+[11] Running git command: git show 8a24ef32817100239fc7710e60123d0a35353b96
+[10] Git command executed successfully
+[12] Running git command: git show f1be7322b79406dcac930df1af602c2ffb5b346f
+[11] Git command executed successfully
+[13] Running git command: git show becf142f374da708ef201b4b313e44fd4afc70cd
+[12] Git command executed successfully
+[14] Running git command: git show 7a9a2ab292f3e19225447adee78b440846beda0f
+[13] Git command executed successfully
+[15] Running git command: git show 8ce258024002042cc6f2e0155cf3e23a7063c9e7
+[14] Git command executed successfully
+[16] Running git command: git show 6555b91adc2a2384190fdfbafbe4c78000fabb78
+[15] Git command executed successfully
+[17] Running git command: git show 05f4fa87c6b4da72dcce677aa2666423980da22c
+[16] Git command executed successfully
+[18] Running git command: git show 46d8fcd95d4c5e39c201694843f7a289e2b685d7
+[17] Git command executed successfully
+[19] Running git command: git show c26c1173c7c857b59ed27baff46ee7efdf1779a0
+[18] Git command executed successfully
+[20] Running git command: git show 599b1a43b393e944b974eb6d0499ea2efbb69e42
+[19] Git command executed successfully
+[21] Running git command: git show 8628c650ae6b05fc1e8b605ad220cc57a225ce9f
+[20] Git command executed successfully
+[22] Running git command: git show 49f9988c7759554237ece4098d619160b17196ba
+[21] Git command executed successfully
+[23] Running git command: git show e36ffa2fd7bcaa8981fac2a0ffcc000a40a3a1b3
+[22] Git command executed successfully
+[24] Running git command: git show 8788a318123d31289ff0a100f916418e0fb16748
+[23] Git command executed successfully
+[25] Running git command: git show 1c6eb5516c13276c7886df1264e8379cf946a728
+[24] Git command executed successfully
+[26] Running git command: git show fc43cab7ec9d9aeb866acc00a25807e9843eec13
+[25] Git command executed successfully
+[27] Running git command: git show 85a60f648621a35e373c97fb99ec3ba0ce15bdc6
+[26] Git command executed successfully
+[28] Running git command: git show 0fdc5614d3393ea1c1395947792a3d927f05a5b7
+[27] Git command executed successfully
+[29] Running git command: git show 11bff8be971cc877de810f14b07d8850ad5c18eb
+[28] Git command executed successfully
+[30] Running git command: git show 473702921af04401f5d6910d473d34227c195b08
+[29] Git command executed successfully
+[31] Running git command: git show 40e53742f92e525766dfaf2e1544af1bac628593
+[30] Git command executed successfully
+[32] Running git command: git show d5a1b3fbd59c65b953722ed30d33db77cddc463a
+[31] Git command executed successfully
+[33] Running git command: git show 5ddbb13c2b7aef09b3dd070fd26ea53fc8aafebc
+[32] Git command executed successfully
+[34] Running git command: git show 8cc41df2feca392b0421a6e0f22ed96e73736b6a
+[33] Git command executed successfully
+[35] Running git command: git show 6c608576c84d7f51b011c897d11e4fc1131708e1
+[34] Git command executed successfully
+[36] Running git command: git show b9c18447d7cf632c25c41c76326271bc84577e85
+[35] Git command executed successfully
+[37] Running git command: git show b609719ac23a75515c2ef7acb503aab789a98c1d
+[36] Git command executed successfully
+[38] Running git command: git show 39fed0beefc83464b34460ffaf83df7052b61204
+[37] Git command executed successfully
+[39] Running git command: git show 92be876521c9d69ecbe4ee4fd02d290bccf729a9
+[38] Git command executed successfully
+[40] Running git command: git show 50de1fea23763f83de27799c6f5f5c96274c83e4
+[39] Git command executed successfully
+[41] Running git command: git show eb8e1404fdc61f0ce69c3897694ef2dc46d4af31
+[40] Git command executed successfully
+[42] Running git command: git show 2672bb76c50ea98e027b74dc2b451476cf5d0f92
+[41] Git command executed successfully
+[43] Running git command: git show 88a160a163856bb9a0dc7204943d9264284b7d53
+[42] Git command executed successfully
+[44] Running git command: git show 4256468a1bd81bd1dc867691d5f135a15ebd7a67
+[43] Git command executed successfully
+[45] Running git command: git show 6abe72cdcfa64baf41d5d70ce9453f859c5ba024
+[44] Git command executed successfully
+[46] Running git command: git show a8dad7410412ceb69a66c86661a36c861ce4f6fd
+[45] Git command executed successfully
+[47] Running git command: git show c54ae55349f6a65c0b8283a3d20737a0d63fbbae
+[46] Git command executed successfully
+[48] Running git command: git show b0ad5c625279ed9f76ba66acf3dfd66855ab3d70
+[47] Git command executed successfully
+[49] Running git command: git show 6b65a3ffae6ad3de409187631644fa0b99f90eb6
+[48] Git command executed successfully
+[50] Running git command: git show a5b7230c488a86d95434ee40c7c1cf4ea6d91207
+[49] Git command executed successfully
+[51] Running git command: git show 77287576c2d1fb8889bb2a4b6628af7f986690f3
+[50] Git command executed successfully
+[52] Running git command: git show b44e9f8292a94daeb7b4b9258683a78678347f5c
+[51] Git command executed successfully
+[53] Running git command: git show 96c7ac71de054da0bd99eeea3625f3120b72e96d
+[52] Git command executed successfully
+[54] Running git command: git show 974625e3d41f7e5fcb8bfb0d5e3e88e7952422c2
+[53] Git command executed successfully
+[55] Running git command: git show dc05fd52114f1cde07685095f79b3820e62a6778
+[56] Running git command: git show f4233f8282b70b45d032556f4b5970992aab2da7
+[55] Git command executed successfully
+[57] Running git command: git show e78e652e79d637276b67c03be905b2c74b5f6b14
+[54] Git command executed successfully
+[56] Git command executed successfully
+[58] Running git command: git show 053451e995c3b37754f4a1220ae65a9c197f5521
+[57] Git command executed successfully
+[59] Running git command: git show f6471ce891a5e73a40a3b479e54f0f54c0f2e7b3
+[58] Git command executed successfully
+[60] Running git command: git show 97999b59b7ffe4bb9d38668be9aee0cdfd70fff6
+[59] Git command executed successfully
+[61] Running git command: git show 685edfc6972ec9bae5a71a0cd49d5a88ca54836d
+[60] Git command executed successfully
+[62] Running git command: git show 556f3703f33ec07aa4ab7c935e1e0e8ac9a0842b
+[61] Git command executed successfully
+[63] Running git command: git show 496ea80b8782e139e5f70804bed1852623dcf296
+[62] Git command executed successfully
+[64] Running git command: git show 42e8d1dfff8ee2332c80e8659995c4ae12263b7f
+[63] Git command executed successfully
+[65] Running git command: git show 8d940bd9bd9edc861db8ffe6ba729efbfe813b16
+[64] Git command executed successfully
+[66] Running git command: git show ae6675cbc1eefc2ea4bd2949a156e864bb74d508
+[67] Running git command: git show bb3b90f7a1c26c772005fc38943296abbaccb4ad
+[66] Git command executed successfully
+[65] Git command executed successfully
+[68] Running git command: git show 52fd999bd0bcd79735e09e873cd3d8a6bf27ca93
+[67] Git command executed successfully
+[69] Running git command: git show 1838b8e4aea1f22f2cab11ea2b20e726037ab8ca
+[68] Git command executed successfully
+[70] Running git command: git show f933db2c5fb745c9286655b104130cffde07341c
+[69] Git command executed successfully
+[71] Running git command: git show 22ba31588d0c0d56ad8a4204cca814c53f6eb8fa
+[70] Git command executed successfully
+[72] Running git command: git show 0e94e49b9f9e7e3b12ede8a73cbc5a1846ee1c45
+[71] Git command executed successfully
+[73] Running git command: git show e201a05cf64ca12fbfd81f493a82f6dcdefe3a83
+[72] Git command executed successfully
+[74] Running git command: git show b4b15c9d9c5c2b126d77fc0ed77e3da2837e8319
+[73] Git command executed successfully
+[75] Running git command: git show d5744238eeee7d816ad2f98fff52de7dc3a38d83
+[74] Git command executed successfully
+skipping already processed commit: 21d0137a281ec213588d6595ee5cb980fe3806dd
+[75] Git command executed successfully
+skipping already processed commit: 88b6d679d4612a1f3115816a1cef2273aada953f
+skipping already processed commit: eb0eb04b22af7f7d797799c3549ee42710fd65e3
+skipping already processed commit: 9222b4c97d8dbce2080976adbb28cb3a662f5e3b
+skipping already processed commit: 3e8aa37c9bf1310362c1eb490069dd30330aa034
+skipping already processed commit: 78987f8733ce5d092f221df413337c2878cafe9d
+skipping already processed commit: 18fbf24120e36769f3688c28f9a90d6e2bb778f5
+skipping already processed commit: 3af2ff7840014a7ba2980b6494ac3b1017a86d46
+skipping already processed commit: 510650c84d7d10ba530a667f02a7e5cac85929e9
+skipping already processed commit: 23be7622a02457440c776b423d3fc563035e5834
+skipping already processed commit: 7a2d765e20a3fce9f6ab3133bcbb721ee0bbf48a
+[87] Running git command: git show 30ebc7a2632da72356301c033f34b2d8dbd50a1b
+[87] Git command executed successfully
