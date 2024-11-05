@@ -7,275 +7,260 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 24
+Total number of commits: 12
 
 <details>
-<summary>summary for commit 1 (de025c2ad11c41ccee4b27d444cf063445d2f2c1)</summary>
+<summary>summary for commit 1 (291d621dc18d86ff6231bf296b55aa12e810d4b4)</summary>
 
-This commit represents a merge of a pull request into the main branch. The pull request #596, titled "Update Homebrew formula for aarch64-apple-darwin," likely includes changes related to updating the Homebrew formula for the specified architecture (aarch64-apple-darwin). The merge was performed by Louis Beaumont on October 29, 2024.
+The commit `291d621` is a merge commit authored by Louis Beaumont. It incorporates changes from a pull request (#616) titled "Update Homebrew formula for x86_64-apple-darwin". The merge combined the changes from commits `66fef83f` and `ad775379`. This update specifically targets the Homebrew package management system and is intended for the `x86_64-apple-darwin` architecture.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 2 (ba4ed58e0b074210bf6053d0806d5107451e7d9d)</summary>
+<summary>summary for commit 2 (ad775379d8fbc24259ffc42800049f035c76048c)</summary>
 
-This git commit represents a merge where updates were made to the `screenpipe.rb` formula file for the Homebrew package manager. Specifically, the SHA256 checksums for the `screenpipe` binary downloads on macOS have been updated for both arm64 (Apple Silicon) and x86_64 (Intel) architectures.
-
-Changes:
-- For the arm64 architecture, the SHA256 checksum was updated from `8fff1b31922a383e2e097dce46eb09e69d7358b4e6b0bd64c029b2dc1ee4f516` to `564f0927b392e6375b3964246948c20b641cdf34af5844b703287b865d5ad2f1`.
-- For the x86_64 architecture, the SHA256 checksum was updated from `276cff5d1787881fc6cd08200a9548c342b2968b3d3a788ef5e0bc2234e0f450` to `a6fa5c46025f35eeb0290f050f95d37614d2cd5c54f1b8ed2c381705744938be`.
-
-These changes generally suggest a new release or update of the binaries was made available, necessitating checksum updates to ensure file integrity during downloads.
+The commit updates the `screenpipe` Homebrew formula to use a new version of the `brew` package, specifically version 0.1.98, for the `x86_64-apple-darwin` architecture. This involves changing the SHA256 checksum for the x86_64 package to ensure it matches the new version. The SHA256 checksum is updated from `a6fa5c46025f35eeb0290f050f95d37614d2cd5c54f1b8ed2c381705744938be` to `969dad8fdbf79af2fa6ea14b604ac656041d8fa0281777b70bac6893d13bd34b`.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 3 (218cfbcecfb5371f21a7ae4756c577bc5b64de66)</summary>
+<summary>summary for commit 3 (66fef83f99ebddaec923376dfdb351e3910775fb)</summary>
 
-This Git commit represents a merge into the codebase. Louis Beaumont merged pull request #597 into the main branch on October 29, 2024. The merge pertains to an update of a Homebrew formula specifically for the x86_64-apple-darwin platform. The reference `4633a6ac6c0badabf8ba3f30caf1d5df62eadfec` likely indicates a specific commit or change ID within the pull request that was merged.
+This Git update involves a merge commit by the author, Louis Beaumont. The commit is a result of merging a pull request (#615) from the user or branch `mediar-ai`. The main purpose of this merge is to update the Homebrew formula specifically for the `aarch64-apple-darwin` architecture. The commit is based on the parent commits `b99d1a93` and `c74db55f`.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 4 (c1cdd6facdc6c11ec4c2e7ffdcb1471f50be3b86)</summary>
+<summary>summary for commit 4 (c74db55f879821a9e91751f12db22eb11745b8a3)</summary>
 
-The commit by Louis Beaumont removes references to the "Entelligence" service from the codebase. Specifically:
-
-1. In `next.config.mjs`, entries for "https://entelligence.ai" and "https://d345f39z3arwqc.cloudfront.net" have been removed from the `script-src` part of the Content Security Policy.
-
-2. In `_document.tsx`, the import and use of `next/script` for loading the `entelligence-chat.js` script have been entirely removed from the `<Head>` tag. Additionally, any initialization code for the `EntelligenceChat` has also been deleted.
-
-Overall, the changes focus on eliminating the integration with Entelligence from the project.
+The commit updates the `screenpipe` Homebrew formula to version 0.1.98 for the `aarch64-apple-darwin` architecture. Specifically, it changes the download URL and version number from 0.1.97 to 0.1.98. Additionally, it updates the SHA256 checksum for the ARM64 architecture to ensure the integrity of the new version.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 5 (e55211215c1de8a3cd0058242cc40af2b334851a)</summary>
+<summary>summary for commit 5 (b99d1a939485c066e49003e65f3be6f55f41fc59)</summary>
 
-The commit updates the Homebrew formula for the `screenpipe` package. The version is updated from 0.1.96 to 0.1.97 for the `x86_64-apple-darwin` architecture. The relevant URL for downloading the package reflects this version change, and the SHA-256 checksum for the `x86_64` version is updated to match the new package. The update is performed by a GitHub Actions Bot.
+The git commit identified by hash `b99d1a939485c066e49003e65f3be6f55f41fc59` was made by Louis Beaumont on October 31, 2024. The commit message is "bump brew." The changes involve updating the `version` field in the `Cargo.toml` file from "0.1.97" to "0.1.98".
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 6 (b41aee52929c9aded45f758aecc44b75691fd417)</summary>
+<summary>summary for commit 6 (041ac02f23254355fa392674108270d61d2c1c0e)</summary>
 
-The commit updates the Homebrew formula for the `screenpipe` library. The version is incremented from `0.1.96` to `0.1.97`, and the corresponding download URLs and SHA256 checksums are updated accordingly for the `aarch64-apple-darwin` architecture.
+The commit with the ID `041ac02f23254355fa392674108270d61d2c1c0e` introduces several changes focused on adding a release timeline UI and enhancing settings in the application.
+
+Here’s a summary of the main changes made:
+
+1. **GitHub Action**: 
+   - In `.github/workflows/release-app.yml`, removed MKL installation on Windows and adjusted build arguments.
+
+2. **Dependencies**:
+   - Removed `tempfile` dependency from `screenpipe-actions/Cargo.toml`.
+   - Removed `lazy_static` from `screenpipe-server/Cargo.toml`.
+
+3. **Frontend Updates**:
+   - In `screenpipe-app-tauri/app/timeline/page.tsx`, added an event listener to prevent default scrolling behavior and adjusted event handling for scrolling using React's `WheelEvent`.
+   - In `recording-settings.tsx`, added toggle switches and buttons for enabling a timeline UI and handling frame cache settings.
+   - Updated UI text in `recording-settings.tsx` to lowercase.
+
+4. **Backend and CLI Adjustments**:
+   - In `use-settings.tsx`, added a new setting `enableFrameCache`.
+   - Updated Tauri commands to include `show_timeline`.
+   - In the server CLI (`src/server.rs` and `src/cli.rs`), added `enable_frame_cache` support which allows for experimental video frame caching.
+
+5. **Application Settings**:
+   - Version bump in `src-tauri/Cargo.toml` from `0.7.8` to `0.7.9`.
+   - Configuration changes in `tauri.conf.json` to update window behavior settings like visibility and always-on-top property.
+
+6. **Code Maintenance**:
+   - Removed unused features related to LLM from the server code.
+   - Adjusted functionality in the Rust backend to conditionally initialize `FrameCache` based on `enable_frame_cache`.
+
+These changes collectively aim to enhance the application's functionality by releasing a timeline UI and improving user interaction elements, as well as optimizing some build processes and application configurations.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 7 (4633a6ac6c0badabf8ba3f30caf1d5df62eadfec)</summary>
+<summary>summary for commit 7 (d753000877e25b8ff806f469a84e63735c04488f)</summary>
 
-The commit `4633a6ac6c0badabf8ba3f30caf1d5df62eadfec` made by Louis Beaumont updates the `Cargo.toml` file. The specific change is a version bump of the package from `0.1.96` to `0.1.97`. Other metadata like the author, description, and repository remain unchanged. The commit is titled "bump brew."
+The commit with hash `d753000877e25b8ff806f469a84e63735c04488f` authored by Louis Beaumont on October 31, 2024, modifies the documentation to include new instructions for quickly starting the CLI (Command Line Interface) on MacOS. The added section includes:
+
+- A step-by-step guide for installing the `screenpipe` CLI using Homebrew with commands to tap the repository, install, and run the `screenpipe`.
+- Instructions to open a specific example webpage (`timeline_ui/index.html`) in a browser, which showcases a timeline UI similar to rewind.ai.
+- A note that this example is powered by a single HTML file that users can customize.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 8 (e215f9a2d6d9251536a9b74a951eb52b332fa2aa)</summary>
+<summary>summary for commit 8 (2ae822be2f48c9dafc52ff19e3d84d7cb2bf66d2)</summary>
 
-The commit updates the version of the "screenpipe-app" package in the `Cargo.toml` file from "0.7.6" to "0.7.7".
+The commit represents a merge operation. Louis Beaumont merged the changes from a pull request with the identifier #613, which originated from the `mediar-ai/timeline-ui` branch. The main purpose of this pull request was to integrate updates or features related to the "Timeline UI" into the main branch.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 9 (12e2460f4e21416996e0efdeb119e38194c07f1f)</summary>
+<summary>summary for commit 9 (960e983cce0bb328c061f14655caefa150cee083)</summary>
 
-The git commit introduces support for Intel's Math Kernel Library (MKL) to improve performance:
+The recent commits encompass significant changes to the `screenpipe` application, targeting different components such as the `screenpipe-app`, `screenpipe-server`, and various example projects.
 
-1. **Installation Script Changes**: 
-   - The `install_dependencies.sh` script now includes the installation of `intel-mkl-full`, which is required for MKL acceleration.
+1. **Tauri App Changes (`page.tsx`)**:
+   - Implemented frame parsing and deduplication based on timestamps.
+   - Improved error handling for EventSource streams.
+   - Enhanced UI aesthetics including scanline effects and timeline visualization.
+   - Modified the layout and styling of the frame viewer and timeline bar, displaying additional information like timestamps and window names.
 
-2. **GitHub Actions Workflow Modifications**:
-   - In the `release-app.yml` workflow, the `publish-tauri` job no longer depends on the `draft` job.
-   - For the `ubuntu-22.04` build platform, the `args` for Tauri have been updated to include `--features mkl`.
-   - Similarly, for the `windows-latest` build platform, the `args` have been updated to include `--features mkl`.
-   - Additional package installations for `ubuntu-22.04` now include `intel-mkl-full`.
-   - A new step to install MKL-related Python packages (`mkl`, `mkl-devel`, `mkl-static`) is added for both Windows and Ubuntu platforms.
+2. **Server Enhancements**:
+   - Updated `Cargo.toml` to include the `lru` crate, suggesting the introduction of caching mechanisms.
+   - Revised server handling for streaming frames, changing internal message handling with structured logs and introducing a keep-alive mechanism.
 
-3. **Cargo Configuration Update**:
-   - The `Cargo.toml` file in the `screenpipe-server` directory adds a new feature set named `mkl`, which includes several MKL-related dependencies.
+3. **HTML and JS Example Modifications**:
+   - Simplified the UI while adding functionalities for managing frames list interactions.
+   - Streamlined frame loading and display mechanisms, removing progress bars and enhancing UI updates through a queue system.
 
-Overall, the changes aim to enhance the application's performance by incorporating MKL support across various platforms.
+4. **Server Rust Code Improvements**:
+   - Refactored frame extraction logic in `server.rs` and `video_cache.rs` to improve performance and memory handling.
+   - Introduced `LruCache` for efficient frame caching and retrieval.
+   - Improved process management with better handling of `ffmpeg` output streams.
+   - Replaced aspects of progress tracking with more efficient streaming techniques.
+
+5. **Testing Updates**:
+   - Added or updated tests for frame retrieval, streaming performance, and JPEG integrity, ensuring the robustness of the implemented functionalities.
+
+Overall, these changes focus on better performance, enhanced user interface experiences, improved error handling, and the inclusion of new caching strategies.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 10 (04feb51fc54fa050ed7b5df0f24a7859f81d746e)</summary>
+<summary>summary for commit 10 (53d936ebe8a3b30f77275b2881b0e874001c9eee)</summary>
 
-The commit made by Louis Beaumont on October 28, 2024, updates the `README.md` file. The change involves modifying a heading in the document. Specifically, the phrase "24/7 open source 24/7 screen & voice recording for the age of superintelligence" was simplified to "open source 24/7 screen & voice recording for the age of superintelligence." The title now removes the redundant "24/7" at the beginning.
+The recent git commit introduced several updates across multiple files in a web and server software project.
+
+1. **Frontend Changes (screenpipe-app-tauri/app/timeline/page.tsx & screenpipe-server/examples/timeline_ui/index.html):**
+   - The timeline visualization was modified to reflect a different timeframe, changing from 30 minutes to 5 minutes with a decrease in frame rate from 3 fps to 1 fps.
+   - Enhanced UI/UX assets for a retro aesthetic, including new fonts, pixelated images, visual effects, and interactive elements like progress bars and improved cursor styles.
+   - Error handling and progress indication were improved with animations and user feedback during streaming operations.
+   - Additional debugging and logging were added to provide better insight into data processing and streaming events.
+   - Introduced a new example HTML file, `timeline_ui_simple`, which guides users to a simplified UI with controls for streaming frames within a specified timeframe.
+
+2. **Server Core (screenpipe-core/Cargo.toml & src/ffmpeg.rs):**
+   - The package dependencies now include `once_cell`, which facilitates lazy static initialization.
+   - Code improvements for efficiently finding and caching the path of the `ffmpeg` executable.
+   - Refactoring to involve `Lazy` initialization of static variables to enhance performance and readability.
+
+3. **Server Backend (screenpipe-server/src/server.rs & src/video_cache.rs):**
+   - Significant enhancements were made to the streaming endpoint logic using Tokio's concurrency features to prefetch video frames and update progress iteratively.
+   - Added prefetch tasks and integrative logic for asynchronous frame streaming using new `mpsc` channels for progress updates and frame data.
+   - A new `StreamResponse` type encapsulates both progress and frame data updates, improving how clients receive and process streaming commands.
+   - Optimization of video file handling by leveraging Lazy Static initialization for caching and validating video chunks.
+
+4. **Tests and Miscellaneous (screenpipe-server/tests/video_cache_test.rs):**
+   - Implemented expanded test functionalities to verify recent changes, enables high-speed frame retrieval, and validates video frame extraction processes.
+   - Scoped temporary directories in tests for consistent setup and teardown, and to prevent resource pollution.
+   - Minor adjustments in testing mechanisms for FPS variations and debugging output improvements to streamline understanding results during execution.
+
+Overall, the commit introduces both functionality and aesthetic improvements to the timeline application while enhancing streaming and processing efficiency in the backend. These updates improve performance, usability, and maintainability.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 11 (76b1b44021f1321c515ee24028ae56c3454a6743)</summary>
+<summary>summary for commit 11 (9e365763afb2e14a06b447c2d81bd29225eef52b)</summary>
 
-The commit updates the `README.md` with several changes:
+The recent commits introduce a set of changes to the `screenpipe-server` project, focusing mainly on the front-end timeline UI and the backend frame cache management.
 
-1. **Title Change**: The title has been replaced from "24/7 local AI screen & audio capture" to "24/7 open source 24/7 screen & voice recording for the age of superintelligence."
+### Frontend (`index.html`):
+1. **UI Enhancements**: 
+   - New elements were added to the timeline, including a cursor that moves to reflect the current time.
+   - Introduced a loading animation for better user feedback during frame loading.
+   
+2. **Event Handling**:
+   - Stream connection logic is now modularized into a `connectToStream` function.
+   - Added timeline interaction features, allowing users to click on the timeline to jump to different times or navigate using arrow keys.
 
-2. **Removed Text**: A sentence describing the library's purpose and its association with Ollama and Rewind.ai has been removed. This sentence emphasized the library's security, open nature, and user data ownership.
+3. **Loading Feedback**:
+   - Implemented a function to manage loading states, providing better visual feedback when the application is fetching data.
 
-3. **Updated Messaging**: The text beneath the "why?" section has been changed. Previously, it emphasized the rapid progress of AI and the need to prepare for future technological capabilities. The new text is more concise, focusing on having the necessary data ready by 2025 for a future where context will not be an issue.
+### Backend (`server.rs`, `video_cache.rs`):
+1. **Frame Cache Configurations**:
+   - Introduced `FrameCacheConfig` for better configurability of frame prefetching and cleanup tasks.
+   - Adjustments in the server logic to utilize this new configuration, including setting default frames per second (fps) to 1.0.
 
-Overall, the changes simplify and update the description and rationale for the project to align with forward-looking insights on data readiness and AI advancements.
+2. **Background Tasks**:
+   - Instituted a new background scanner task in the `FrameCache` to continually scan for and preload new frames.
+
+3. **Improved Frame Management**:
+   - Enhanced logic for handling cache commands, allowing for cleanup and frame scanning to be executed as needed.
+   - Altered caching mechanisms to better support frame prefetching and handling, including conditionally skipping very recent files during cleanup processes.
+
+4. **Testing Adjustments**:
+   - Updated tests for the `FrameCache` to use a custom configuration with shorter time intervals to facilitate quicker and more efficient testing routines.
+
+Overall, these updates enhance the responsiveness of the UI and refine the internal processes for managing video frames, improving user experience and system performance. However, it is noted that performance remains a concern, as indicated by the commit message "works - but slow."
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 12 (59ebe00013276a2f0cbeebb3636cf83c34f95e9b)</summary>
+<summary>summary for commit 12 (1e4d9351bca5207aa7e8baeab2b37eae4d02ed74)</summary>
 
-The commit, authored by Louis Beaumont, updates the pull request (PR) template in a GitHub repository. The changes include:
+The recent commit implements several changes to the `screenpipe` application. Here's a summary:
 
-1. **Testing Steps**: 
-   - Instructions were added to include steps to test the PR in the most time-efficient way.
-   - A suggestion to add screenshots or screen captures if relevant to demonstrate the PR functionality.
+1. **New Timeline Page:**
+   - A new React component (`timeline/page.tsx`) has been created to provide a timeline view for streaming frames.
+   - It includes features like handling scrolls to navigate frames, displaying current frames, loading states, and error messages.
 
-2. **Checklist Updates**:
-   - A new emphasis was added, stating that the PR should be quick to review, merge, and release without causing issues for users.
-   - Removed the checklist item about adding a custom cursor AI prompt.
-   - Removed the checklist item about following the project's style guidelines.
-   - Removed the checklist item about self-review of the code.
-   - Removed the checklist item about running all tests locally with the code changes.
+2. **Tauri Application Enhancements:**
+   - Permissions for a new "timeline" window were added to the `main.json` configuration.
+   - A new Tauri command `show_quick_capture` was added to show the timeline window, with certain configurations like always on top and visible in all workspaces.
+   - Updates to the Tauri configuration to support the new timeline window, including its dimensions and properties.
 
-3. **Formatting and Clarity**:
-   - Minor formatting changes for clarity and instructions in the template.
+3. **Server and Database Updates:**
+   - Introduced frame streaming capabilities via server-sent events (SSE) in the `screenpipe-server`.
+   - Changes to database interactions, especially in handling video chunks and frame data.
+   - Enabled higher maximum pool connections for database access.
 
-Overall, these updates aim to streamline the review process and ensure efficient testing and clarity in the pull request submission.
-</details>
+4. **Video Cache and Performance Improvements:**
+   - Introduced a video cache system, `FrameCache`, to manage frame caching efficiently, with features like batch prefetching and cleaning up old frames.
+   - Supports operations such as fetching frames for a specific time range and ensuring efficient streaming at the requested frames per second.
 
-------------------------------------------------------------------------
+5. **New Libraries and Dependencies:**
+   - Added dependencies like `async-stream`, `lazy_static`, and others, for enhancing asynchronous operations and managing video frames.
 
-<details>
-<summary>summary for commit 13 (2227d96c8f11512571d041854fdca0c33aadddec)</summary>
+6. **Tests:**
+   - New test files to verify the functionality of the video cache, ensuring frame retrieval, prefetching, and frame extraction operate correctly.
 
-The commit made by Louis Beaumont adds a new documentation file called `integrations.mdx` to the project. This file outlines various integrations, including "ollama," "openwebui," "Omi AI Friend wearable," "iPhone screen mirroring," and "iPhone microphone recording." Each section provides a brief statement or a placeholder, indicating that more information will be added later ("doc in progress"). There is also a link provided for instructions related to the "openwebui" integration.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 14 (f263db3a14c37ad14dfa99a56e746a88958896e7)</summary>
-
-The given Git changes are primarily focused on enhancing the functionality and usability of a Twitter autopilot example, improving the handling of configurations in the `screenpipe` project, and introducing some frontend analytics.
-
-1. **Twitter Autopilot Example Enhancements**:
-   - The `pipe.json` configuration file for the Twitter autopilot example now includes additional fields, such as AI provider selection (`ollama` or `openai`), OpenAI API configurations, and keyword/username settings for more targeted searches.
-   - In `pipe.ts`, the code has been refactored and expanded:
-     - An AI provider creation function is introduced to handle different AI services based on the configuration.
-     - Enhanced logic for keyword extraction and tweet filtering using the AI model is included.
-     - Improved user interaction with AI for generating Twitter comments, with rules grounded in Twitter engagement metrics.
-     - Dynamic retry and filtering strategies are applied to fetch relevant tweets when the initial attempts do not yield sufficient results.
-   - A new test function (`testTwitterSuggestionsOnce`) has been introduced for testing suggestions with screen data from the last hour.
-
-2. **Inbox Frontend Changes**:
-   - Integration of `posthog-js` to capture an event when the inbox is opened, allowing user behavior analytics.
-   - Adjustments in rendering links to handle both internal and external links appropriately.
-
-3. **Screenpipe Core Adjustments**:
-   - Revised logic to handle the merging of `pipe.json` configurations, preserving user-configured values while incorporating schema updates from new configurations.
-   - The download and unpacking flow is improved by using a temporary directory to ensure atomicity and integrity.
-   - Improvements in logic where existing pipe configurations are preserved during updates, with consideration to user-customized fields.
-   - Enhancements include handling the identification of Next.js projects in the download process.
-
-These changes aim to enhance developer experience by allowing greater flexibility in configurations, ensuring robustness in handling code/config updates, and adding analytics for more insightful frontend usage tracking.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 15 (311267b64620885c31267a122c1381faab5b0db3)</summary>
-
-The commit with hash `311267b64620885c31267a122c1381faab5b0db3` made by Louis Beaumont on October 28, 2024, involves cleaning up the documentation. Specifically, it removes a line from the "getting-started.mdx" documentation file that provided an additional step about "building the desktop app (with pre_build script)", thus eliminating unnecessary noise from the document.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 16 (a82ba220e79c81b2e4c6bf68a43955ba714fcf72)</summary>
-
-The commit with hash `a82ba220e79c81b2e4c6bf68a43955ba714fcf72`, authored by Louis Beaumont, removes a detailed step (6b) involving a manual build process for a desktop app on M-Series devices from the `getting-started.mdx` documentation. The removed section included setting up environment variables, copying necessary binaries (deno, screenpipe-vision, ffmpeg), downloading and initializing AVBUILD ffmpeg and ollama binaries, modifying dynamic library paths with `install_name_tool`, and finally executing a build with Tauri. The change is aimed at reducing noise in the documentation.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 17 (64567ed4ade9744c4b62cb76081ba3877fc96709)</summary>
-
-The commit with hash `64567ed4ade9744c4b62cb76081ba3877fc96709` by Louis Beaumont involves changes in the `lib/opentelemetry.ts` file to improve error tracking. The main update is a change in variable usage:
-
-- The `provider` variable has been renamed to `tracerProvider` throughout the `initOpenTelemetry` function.
-
-Specifically, these changes include:
-- Replacing `provider` with `tracerProvider` when creating a new instance of `WebTracerProvider`.
-- Changing the function call `provider.addSpanProcessor` to `tracerProvider.addSpanProcessor`.
-- Changing the function call `provider.register` to `tracerProvider.register`.
-- In the global error handler, changing `provider.getTracer` to `tracerProvider!.getTracer`.
-
-These modifications aim to improve clarity and potentially adhere to a more descriptive naming convention in the codebase.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 18 (d944a3e90e02c6e7711878073e17a49a0d4f7ae4)</summary>
-
-The commit improves error tracking within the application by making the following changes:
-
-1. **In `status.tsx`**:
-   - Imported the `trackError` function from `opentelemetry`.
-   - Enhanced the error handling logic in the `OnboardingStatus` component to include a call to `trackError` when an error is encountered. This function logs the error with additional context, including the operation type and whether the Chinese mirror is being used.
-
-2. **In `opentelemetry.ts`**:
-   - Introduced a new `trackError` function that logs errors using OpenTelemetry. This function starts a tracing span for the error, sets the status to indicate an error, attaches error type and message attributes, and optionally includes additional attributes.
-   - Added `getTracerProvider` to manage an instance of `WebTracerProvider`, ensuring it's initialized only once.
-
-3. **In `package.json`**:
-   - Added a `prebuild` script entry to the `scripts` section to run `bun scripts/pre_build.js` before building the application.
-
-These changes aim to improve the application's ability to track and log errors in a structured manner using OpenTelemetry, potentially aiding in better debugging and monitoring.
+These changes aim to improve the performance and functionality of the application, particularly around timeline visualization and efficient video frame handling.
 </details>
 
 ------------------------------------------------------------------------
 
 # Overall Summary of Changes
 
-The summary of the git changes presents a variety of updates across different components of a project, primarily focusing on version bumps, architecture-specific changes, documentation cleanup, and the introduction of error tracking enhancements.
+The recent git changes involve several updates to the `screenpipe` project, focusing on enhancements for the Homebrew formula and the application's functionality across both front-end and back-end components:
 
 1. **Homebrew Formula Updates**:
-   - The `screenpipe` package Homebrew formula was updated for both `aarch64-apple-darwin` and `x86_64-apple-darwin` architectures. The version was incremented from 0.1.96 to 0.1.97, with corresponding SHA256 checksum updates for both architectures to ensure file integrity during downloads.
+   - A merge commit, `291d621`, by Louis Beaumont integrates changes from pull requests #616 and #615, updating the `screenpipe` Homebrew formula to version 0.1.98. This includes changing SHA256 checksums for both `x86_64-apple-darwin` and `aarch64-apple-darwin` architectures, ensuring compatibility and integrity with the latest version.
 
-2. **Removal of Entelligence Integration**:
-   - The project codebase was cleaned of Entelligence-related components, including script imports and Content Security Policy entries in various files.
+2. **Project Enhancements**:
+   - Significant updates were made, including introducing a new timeline UI, enhancing settings, and optimizing build processes and application configurations. This includes UI and UX improvements, changes in error handling, and enhancements to streaming capabilities.
+   
+3. **Back-end Modifications**:
+   - The server components have been updated with improved frame cache management and streaming performance. This includes the introduction of the `FrameCache` system, which supports prefetching, cleaning frames, and improving frame retrieval processes.
+   - Additional testing has been added to ensure the robustness of these functionalities.
 
-3. **Performance Improvements**:
-   - The commit introduces support for Intel's Math Kernel Library (MKL) to enhance performance. This includes script modifications, GitHub Actions workflows changes, and updating the `Cargo.toml` file to incorporate a new feature set for MKL dependencies.
+4. **Frontend and User Interface Changes**:
+   - New features like a timeline view and visual improvements, including enhancements for better user feedback and interaction. These changes aim to improve the application's usability and aesthetics.
 
-4. **Documentation Changes**:
-   - Several adjustments were made to the `README.md` file and other documentation files, focusing on simplifying titles and removing redundant sections.
-   - Steps related to the build process in documentation were removed to streamline content.
+5. **Documentation and Quick Start Updates**:
+   - Documentation updates now include instructions for quickly setting up the CLI on macOS, providing clearer guidance for new users.
 
-5. **GitHub Repository Management**:
-   - Updates were made to the pull request template to streamline submission and review processes, emphasizing efficient testing and integrating user feedback.
-
-6. **New Feature Addition**:
-   - A file `integrations.mdx` was added to outline existing and future integration plans, although it's marked as a work in progress.
-
-7. **Enhancements in Configurations and Frontend Analytics**:
-   - Various changes to enhance the functionality of a Twitter autopilot example and improve configuration handling for the `screenpipe` project.
-   - Introduction of frontend analytics for tracking user behavior using `posthog-js`.
-
-8. **Error Tracking Enhancements**:
-   - Significant improvements in error tracking were made by utilizing OpenTelemetry, fixing naming conventions, and ensuring better error logging and monitoring within the application code.
-
-Overall, these changes enhance the efficiency, performance, and usability of the project while removing deprecated components and clarifying documentation.
+Overall, these updates aim to enhance the application's performance, usability, and compatibility across different systems. The changes include efficient management of video frames, improved user interfaces, and better documentation for easier onboarding.
