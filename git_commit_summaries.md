@@ -7,427 +7,349 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 68
+Total number of commits: 84
 
 <details>
-<summary>summary for commit 1 (eeaac405ad8d4d03d8fdb7419dad750586e0ffcc)</summary>
+<summary>summary for commit 1 (6e9a4d2c38e03c1b979d5780cf24aa644815aa49)</summary>
 
-The commit with hash `eeaac405ad8d4d03d8fdb7419dad750586e0ffcc` by Louis Beaumont provides several changes to the "screenpipe-app" project:
+This commit, authored by Louis Beaumont, includes several changes across different files in a project:
 
-1. **Components Update**:
-   - In `components/meeting-history.tsx`, the behavior and logging for `isOpen` in `useEffect` was modified. The "meeting_history_closed" event capturing was removed.
-   - A new `useEffect` was added to log when the dialog state changes, with `console.log`.
-   - The handling of button clicks was updated to prevent event propagation by using `e.stopPropagation()`.
-   - Code formatting improvements were made for better readability, such as reformatting a multiline sort function.
+1. **`app/layout.tsx`**:
+   - The `ClerkProvider` is updated with a new `publishableKey`, switching from a production to a test key. Additionally, a new `allowedRedirectOrigins` array is added, which specifies permits for `http://localhost:3000` and `tauri://localhost`.
 
-2. **Version Increment**:
-   - The package version was updated from `0.14.4` to `0.14.6` in `Cargo.lock` and from `0.14.6` to `0.14.7` in `Cargo.toml`.
+2. **`Cargo.lock` and `Cargo.toml`**:
+   - The version of the package `screenpipe-app` is incremented from `0.14.9` to `0.14.11` in `Cargo.lock`, and from `0.14.10` to `0.14.11` in `Cargo.toml`.
 
-3. **Binary Differences**:
-   - The binary files `src-tauri/ui_monitor-aarch64-apple-darwin`, `src-tauri/ui_monitor-x86_64-apple-darwin`, and `lib/libscreenpipe_arm64.dylib` were modified, though specific changes are not visible in the diff output.
+3. **`tauri.conf.json`**:
+   - The Content Security Policy (CSP) sections are expanded with more detailed source lists.
+   - For `default-src`, additional sources like `http://localhost:*` and specific clerk URLs are added.
+   - `connect-src` list is expanded to include different domains like `clerk.dev` and specific clerk subdomains, ensuring wider connectivity capabilities.
+   - For `img-src`, sources are restructured into an array, with additions like `clerk.dev` URLs.
+   - `style-src` and `frame-src` are clearly segregated into arrays, allowing a detailed specification of permissible content sources.
+   - `script-src` is expanded significantly to include multiple safe resource locations and clerk domain references.
 
-These changes primarily improve logging and event handling on the meeting history page and include some version bumps and binary updates.
+Overall, the changes update security configurations, change the authentication setup, and increment versioning.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 2 (fc33fa99155c243445caa533f98d2f9a20019304)</summary>
+<summary>summary for commit 2 (8f7c8842a6ff1aa6e28fbe4508ae1d020947113a)</summary>
 
-The commit made the following changes to the project:
+The commit by Louis Beaumont with the hash `8f7c8842a6ff1aa6e28fbe4508ae1d020947113a` includes the following changes to the project:
 
-1. **Update Pre-Build Script for macOS:**
-   - Added a setup for screenpipe binaries targeting macOS, specifically for `arm64` and `x86_64` architectures.
-   - The script now checks for the `SKIP_SCREENPIPE_SETUP` environment variable to potentially skip setup.
-   - Retrieves the most recent binary path and copies it for setup.
-   - Uses `install_name_tool` to adjust dynamic library paths (dylib) for both architectures, with separate handling for development mode.
-   - Added logging to track the setup process and error handling for any issues during dylib path update.
+1. **Modifications in `pre_build.js`:**
+   - Added logic to handle setup for both `arm64` and `x86_64` architectures on macOS.
+   - Introduced an array of architectures and iterated over each to perform respective setup actions.
+   - For both architectures, checks for the most recent binary paths and copies the appropriate binary.
+   - Utilizes `install_name_tool` to modify dylib paths for binaries depending on whether it's in development mode or not, with appropriate error handling.
 
-2. **Increment Version:**
-   - Updated the version of the package from `0.14.5` to `0.14.6` in the `Cargo.toml` file, indicating a minor change likely related to the build script improvements.
+2. **Changes in `build.rs`:**
+   - Large sections of code related to copying binaries and modifying dylib paths for both `x86_64` and `aarch64` targets were commented out.
+   - This seems to indicate a shift from handling these operations in `build.rs` to handling them within the updated `pre_build.js` script.
 
-3. **Modify Build.rs:**
-   - Commented out the macOS-specific build instructions for copying executables and hardcoding dylibs. This section was `#[cfg(target_os = "macos")]` and is now enclosed in a comment block.
-   - The script still proceeds with the `tauri_build::build()` invocation, implying the switch to a possibly different mechanism for handling the macOS build process.
-
-Overall, the commit primarily focuses on ensuring proper setup of binaries and linking for macOS, along with a version bump for the application.
+Overall, these changes focus on improving the build process, specifically for macOS environments, by managing binary setup and dynamic library path adjustments more dynamically and effectively in the pre-build step.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 3 (48cc11a8df6a07754dde8c41e0e76b29cf8c2437)</summary>
+<summary>summary for commit 3 (d978e35a56cf4e0596438dd9d2a5bb6d57e37d75)</summary>
 
-The Git commit `48cc11a8df6a07754dde8c41e0e76b29cf8c2437` by Louis Beaumont makes the following changes:
+This git commit by Louis Beaumont with the message "fix: build" includes several changes across multiple files in the `screenpipe-app-tauri` project:
 
-1. A fix related to the build, possibly addressing build issues or making necessary updates.
-2. In the `Cargo.lock` file within the `screenpipe-app-tauri/src-tauri/` directory:
-   - The `lazy_static` crate has been added to the dependencies list.
-3. In the `Cargo.toml` file at the same location:
-   - The version number of the package `screenpipe-app` has been incremented from `0.14.4` to `0.14.5`. 
+1. **TypeScript/React Components:**
+   - In `layout.tsx`, `auth.tsx`, `pipe-store.tsx`, and `stripe-subscription-button.tsx`, the import of Clerk has been switched from `@clerk/nextjs` to `@clerk/clerk-react`.
+   - The `"use client";` directive was added to some of these files, indicating these components should run on the client side.
 
-These changes suggest a minor version update, likely due to the addition of a dependency and potentially resolving issues related to the project build process.
+2. **Configuration:**
+   - `next.config.mjs` was updated to include an `images` property with `unoptimized: true`.
+
+3. **Dependencies:**
+   - In `package.json`, the dependency on `@clerk/nextjs` was replaced with `@clerk/clerk-react`, and its version has been changed from `^6.5.1` to `^5.17.1`.
+
+4. **Other Files:**
+   - The `bun.lockb` file shows binary changes.
+   - The version in `Cargo.toml` was incremented from `0.14.9` to `0.14.10`.
+
+These changes appear to adjust the build to use a different Clerk package across components, add a client-side directive, adjust configuration settings for image optimization, and update versions to reflect these changes.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 4 (5a0510d88939b31c05c60f47f562828016865374)</summary>
+<summary>summary for commit 4 (af2edf9e49cb2312f0a4b88fe1eac15d7590f8e7)</summary>
 
-The commit made by Neptune focuses on enhancing the build process for a Tauri application targeting macOS. Specifically:
-
-1. The code base within `screenpipe-app-tauri/src-tauri/build.rs` was modified to streamline and ensure handling of specific target triples for different architectures (`x86_64-apple-darwin` and `aarch64-apple-darwin`).
-
-2. Introduced more environment-aware targeting by checking the `TARGET` environment variable, making the build script more robust for the `aarch64-apple-darwin` architecture.
-
-3. Added `env` to the list of imports to facilitate checking environment variables.
-
-4. The code improves clarity by replacing unconditional logic with checks for specific architectures using environment variables, enhancing the script's flexibility and maintainability.
-
-5. Some minor white space changes were made, improving code readability.
+The commit `af2edf9e49cb2312f0a4b88fe1eac15d7590f8e7` by Louis Beaumont addresses a build issue by modifying the file `settings.tsx` in the `screenpipe-app-tauri/components` directory. Specifically, it removes the import statement for `ExternalAuthButton` from this file. No other changes are indicated in this commit.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 5 (4d29fe46fcfb8aae61d35415826066fe189cc544)</summary>
+<summary>summary for commit 5 (22105fe48a3be858c7be95d901af0aec2d8e39f1)</summary>
 
-The commit titled "fix: infinite loop of powershell & use icon cache with localforage and limit powershell process (#802)" introduces multiple changes to address performance and stability issues in the `screenpipe-app-tauri` project. Here's a summary of the changes:
+The recent commit introduces several changes and enhancements to the project:
 
-1. **Caching Icons with `localforage`:** 
-   - The `timeline-dock-section.tsx` component now imports `localforage` to utilize caching.
-   - Icons are cached in the browser's local storage using `localforage`. If an icon is already cached, it's retrieved directly instead of invoking potentially expensive operations.
-   - This caching mechanism helps avoid repeated fetching of the same icons, reducing the strain on resources.
+### Features:
+1. **Authentication with Clerk**: 
+   - Integrated `Clerk` for authentication in `screenpipe-app-tauri`. This is reflected through imports and usage in components like `layout.tsx`, `auth.tsx`, and `settings.tsx`.
+   - Introduced `ClerkProvider` and related authentication components (`SignInButton`, `SignOutButton`) for handling user sign-in and sign-out, with specific UI updates to include Clerk's authentication.
 
-2. **PowerShell Invocation Limit:**
-   - A count is maintained (`iconInvocationCount`) for the number of times an icon is invoked to prevent excessive PowerShell processes from being executed, capping it at 100 times per appName.
+2. **Stripe Subscription**:
+   - Added a feature for Stripe subscription to enable specific functionalities, like using the "Loom pipe". This involves the integration of a new `StripeSubscriptionButton` component and handling of subscription states.
 
-3. **Semaphore for Limiting Concurrent Processes:**
-   - A semaphore is introduced in `icons.rs` to limit the number of concurrent PowerShell processes to 5, using the `tokio::sync::Semaphore` and `lazy_static` for ensuring single-time initialization.
-   - This helps prevent system overloads due to too many concurrent PowerShell commands being run.
+3. **UI and Component Updates**:
+   - Adjustments to text and styling such as changing headings from title-case to lowercase.
+   - Implementation of a subscription-based model to enable certain features based on user subscriptions.
 
-4. **Improved PowerShell Command Execution:**
-   - PowerShell command executions for fetching executable paths have been modified for better performance and minimized disruption. The commands now use `-NoProfile` and `-WindowStyle hidden` options along with `creation_flags` set to `CREATE_NO_WINDOW`, reducing the visibility and resource usage of the PowerShell windows.
+4. **External Plugin & Service Integration**:
+   - Introduced `posthog` for analytics within several components, allowing for capturing and identifying user actions and states.
+
+### Fixes and Modifications:
+1. **Pipe Store Command**: 
+   - Fixed the method of fetching, enabling, disabling, and updating pipes to utilize HTTP requests over direct command execution, shifting from a direct command-line interface to a more network-service based approach.
+
+2. **Removed Unused Configurations**:
+   - Cleaned up Rust target-specific configurations in `.cargo/config.toml`, specifically removing unnecessary entries for Apple platforms.
+
+3. **Dependency Management**:
+   - Upgraded and added dependencies related to dual-auth integrations and Stripe payments within `package-lock.json` and `package.json`.
+   - Removed unused packages and updated several `@radix-ui` packages to their latest versions.
+
+### Build and Architecture:
+1. **macOS Build Process**:
+   - Simplified build scripts in `pre_build.js` and `build.rs` by removing redundant steps and updating the handling of macOS library paths (`dylibs`).
+
+2. **Version Updates**:
+   - Updated the project's version in `Cargo.toml` from `0.14.8` to `0.14.9`.
+
+3. **Security Policies**: 
+   - Updated the Content Security Policy (CSP) to allow connections and images from new domains related to Clerk and Stripe integration.
+
+These changes collectively enhance authentication, improve user experience through membership subscriptions, and streamline the build and deployment process for macOS while integrating necessary updates to dependencies.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 6 (e90d426e76439120371218773588fcb32195d4d5)</summary>
+
+The commit with hash `e90d426e76439120371218773588fcb32195d4d5` authored by Louis Beaumont has a commit message indicating that documentation was fixed. Specifically, in the file `content/docs/pages/docs/plugins.mdx`, an import statement was modified. The import `Tabs from '@/components/tabs'` was changed to `import { Tabs, Tab } from 'nextra/components'`. This likely corrects or updates the way Tabs are imported for usage in the documentation.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 8 (998686fe4c3ed2a1cfa25d822b944e67ee32724e)</summary>
+
+The Git commit made by Louis Beaumont updates a few components in the `create-pipe` example project. Here is a summary of the changes:
+
+1. **README Updates**: In the `README.md` file within the `examples/create-pipe` directory, the instructions for creating a new screenpipe pipe have been modified. The versions of the `@screenpipe/create-pipe` package for npm, bun, pnpm, and yarn have been changed from a specific version (`0.0.5`) to `latest`, indicating a shift to always use the most up-to-date version of the package.
+
+2. **Version Bump**: The `version` in the `package.json` has been updated from `0.0.5` to `0.0.6`.
+
+3. **Dependency Addition**: A new dependency, `@scarf/scarf` with version `^1.4.0`, has been added to the `package.json` file's list of dependencies.
+
+4. **Binary File Change**: The binary file `bun.lockb` has been changed, although the exact changes aren't detailed in the diff since it’s a binary file.
+
+Overall, this commit updates the `create-pipe` example to use the latest version of the `@screenpipe/create-pipe` package in instructions and bumps the package version while adding a new dependency.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 9 (b82bc824e3a2de2a4a176fdccab71c20092389a9)</summary>
+
+The git changes summarized are as follows:
+
+1. **Refactor in `pipe-store.tsx`:**
+   - A new pipe configuration named "pipe-for-loom" was added to the `corePipes` array. This pipe is designed to automatically summarize Loom videos and add them to notes.
+   - A button, previously present in the `PipeDialog` component, which allowed users to tweet about how they use the `@screen_pipe`, was removed. This button had a heart icon and the text "support us."
+
+2. **Version Update in `Cargo.lock`:**
+   - The version of the "screenpipe-app" package was incremented from 0.14.7 to 0.14.8, indicating a new version release.
+
+Overall, these changes include adding a new pipe feature, removing a social media sharing button, and updating the application version.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 10 (029101d3330bc2090a6f898758c77a722f8f064f)</summary>
+
+The git commit `029101d3330bc2090a6f898758c77a722f8f064f` introduces updates to the documentation for a feature named "plugins." The changes focus on enhancing the documentation page `plugins.mdx`:
+
+1. **Imports**: Added an import statement for a `Tabs` component (`import Tabs from '@/components/tabs';`).
+
+2. **Content Changes**:
+   - Expanded the description of plugins, categorizing "pipes" into two types: 
+     - **UI-based**: Uses NextJS for user interaction.
+     - **Headless**: Operates in the background without a visual interface, potentially utilizing cron jobs.
+   - Removed the previous step-by-step guide for setting up a pipe manually using git, copy, and bun commands.
+   - Introduced a fast creation method using a CLI with multi-package manager support (npm, bun, yarn, pnpm). The CLI helps in setting up, testing, and enabling the pipe.
+
+3. **Instructions**: A new section utilizing the `Tabs` component is added to demonstrate how to create a new pipe using different package managers, with commands wrapped in `copy` blocks for easy copying. Users are guided to follow the CLI instructions to set up and enable the pipe.
+
+These updates streamline the process of creating and managing plugins, emphasizing the use of a CLI tool for simplicity and versatility, and highlighting the different ways pipes can be implemented within the system.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 11 (5f7b9ee603bc8ee2d6585bf66690403ec46ad917)</summary>
+
+This commit introduces new functionality and changes across several files and directories. Here's a summary of the key changes:
+
+1. **Configuration Changes**:
+   - Removed unused configuration related to macOS in `.cargo/config.toml`.
+
+2. **New `create-pipe` Example**:
+   - Added a new example called `create-pipe` within the `examples` directory.
+   - Created necessary files for this example:
+     - `.gitignore`: Contains standard patterns for ignoring files related to Node.js and related build tools.
+     - `README.md`: Instructions and setup for creating a new screenpipe pipe using Next.js.
+     - `index.ts`: A new script to automate the creation of pipes with options for user interface and headless setups. It supports installation via npm, bun, pnpm, and yarn.
+     - `package.json` and `tsconfig.json`: Configuration files for managing dependencies, scripts, and TypeScript options.
+
+3. **Archiving Old Examples**:
+   - Moved the `pipe-meeting-summary-by-email` example to an `archive` directory, indicating it's now considered legacy or not actively maintained.
+
+4. **Updated `pipe-obsidian-time-logs`**:
+   - Introduced a new `package.json` and `tsconfig.json` file.
+   - Added a `.gitignore` for ignoring build and dependency directories.
+   - Created a `bun.lockb` binary file for package-lock specific to Bun.js.
+
+5. **Refactoring in `pipe-store.tsx`**:
+   - Replaced HTTP requests for managing pipes (e.g., list, download, enable, disable) with sidecar commands using the `screenpipe` executable.
+   - Enhanced error handling and user feedback via toast notifications.
+   - Adjustments made to support more reliable pipe management and configuration saving.
+
+6. **Version Bumps**:
+   - Incremented the version numbers in `Cargo.lock` and `Cargo.toml` for `screenpipe-app` to reflect updates.
+
+Overall, the commit enhances the `screenpipe` ecosystem by introducing new tools for creating customizable pipes and modernizes existing infrastructure with command-line integrations.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 12 (3153d0ce240f413f2b0728b2a684047b4cb10da1)</summary>
+
+The commit made by Louis Beaumont on November 29, 2024, updates the `README.md` file in the `examples/typescript/pipe-for-loom` directory. The update involves a significant reduction in the README's content, removing detailed instructions and information about the Next.js project. These instructions covered setting up a development server, links to resources for learning about Next.js, and deployment guidance on Vercel. In place of this content, a brief line was added: "replace loom by this pipe," along with an image embedded into the document.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 13 (8e65cf26727edac36669e805d7b45844c9d778d5)</summary>
+
+The recent commit by Louis Beaumont primarily involves updating the Windows getting-started documentation for setting up and building a project from source. Here's a summary of the changes made:
+
+1. **CONTRIBUTING.md Updates:**
+   - Added instructions to install CMake using winget.
+   - Provided environment variable setup commands using PowerShell to ensure paths are set correctly for vcpkg, LIBCLANG_PATH, and include GNUWin32's bin in the PATH.
+
+2. **Getting Started Guide Modifications in getting-started.mdx:**
+   - Expanded step-by-step instructions on installing necessary tools and dependencies on Windows, including Visual Studio Build Tools, Rust, LLVM, CMake, unzip utility, Git, and Bun.
+   - Provided directions for setting environment variables with PowerShell commands for PKG_CONFIG_PATH, VCPKG_ROOT, LIBCLANG_PATH, and PATH.
+   - Updated instructions on cloning and setting up the vcpkg package manager, including integration and FFmpeg installation.
+   - Clarified the steps to clone the repository and build the CLI and desktop application using Cargo and Bun.
+   - Added sections detailing optional GPU acceleration using CUDA for NVIDIA GPUs and Intel's MKL for CPU optimization.
+
+These changes aim to streamline the setup process and ensure users have clear guidance for building the application from source on Windows.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 14 (50ec5df4da69444507cef3bc05c71d01c00ec56a)</summary>
+
+The Git changes in commit `50ec5df4da69444507cef3bc05c71d01c00ec56a` include updates and fixes across the `screenpipe-server` project. Here's a summary of the changes:
+
+1. **Edge Case Tests and Search Bug:**
+   - Improved edge case tests.
+   - Fixed a bug related to the search functionality, specifically ensuring that searches for audio content only proceed when `app_name` and `window_name` criteria are not specified.
+
+2. **Code Cleanup and Optimizations:**
+   - Removed extra parentheses and unnecessary code (e.g., code removed in the server).
+   - Standardized usage of SQL operations, such as removing additional spaces and ensuring consistent formatting (e.g., proper alignment of `SELECT`, `FROM`, `WHERE`, etc.).
+
+3. **Conditional Logic Adjustments:**
+   - Adjusted the logic in the `DatabaseManager` to prevent unnecessary search queries, such as filtering audio results unless certain criteria are absent.
+   - Removed logic enforcing `ContentType` to OCR based on `app_name` or `window_name` in `server.rs`.
+
+4. **Testing Enhancements:**
+   - Added and modified database test cases to test new or adjusted functionalities.
+   - Ensured tests account for different combinations of search parameters and confirm expected behavior across the search queries.
+
+These changes aim to enhance functionality, clean up the codebase, and ensure robust testing and execution of search operations within the application.
+</details>
+
+------------------------------------------------------------------------
+
+<details>
+<summary>summary for commit 15 (aaa45d135c3023bad16ca9abab47c5cd7033a9a0)</summary>
+
+This git commit introduces a new feature that adds a "pipe for loom". Here's a summary of the changes:
+
+1. **Project Structure:**
+   - A new example project named `pipe-for-loom` has been added under `examples/typescript/`.
+   - Several configuration files are introduced, including `.eslintrc.json`, `.gitignore`, `package.json`, and `postcss.config.mjs`.
+   - `tailwind.config.ts` and `tsconfig.json` set up Tailwind CSS and TypeScript respectively.
+
+2. **Core Files:**
+   - **API**: A file API route (`app/api/file/route.ts`) is implemented for fetching video or audio files, with error handling for file access permissions, existence, and type support.
+   - **Components**: Numerous React components have been added, including `Pipe`, `Header`, `DateTimePicker`, `Toaster`, and various UI components for buttons, badges, dialogs, etc.
+   - `global.css` applies global styles using Tailwind CSS and includes root color variables for both light and dark themes.
+
+3. **Functionality:**
+   - **Video and Audio Handling**: Ability to merge video and audio files using a server API. Time filters (last 30/60 mins, 12/24 hours) help select content duration for merging.
+   - **UI Enhancements**: A user interface is provided to manage videos and audios, including setting start and end times using a date-time picker and viewing merged output in dialogs with video/audio players.
+   - **Notifications**: A toast notification system is implemented to provide user feedback on actions like errors in merging.
+
+4. **Server Logic:**
+   - Videos are validated using `ffmpeg` for errors before attempting to merge.
+   - Error handling is added in the server's video utilities (`src/video_utils.rs`), including validation of videos and handling of directory creation failures.
 
 5. **Dependencies:**
-   - The `Cargo.toml` file is updated to include `lazy_static` as a dependency to support the semaphore feature.
-   - The `windows-icons` crate is added via a Git dependency, presumably for improved handling of icons on Windows.
+   - The project makes use of several external libraries, such as Radix UI, Date-fns, and Tailwind CSS. Dependencies are added for these libraries in `package.json`.
 
-These changes collectively aim to enhance the performance, efficiency, and stability of the application by optimizing icon processing and limiting resource-intensive operations.
+Overall, this commit establishes the initial setup for a feature that supports fetching, validating, and merging video and audio files with a user-friendly frontend.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 6 (59326f5c8c8550a91a31017484bd804a09b73d24)</summary>
+<summary>summary for commit 16 (6b88b4d11fcbe5f0b1ff1e63dc22f819630b3054)</summary>
 
-The git commit includes the following changes and features:
-
-1. **New Features:**
-   - Real-time updates for pipes, with the ability to start and stop them.
-   - Full-screen pipes functionality.
-
-2. **TypeScript Config Changes:**
-   - In the Next.js configuration file (`next.config.mjs`), a new experimental option was added to control dark mode (`darkMode: false`).
-
-3. **Pipe Execution Updates:**
-   - The `run_pipe` function in `pipes.rs` has been updated to return a `tokio::process::Child` instead of an `Option<u16>`, indicating that the process handle is being returned rather than just the port number.
-   - Improved logging for dependency installation for Next.js pipes with more consistent casing.
-   - Changed the logic to not wait for the child process to finish synchronously, allowing for concurrent execution without blocking.
-
-4. **Server Enhancements:**
-   - Removal of unnecessary future polling structures (`FuturesUnordered`) for pipe execution in `screenpipe-server.rs`.
-   - Enhanced the `PipeManager` to manage pipe processes asynchronously, using a `HashMap` to track running pipes with `tokio::sync::RwLock` for concurrency control.
-   - New method `stop_pipe` for stopping running pipes and refactoring of `start_pipe_task` for task-based execution of pipe processes.
-   - Removed `PipeControl` enum and related logic in favor of improved task handling for starting and stopping pipes.
-   - Logging adjustments, particularly from `debug!` to `info!`, for more informative output during pipe operations.
-
-5. **Code Cleanup:**
-   - Removed redundant future handling code for pipe control and execution.
-   - Improved error and info logging in several places to provide clearer output messages to the user.
-   - Simplified `PipeManager`'s logic by using more direct task management functions.
-
-Overall, these changes improve the flexibility and control over pipe management, with enhancements to parallel processing and task management within the application.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 7 (de0ab2c3172e9bd3615e78c385e44757bc64c620)</summary>
-
-The commit made by Louis Beaumont on November 28, 2024, updates the `README.md` file. The modification is a small change in the descriptive text for "screenpipe." The change rephrases the features description; it now states "agents powered by 24/7 screen, voice, keyboard, mouse, camera recording. sandboxed. keyboard and mouse control in js" instead of the previous "24/7 screen & voice recording context. sandboxed agents. keyboard and mouse control in js." The updated wording emphasizes the agent's capabilities more explicitly by including "camera recording" in the list and slightly altering the structure for clarity.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 8 (e48b616a2d9656d8f24d5c44f7622bc213066324)</summary>
-
-The commit with hash `e48b616a2d9656d8f24d5c44f7622bc213066324` authored by Louis Beaumont on November 28, 2024, updates the `README.md` file. The change corrects a grammatical error in a section discussing the importance of recording. Specifically, it changes "every seconds you are not recording" to "every second you are not recording."
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 9 (caaa67e157105cf2f5e1aadab2c648b8cdf0fd8b)</summary>
-
-The commit with hash `caaa67e157105cf2f5e1aadab2c648b8cdf0fd8b` made changes to the `README.md` file. Specifically, it modified the "why?" section of the document. The previous text, which mentioned the year 2025 and posed a question about data readiness, was replaced with a statement emphasizing the importance of constant recording to prevent missing context for Artificial General Intelligence (AGI).
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 10 (9daf6fd462f99e6873b804493e2b9986c82b945f)</summary>
-
-The commit made by Louis Beaumont on November 28, 2024, updates the `README.md` file. The changes include:
-
-1. Modification of the project description:
-   - Previous description: "rewind.ai x cursor.com = your AI assistant that has all the context. 24/7 screen & voice recording for the age of super intelligence. get your data ready or be left behind."
-   - Updated description: "nextjs for desktop agents. 24/7 screen & voice recording context. sandboxed agents. keyboard and mouse control in js."
-
-2. Removal of an embedded image and its associated link, which was displayed as a demo. The image and its link are no longer present in the `README.md`.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 11 (1ed19251f5f5b7a87f51ce7711fdac775a755410)</summary>
-
-The commit with hash `1ed1925` authored by Louis Beaumont on November 28, 2024, removes a binary file named `bun.lockb` from the `examples/typescript/pipe-simple-nextjs` directory. The commit is marked as a fix, indicating that the removal of this file addresses a specific issue.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 12 (f58037afe8114b091c58198c6ba45d413fca2d57)</summary>
-
-The commit made a series of changes across various files, aimed at optimizing performance, adding functionality, and cleaning up the codebase. Here's a concise summary:
-
-1. **Removal of Files**: 
-   - `Formula/screenpipe.rb` and `cn` files have been deleted, suggesting a cleanup or refactoring to remove unused files from the repository.
-
-2. **Code Optimization and Cleanup**:
-   - Removed unnecessary logging from `pipe.ts` in the Obsidian time logs example to streamline output.
-   - Updated `components/keyword-cloud.tsx` to directly process content streaming with SQL-based logic replacing manual data processing, enhancing efficiency.
-   - Refactored `log-file-button.tsx` and several other components to remove unused code and improve readability.
-
-3. **Feature Additions and Improvements**:
-   - Introduced a new `bun.lockb` file in the `pipe-simple-nextjs` example, likely to manage package dependencies.
-   - Added functionality for handling pipes (download, enable, delete) within the server and client application, adding more control over pipe management.
-   - Enhanced `pipe-store.tsx` with additional features such as showing a "pipe UI" and a button to delete pipes.
-
-4. **UX Enhancements**:
-   - Updated various UI components such as `header.tsx` and `meeting-history.tsx` to improve user interactions, like adding tooltips, buttons, and icons.
-   - The `settings.tsx` component now includes a badge displaying cloud credits, providing more extensive UI feedback.
-
-5. **Server Enhancements**:
-   - Improved responses for various API endpoints to include structured JSON outputs indicating success or error messages, e.g., for listing, running, stopping, and deleting pipes.
-   - Added an API endpoint for deleting pipes, along with logic for confirming deletions interactively.
-
-Overall, the commit focuses on enhancing efficiency, expanding the feature set, improving user interaction, and maintaining clean and organized code.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 13 (11b0a5b53f4e5e878dd6f2c87ca5b25e43744595)</summary>
-
-The commit with ID `11b0a5b53f4e5e878dd6f2c87ca5b25e43744595` addresses fallback handling for Intel Macs by introducing changes to the screenpipe project. The specific changes are as follows:
-
-1. **Version Update**: 
-   - The version of the `screenpipe-app` was incremented from `0.14.3` to `0.14.4` in both `Cargo.lock` and `Cargo.toml` files.
-
-2. **Build Script Modification**:
-   - In the `build.rs` file, the handling of the build target for x86_64 architecture on macOS has been improved.
-   - The script now attempts to copy the `screenpipe` binary from a primary path (`../../target/x86_64-apple-darwin/release/screenpipe`) and falls back to an alternative path (`../../target/release/screenpipe`) if the primary path does not exist.
-   - An error message is provided in case the copy operation fails.
-
-These changes ensure that the build process is more robust by providing a fallback mechanism, which is particularly useful if the primary binary path is unavailable.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 14 (d574f8e8d1f7df0698a24f4d5de3a06cdd2de02b)</summary>
-
-The commit made by Louis Beaumont includes the following changes:
-
-1. **GitHub Actions Workflow Update**:
-   - In the `release-cli.yml` file within the GitHub workflows directory, the target build for `aarch64-unknown-linux-gnu` was removed. Now, the workflow only targets `x86_64-unknown-linux-gnu` for release builds.
-
-2. **Cargo.toml Update**:
-   - The version of the package in the `Cargo.toml` file was incremented from `0.2.6` to `0.2.7`, likely indicating a patch update reflecting minor changes or fixes. 
-
-Overall, this commit seems to focus on simplifying or correcting the build targets for the release process and includes a version bump to indicate a new release.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 15 (eae21c4272ad6cde213bca497b7f8495eac60179)</summary>
-
-The commit with hash `eae21c4272ad6cde213bca497b7f8495eac60179` by Louis Beaumont addresses two main changes to fix issues related to Windows:
-
-1. **GitHub Workflow Update**:
-   - The workflow file `.github/workflows/release-cli.yml` was modified to update the dependencies for the `update-homebrew` job. Previously, it depended only on `build-macos`, but now it also depends on `build-linux`.
-
-2. **Source Code Modification**:
-   - In the `screenpipe-audio/build.rs` file, a conditional import statement was modified. The `process::Command` import, which was originally included when targeting Windows, has been moved to the unconditional import block. As a result, `Command` is imported regardless of the operating system, which could imply refactoring or fixing a build-related issue on Windows platforms.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 16 (597cb0d266ccac71cfde3c9699b4acf886a1fa85)</summary>
-
-The commit improves the search mechanism for the "bun" executable within the `screenpipe-core/src/pipes.rs` file by introducing several updates:
-
-1. **Introduction of `Lazy` Initialization:**
-   - The commit uses `once_cell::sync::Lazy` to initialize a single instance of the "bun" path, caching the result of the search for efficiency.
-
-2. **Modifications in Command Execution:**
-   - Replaces hardcoded `"bun"` command strings with a dynamically located `bun_path`, ensuring that commands are executed with the correct bun executable found by the new search logic.
-
-3. **Enhanced `find_bun` Functionality:**
-   - Refactors the `find_bun` function to `find_bun_path_internal`, now wrapped lazily in `BUN_PATH`.
-   - The search for the executable is improved by checking:
-     - The system's `PATH`.
-     - The current working directory.
-     - The directory of the current executable.
-     - Platform-specific directories (e.g., macOS resources).
-
-4. **Error Handling:**
-   - Introduces error handling with `anyhow` to provide informative messages when the "bun" executable cannot be found.
-
-These enhancements optimize how the `bun` executable is located and used, reducing potential runtime errors related to command invocation paths.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 17 (4581b73a662e61b0c7308b3c030c26f8f8fc75d3)</summary>
-
-The commit `4581b73a662e61b0c7308b3c030c26f8f8fc75d3` made by Louis Beaumont on November 28, 2024, updates the `README.md` file. The change involves the addition of an image link: `![image](https://github.com/user-attachments/assets/da5b8583-550f-4a1f-b211-058e7869bc91)`, inserted after an existing image diagram in the markdown file.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 18 (2a8b8993fb10f736871ae74dac6d99bf52f423fb)</summary>
-
-The commit `2a8b8993fb10f736871ae74dac6d99bf52f423fb` by Louis Beaumont updates the `README.md` file. The changes simplify the "get started" section, reducing the detailed options for installing `screenpipe` to just two primary methods:
-
-1. A link to get the desktop app.
-2. A link to obtain the CLI or instructions on building from source.
-
-This revision removes details about different installation methods, including the paid desktop app, free version for self-build, the option to obtain a license by contributing or sharing, and using `screenpipe` as a Rust or WASM library or for business use.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 19 (0ed79eb898e9c4fb94bda7120a1de263d35b4c3d)</summary>
-
-The commit with hash `0ed79eb898e9c4fb94bda7120a1de263d35b4c3d` by Louis Beaumont updates various parts of a project for a release. Here are the primary changes made:
-
-1. **GitHub Actions Workflow (`release-cli.yml`):**
-   - A command to `brew update` was added to the workflow.
-   - The `brew bump-formula-pr` command was modified to include the `--force` flag, and the command now uses `|| true` to ensure that any errors during execution do not fail the script.
-
-2. **Cargo Configuration (`Cargo.toml` and `Cargo.lock`):**
-   - The version for the `screenpipe` package was updated from `0.2.4` to `0.2.6` in the `Cargo.toml` file.
-   - The version of the `screenpipe-app` was updated from `0.14.2` to `0.14.3` in both the `Cargo.lock` and `Cargo.toml` files within the `screenpipe-app-tauri/src-tauri` directory.
-
-These modifications appear to prepare the project for a new release, likely addressing recent updates or bug fixes.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 20 (959f01af68fc581413ff39d870cffbba97d5fd83)</summary>
-
-The commit by Louis Beaumont introduces a fix in the `screenpipe-status.tsx` component of the Tauri screenpipe app, specifically targeting the behavior of the recorder log on Windows:
-
-- Previously, the recorder log section was implemented using a `Collapsible` component that was always rendered, regardless of the operating system.
-- The change now ensures that the `Collapsible` component for the recorder logs is only visible on macOS (using the `isMac` condition).
-- On non-macOS systems (such as Windows), the recorder log section is replaced with a simple button (`LogFileButton`) without the collapsible functionality.
-- This adjustment effectively hides the collapsible recorder log section on Windows systems, addressing the issue specified by the commit message.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 21 (ce54a73bab9db97cc2b6ffae8d44ccece1ed08ea)</summary>
-
-The recent git commit, authored by Louis Beaumont, involves several key changes addressing issue #751:
-
-1. **Timestamp Management for Audio Capture:**
-   - The `core.rs` file in `screenpipe-audio` now includes a new static variable `LAST_AUDIO_CAPTURE` of type `AtomicU64`, using `lazy_static!`. It records the timestamp of the last audio chunk captured by setting this value whenever audio data is successfully received.
-
-2. **Integration in `lib.rs`:**
-   - The `LAST_AUDIO_CAPTURE` static variable is re-exported in the `screenpipe-audio/src/lib.rs` file, making it accessible to other parts of the codebase that use this module.
-
-3. **Health Check Update in `screenpipe-server`:**
-   - In `server.rs`, the health check method has been updated to use the `LAST_AUDIO_CAPTURE` to determine if audio is currently active. This replaces the previous method of checking the last audio timestamp from the database.
-   - The audio activity is assessed by checking if the last capture was within the last 5 seconds, simplifying the previous logic that considered timestamps and durations.
-
-4. **Removed Obsolete Logic:**
-   - Obsolete checks and timestamp management in the audio status logic have been removed, streamlining the code to rely on the new mechanism using `LAST_AUDIO_CAPTURE`.
-
-These changes improve how the system tracks and verifies live audio activity, enhancing reliability and reducing complexity in determining the health status of audio components.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 22 (50aa3d46cba577b847dee3d4230d699b35755cba)</summary>
-
-The recent commit by Louis Beaumont includes a fix to the `build.rs` file located at `screenpipe-app-tauri/src-tauri`. The change introduces a conditional logic to copy the `screenpipe` binary for the `aarch64-apple-darwin` target architecture. The updated code first checks if the primary path (`../../target/aarch64-apple-darwin/release/screenpipe`) exists using `fs::metadata`. If it does, it uses that; otherwise, it falls back to an alternative path (`../../target/release/screenpipe`). This ensures the build process is more robust by handling cases where the primary path might not be available. Additionally, this operation is wrapped in an `expect` call to provide an error message if the file copy fails.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 23 (b7b047e00b77eac831ce8ddbff2cb9918195dcdb)</summary>
-
-The commit by Louis Beaumont updates the `getting-started.mdx` file within the documentation. The changes made include the addition of instructions for installing Visual Studio with C++ by providing a link to the Visual Studio download page. This information is inserted after the line about installing 7zip.
-</details>
-
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 24 (c21d825c416a0f45f04e087847a9348a68065083)</summary>
-
-The commit by the author Neptune on November 28, 2024, modifies the `build.rs` file in the `screenpipe-app-tauri` project. The changes focus on unwrapping code statements for filesystem operations within the build script.
-
-Specifically, for both `x86_64` and `aarch64` target architectures, the `fs::copy` functions that had been using the `?` operator to propagate errors are now unwrapped using `.unwrap()`. This change ensures that any potential errors from the file copy operations will cause a panic with an error message rather than being handled by the `?` operator, which propagates errors up the call chain.
+The commit updates the `README.md` file by modifying the description of the project. Specifically, it changes the subtitle and a key descriptive phrase. The subtitle has been updated to emphasize that the project provides "one API to get all user desktop data" that is "local, cross-platform, 24/7," including various forms of data such as screen, voice, keyboard, mouse, and camera recording. The description was adjusted to highlight a "sandboxed JS plugin system" along with keyboard and mouse control capabilities, while the previous wording regarding "nextjs for desktop agents" was removed.
 </details>
 
 ------------------------------------------------------------------------
 
 # Overall Summary of Changes
 
-The series of git commits to the "screenpipe-app" project includes multiple changes across various components, aiming to improve functionality, efficiency, and usability. Here are the highlights grouped by their primary focus:
+The series of git commits by Louis Beaumont demonstrates a comprehensive update and feature enhancement across the project, particularly focusing on improving authentication, build processes, and user interface components. Key areas of change include:
 
-1. **Component Updates and Logging Enhancements**:
-   - Updates in various TypeScript and Rust components to refine logging mechanisms, improve event handling, and adjust UI components for platforms like macOS and Windows. Example: enhancing logging in `components/meeting-history.tsx` and adjusting PowerShell execution for better performance.
+1. **Authentication and Security Enhancements**:
+   - The integration of Clerk for authentication with updates to components to reflect this switch, alongside modifications to Content Security Policies to accommodate new domains required for authentication and connectivity.
+  
+2. **Build Process Improvements**:
+   - Major changes in macOS-specific build processes, moving some functionality from `build.rs` to `pre_build.js`, handling architecture-specific setup, and refining dynamic library paths.
 
-2. **Version and Build Process Modifications**:
-   - Updates to version numbers in `Cargo.toml` and related files, indicating incremental improvements and bug fixes. Numerous changes to build scripts (`build.rs`) are evident, targeting architecture-specific optimizations (e.g., handling different Mac architectures and ensuring robust copying of binaries).
+3. **Enhancing User Experience**:
+   - Introduction of Clerk authentication components and redesign of user flow with UI updates like subscription models and integration of analytics using `posthog`.
 
-3. **New Features and Performance Improvements**:
-   - Introduction of real-time updates for pipe management, implementing caching mechanisms (e.g., using `localforage` for icons), and employing semaphores to limit concurrent processes, thereby optimizing performance.
+4. **Version Management and Configuration Changes**:
+   - Incremental updates to package versions and configurations across various files to accommodate new features and improvements, like changing versions in `Cargo.toml` and `package.json`.
 
-4. **Documentation and README Changes**:
-   - Revisions to the `README.md` to improve clarity, simplification of installation instructions, and an emphasis on new features, such as camera recording. Removal of outdated descriptions and images replaced by current project capabilities.
+5. **Code Refactoring and Cleanup**:
+   - Streamlining existing processes by removing obsolete elements, introducing utility functions for operations like HTTP requests, and cleaning up imports and dependency management.
 
-5. **Workflow and Dependency Updates**:
-   - Adjustments in GitHub workflow files to streamline release processes and improve build targets. Updates in dependencies and the introduction of helper constructs, such as `Lazy` initialization for efficient resource handling.
+6. **Documentation and Example Projects**:
+   - Updated documentation, especially for plugins and setup on Windows, provides clearer, more streamlined installation instructions.
 
-6. **Code Cleanup and Error Handling Adjustments**:
-   - Removal of redundant or unnecessary code, such as logs and obsolete future handling mechanisms. Improved error handling to provide informative messages during executable searches and file operations.
+7. **Introduction of New Features**:
+   - Examples such as `create-pipe` demonstrate new functionalities, including a setup script for different package managers and new project structure exemplified in `pipe-for-loom`.
 
-7. **Specific Issue Fixes**:
-   - Direct interventions, such as ensuring conditional logic for binary operations, handling Windows-specific issues, and managing timestamps for audio activity checks.
-
-These changes collectively ensure a more reliable, efficient, and user-friendly application, addressing identified issues and implementing new features aligned with project goals.
+Overall, these updates collectively aim to enhance functionality, streamline processes, improve build efficiency, and enrich user interactions with new features and cleaner interfaces.
