@@ -20,7 +20,7 @@ If you find this project useful, please give it a star! It helps us to grow and 
 
 ## Reach out: 
 
-i@m13v.com. Discord: matthew.ddy
+i@m13v.com. Discord: @matthew.ddy
 
 ## Getting started
 
