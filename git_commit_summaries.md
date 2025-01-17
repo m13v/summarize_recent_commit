@@ -7,314 +7,295 @@ PRESS CMD+SHIFT+V TO VIEW IN MARKDOWN
  
 _______________________________________________________________________
 -----------------------------------------------------------------------
-Total number of commits: 16
+Total number of commits: 31
 
 <details>
-<summary>summary for commit 1 (07f372b2c19b670b469b91abddf9c3f9bc6a5a34)</summary>
+<summary>summary for commit 1 (085dd4bea9405f339ab72d9f29fe14c266b4974f)</summary>
 
-The Git changes in commit `07f372b2c19b670b469b91abddf9c3f9bc6a5a34` include several updates and additions:
+The commit updates the `README.md` file with a few changes:
 
-1. **Version Updates**:
-   - The version of the `screenpipe-app` package in `Cargo.lock` was updated from `0.22.5` to `0.22.6`.
-   - The version in `Cargo.toml` was updated from `0.22.6` to `0.22.7`.
+1. The tagline about the platform's features was modified to remove specific resource usage details: 
+   - The original line mentioning "10% CPU, 4 GB ram, 30gb/m" was replaced with just "24/7 screen, mic, keyboard recording and control."
 
-2. **Dependencies**:
-   - A new dependency, `once_cell` version `1.20.0`, was added in `Cargo.toml`.
+2. Details about resource usage were added to a different section explaining how the system works:
+   - It now specifies "uses 10% CPU, 4 GB ram, 15 gb/m" in the context of its 24/7 local recording capabilities.
 
-3. **New Health Check Feature**:
-   - A new file `health.rs` was added, implementing a health check feature using a Tauri app handle. This feature checks the health of a service running at `http://localhost:3030/health` and updates tray icons based on the health status.
-   - In `main.rs`, this health check service is started during the app initialization.
-
-4. **Refactoring and Reorganization**:
-   - The `mod store` line in `main.rs` was moved for organizational purposes.
-   - The `health` module was newly added and utilized in `main.rs`.
-   - Minor code style changes were made for clarity, such as formatting and moving code blocks related to handling shortcuts.
-   - Comments were added or adjusted for clarity, particularly in the new `start_health_check` function and some function parameters in `main.rs`.
-
-5. **Tray Menu Update Optimization**:
-   - In `tray.rs`, a mechanism was implemented to cache the current menu state and only update the tray menu if the state has changed, improving efficiency.
-   - `once_cell` is used to store the last menu state, ensuring updates only when necessary.
-
-6. **Miscellaneous**:
-   - Uses of `println!` were changed to use `info!` from `tracing` for more consistent logging.
-   - Some unnecessary imports were removed, and significant whitespace and formatting changes were made for code clarity.
-
-Overall, this commit mainly enhances the functionality of the `screenpipe` application with a new health check service, cleans up the code, and optimizes certain operations.
+3. Minor wording change in the "why" section:
+   - The phrase "data is the biggest bottleneck in AI right now" was replaced with "context is the dark matter of intelligence."
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 2 (fb460edbf9b359734b7206dcf55f9ed43f1cc500)</summary>
+<summary>summary for commit 2 (d25717fc8d4fabcadfb3470d9de7351779238301)</summary>
 
-The git commit with hash `fb460edbf9b359734b7206dcf55f9ed43f1cc500` adds a new changelog entry for version 0.22.6 of the Screenpipe application. The updates include:
-
-### New Features:
-- Added keyboard shortcuts to enhance user efficiency in the Screenpipe application.
-
-### Fixes:
-- Resolved a casing issue that could impact app performance.
-- Fixed a minor logging issue to ensure accurate functionality.
-
-Additionally, the commit updates the CHANGELOG.md files to reflect these new features and fixes. Full changelog details are available in a specified comparison link.
+The commit updates the `README.md` file by modifying a line in the "news" section. Specifically, the change involves replacing "Loom pipe" with "Reddit agent" and adding "Timeline" to the list of integrations available for the "pipe store stripe integration" entry from December 2024.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 3 (f22b7c7e5278773169ac0f966b8cacefe34bb995)</summary>
+<summary>summary for commit 3 (eed2e4b19d81cb1b024cce9d074b783edd9829c0)</summary>
 
-The git commit with ID `f22b7c7` by Louis Beaumont updates the version number of the "screenpipe-app" in the `Cargo.toml` file from `0.22.5` to `0.22.6`. This change suggests the release of a new patch version of the application.
+The commit with ID `eed2e4b19d81cb1b024cce9d074b783edd9829c0` was made by Louis Beaumont on January 8, 2025. This commit involves changes to the `README.md` file. The updates include changing the source URL of one image and the removal of an extra blank line. The first image URL was updated to a new link, and a redundant line was deleted, creating a cleaner format in the markdown.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 4 (7a06d53cf0abe6b62a4853029f77b8e1de4053b9)</summary>
+<summary>summary for commit 4 (f7064974419d9860eb026f28ccbc751e26a67f7e)</summary>
 
-The commit introduces multiple changes to the `screenpipe-app`, primarily adding shortcut-related enhancements:
-
-1. **Shortcut Handling Improvements**: The commit refactors and organizes the code for handling shortcuts. This includes the introduction of a new `ShortcutRow` component for managing individual shortcut settings.
-
-2. **Pipe Shortcut Functionality**: New functionality is added to associate keyboard shortcuts with "pipes" (likely referring to some kind of modular features or plugins), allowing users to trigger these pipes via shortcuts.
-
-3. **UI Changes**: A new component `shortcut-row.tsx` is created to encapsulate the UI and logic for managing shortcuts. This component handles recording new shortcuts, enabling/disabling them, and provides visual feedback through UI elements like switches and buttons.
-
-4. **API Integration**: A new API class `PipeApi` is implemented in `lib/api/index.ts`. This class provides methods to list pipe configurations, which the application can use to dynamically generate UI elements for managing pipe shortcuts.
-
-5. **Settings Enhancements**: The application’s settings now include a `pipeShortcuts` field in the `Settings` type, allowing storage and retrieval of pipe-specific shortcuts.
-
-6. **Backend Enhancements**: Tauri's backend (`main.rs`) is updated to handle the new pipe shortcuts. This includes updating methods for applying and managing global shortcuts, with new logic to register shortcuts associated with pipes.
-
-7. **Package Version Update**: The version of `screenpipe-app` in `Cargo.lock` is updated from `0.22.3` to `0.22.5`, likely reflecting significant changes and new features added in this commit.
-
-These updates improve the flexibility and usability of the application by allowing users to manage and utilize shortcuts more effectively, particularly in the context of customizable features like pipes.
+The commit by Louis Beaumont on January 8, 2025, updates the `README.md` file. The change involves a minor revision to a sentence within a paragraph that describes the "screenpipe" library and platform. The ordering of the phrase about AI apps and examples has been altered. Previously, the sentence read: "library & platform to build, distribute, monetize ai apps (like rewind, granola, etc.) that have the full context." It was changed to: "library & platform to build, distribute, monetize ai apps that have the full context (like rewind, granola, etc.)."
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 5 (fe7463a82b9c22ade722d9a5adde545959444498)</summary>
+<summary>summary for commit 5 (2cc80057e16121e5bb43bb8926075c92bb421368)</summary>
 
-The given commit, authored by Louis Beaumont on January 7, 2025, removes a debug option in the `sidecar.rs` file of the `screenpipe-app-tauri` project. Specifically, the line of code that pushes the `--debug` argument to the `args` vector is commented out at line 363, effectively disabling this debug option during the execution of the `spawn_sidecar` function.
+The commit made by Louis Beaumont on January 8, 2025, updates the `README.md` file. The changes revised the subtitle and description of the "ScreenPipe" project. Specifically, the changes included:
+
+- Updating the description of the project to highlight it as a "library & platform to build, distribute, monetize AI apps" such as "rewind, granola, etc." that have full context.
+- Changing the technical and operational details to emphasize it as "open source," "100% local," "dev friendly," with "10% CPU, 4GB RAM, 30gb/m" usage, maintaining features like 24/7 screen, mic, keyboard recording, and control.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 6 (8fcd890d1dd6139c48ead8523e8bc20a79ea456b)</summary>
+<summary>summary for commit 6 (c7db0a30e7528d302ef4896f5bd2ce7ba1801967)</summary>
 
-The commit identified by `8fcd890d1dd6139c48ead8523e8bc20a79ea456b` addresses a casing issue in the `main.rs` file of the `screenpipe-app-tauri` project. Specifically, it modifies the labels for two menu items: "Start Recording" and "Stop Recording", changing them to lowercase ("start recording" and "stop recording") to ensure consistent casing. The author of these changes is Louis Beaumont, with the commit dated January 6, 2025.
+The commit with ID `c7db0a30e7528d302ef4896f5bd2ce7ba1801967` addresses fixes related to the auto-destructor functionality in the `screenpipe-server` project. Here are the key changes:
+
+1. **Auto-Destruct Behavior**:
+   - Improved the process checking for Windows by updating the `is_process_alive` function. It now uses `GetExitCodeProcess` to accurately determine if a process is still active, handling errors and logging debug information when the process cannot be opened or its exit code cannot be retrieved.
+
+2. **Logging**:
+   - Replaced `println!` statements with `debug!` and `info!` logging macros for more structured logging output. Specifically, these changes were made to log when processes are not found or fail and whether specific processes are alive.
+
+3. **Code Changes in `main` Function**:
+   - Deferred the dropping of `vision_runtime` and `audio_runtime` to a blocking task (`tokio::task::block_in_place`) for proper resource cleanup, making sure they are dropped outside the main async context.
+
+4. **Code Cleanup**:
+   - Removed unnecessary early drops of `vision_runtime` and `audio_runtime` during the main function execution.
+
+Overall, these changes improve the robustness and logging of the auto-destruct feature on Windows and ensure proper cleanup of runtime resources.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 7 (24b5bcf9f2603ee5fce04c17e9e18321345d3eb6)</summary>
+<summary>summary for commit 7 (271247f047d0606a7ca98da868af199216da6aae)</summary>
 
-This commit makes a small fix in the `pipes.rs` file within the `screenpipe-core` module. It updates a list of strings used for logging purposes by adding a new entry: `"$ next start"`. This change appears to address a minor issue with logging or pattern matching in the code.
+The git commit `271247f047d0606a7ca98da868af199216da6aae` by Louis Beaumont includes changes to the GitHub Actions workflow file `release-app.yml`. The commit adds a new environment variable `CN_VERBOSE` with a value of `"2"` to two blocks of code in the workflow. This sets the verbosity level for CrabNebula operations to 2, likely enabling more detailed logging. Additionally, the `release upload` commands for both Windows and non-Windows uploads have been modified to include the `-vv` flag, which likely increases verbosity for those commands as well. Overall, these changes are aimed at increasing the verbosity of the logging output for troubleshooting or monitoring purposes.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 8 (6b9c4b238ad519e9b8983bbf18735f30caada70b)</summary>
+<summary>summary for commit 8 (480a3f0a175f3cd70552df1f30409e2467ebd7f4)</summary>
 
-The commit made by Louis Beaumont on January 6, 2025, includes a change in the `screenpipe-server/src/auto_destruct.rs` file. The modification was made within a function `is_process_alive`, which is intended to check if a process is alive on Windows operating systems. Specifically, the code was altered to ensure that when opening a process with `OpenProcess`, the result is unwrapped, likely to handle potential errors and ensure that the process handle is correctly obtained.
+The commit `480a3f0a175f3cd70552df1f30409e2467ebd7f4` by Ezra Ellette introduces the Whisper-live-transcript feature as part of a larger pull request #1099. This update covers multiple changes across different files, highlighted as follows:
+
+### Refactor and Code Reduction
+- Several modules have been refactored to reduce code redundancy and improve structure.
+- Deepgram URLs are made consistently available across the module, enhancing modularity.
+
+### Real-Time Audio Features
+- **Realtime Audio Settings Added**: The project now supports real-time audio transcription with newly added functions and logic.
+- **Deepgram Live Transcription**: Integrated support for real-time transcription using Deepgram's API.
+- **SSE Endpoint**: An SSE (Server-Sent Events) endpoint was created for streaming transcriptions live.
+
+### Code Modifications
+- New modules (`deepgram`, `realtime`, and `segments`) have been added to specifically handle live audio processing and integrations.
+- Extensive refactoring occurred in `screenpipe-audio` to support use of various real-time transcription engines, including Whisper and Deepgram.
+- A new command interface setup is integrated for better control over audio processing functions and handling of transcription events.
+
+### Logging and Debugging Changes
+- Adjustments to logging: Reduced unnecessary logs unless debugging is enabled. Ensures that "no speech detected" messages do not flood logs except when explicitly needed for debugging.
+- Debugging facilities added to allow streamlined testing and message logging for various transcription stages.
+
+### Deepgram Integration:
+- **Deepgram Client Integration**: Added the Deepgram API client and related functionalities to subscribe to real-time audio feeds and process their transcriptions.
+- Configuration includes API token management and support for custom endpoints or proxies.
+
+### Server and CLI Adjustments
+- New features within the server to support real-time transcription streaming and control configurations.
+- CLI enhancements allow users to specify whether to utilize real-time audio transcription and select specific devices for such activities.
+
+### Testing and Build System
+- Updates in the build system, dependencies acquisition in `Cargo.toml`, and other files required to support real-time audio processing.
+
+Overall, these changes significantly enhance the system's capability to handle live audio processing, improve integration with external transcription services, and offer improved configuration, error handling, and logging functionalities.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 9 (c02fa48601de43cbcfe0f97bb22638410c3a39ce)</summary>
+<summary>summary for commit 9 (ae1ab1e837402913b689c8204d2e3dc502d29e8e)</summary>
 
-The commit `c02fa48601de43cbcfe0f97bb22638410c3a39ce` involves updating documentation by adding a new changelog file for version 0.22.5 of the project. The changes include the creation of a new changelog document at `content/changelogs/0.22.5.md` along with updates to the existing `CHANGELOG.md` file in the `screenpipe-app-tauri/public/` directory. The changelog highlights several fixes:
-
-1. **Auto Destruct Issue for Windows CLI**: Fixed as per issue #926 to ensure proper auto-destruction behavior.
-2. **Benchmark Tests**: Adjustments made for improved reliability.
-3. **Unit Test Issues**: Various tests have been corrected to ensure their accurate functionality and coverage.
-
-Additionally, a link to the full changelog comparison from e147b to 06914 is provided. The changelog was generated by a GitHub Actions Bot on January 6, 2025.
+The commit with hash `ae1ab1e837402913b689c8204d2e3dc502d29e8e`, authored by Louis Beaumont on January 7, 2025, updates the `Cargo.toml` file in the `screenpipe-app-tauri/src-tauri` directory. The version of the package "screenpipe-app" is incremented from "0.23.0" to "0.23.1". The commit message indicates that this change addresses properly ending the process in the Windows release of the application.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 10 (069147c82c299f81720e68dd682f77dc7208865b)</summary>
+<summary>summary for commit 10 (8554ab54e95be23eb84b5fdfd5530ebe785f1ace)</summary>
 
-The commit identified as `069147c82c299f81720e68dd682f77dc7208865b`, made by Louis Beaumont, addresses issue #926 by implementing fixes related to the automatic destruction of Windows CLI. The changes include:
+The commit with hash `8554ab5` introduces a fix to the `sidecar.rs` file within the `screenpipe-app-tauri/src-tauri/src` directory. The modification addresses the functionality of the "stop" button. In particular, it changes the command used to terminate processes: 
 
-1. **GitHub Actions Workflow (`release-app.yml`):**
-   - The maximum number of retries (`MAX_RETRIES`) for a process has been increased from 3 to 5.
-   - The delay between retries (`RETRY_DELAY`) has been increased from 10 seconds to 30 seconds.
+- The `taskkill` command in the code originally used the flags `"/F", "/IM", "screenpipe.exe"`.
+- The change adds the `"/T"` flag to these arguments, making the new command `"/F", "/T", "/IM", "screenpipe.exe"`.
 
-2. **Version Update (`Cargo.toml`):**
-   - The version number of the `screenpipe-app` has been incremented from `0.22.4` to `0.22.5`.
-
-3. **Process Watching Enhancement (`auto_destruct.rs`):**
-   - Added a function `is_process_alive` specifically for Windows that uses the Windows API to check if a process is still running.
-   - Modified the `watch_pid` function to use the new Windows API check before falling back to the existing `Command` approach for process monitoring.
-   - This consists of shell commands using `tasklist` to verify both the PID and application name (`screenpipe-app.exe`) on Windows.
-   - Enhanced the logic to provide additional process termination checks to ensure robust monitoring.
-
-These changes improve the reliability of process termination checks on Windows in the application, ensuring it handles retries more effectively and uses the Windows API for a more dependable process status check.
+This adjustment ensures that when the "stop" button is pressed, the `taskkill` command not only forces the termination of the "screenpipe.exe" process but also any child processes started by it.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 11 (e42979135c89decee89e6f6c278f4b5ba9a8fad4)</summary>
+<summary>summary for commit 11 (1936bee0e25af84db905cecd5133a8b2abf937c1)</summary>
 
-The git commit `e42979135c89decee89e6f6c278f4b5ba9a8fad4` by Louis Beaumont includes fixes and updates to benchmark files in the `screenpipe-server` and `screenpipe-vision` projects.
+The changes in this commit involve both a version update and a platform-specific code modification for the Tauri-based application "screenpipe-app":
 
-1. **In `screenpipe-server/benches/db_benchmarks.rs`:**
-   - Additional `None` parameters were added to a function call within the `setup_large_db` function to enhance or fix its configuration.
+1. **Version Update:**
+   - The version of the application is incremented from `0.22.9` to `0.23.0` in the `Cargo.toml` file. This typically indicates a new release with possibly significant updates or fixes.
 
-2. **In `screenpipe-vision/benches/apple_leak_bench.rs`:**
-   - The `cidre::ns` namespace was imported for usage.
-   - The `perform_ocr_apple` function call was modified to use a `ns::ArrayMut<ns::String>::with_capacity(0)` as an argument instead of an empty vector.
+2. **Platform-Specific Code Modification:**
+   - In the `main.rs` file, a segment of code that starts a health check service is now enclosed within a conditional compilation block specific to macOS (`#[cfg(target_os = "macos")]`). This means the health check service is only initiated on macOS systems, whereas previously it was executed regardless of the operating system.
+   - This change likely targets a known issue related to the application, as suggested by the commit message "revert again windows tray menu crash," which hints at addressing a crash that occurred when using the tray menu on Windows.
 
-3. **In `screenpipe-vision/benches/vision_benchmark.rs`:**
-   - `Arc` from the `std::sync` library was introduced, and `WindowFilters` from `screenpipe_vision::capture_screenshot_by_window` was imported.
-   - The `benchmark_continuous_capture` function now creates `WindowFilters` using `Arc`, and this is passed into the `continuous_capture` function. This change might provide thread-safe shared ownership of `WindowFilters`.
-   - The `continuous_capture` function call was adjusted to replace the empty arrays passed for window filters with the `window_filters` object and added a `false` flag at the end.
-
-Overall, these changes seem to address improvements in setup parameters, the use of more appropriate data structures, and refinements to benchmark functions within the project.
+Overall, the commit refines the application's behavior by including OS-specific logic and suggesting a release that's focused on stability improvements, especially concerning Windows.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 12 (393e1f04781ea88d4946a3af573fb174cb1d500f)</summary>
+<summary>summary for commit 12 (7ae5a14dd4533690267334d5d84309eab044d63b)</summary>
 
-This commit `393e1f0` made changes primarily to fix and clean up unit tests in a project, involving both audio and vision modules. Here are the key changes:
-
-1. **Audio Module:**
-   - Removed unnecessary code related to `output_path` in several files, ensuring that temporary output paths are no longer specified or cloned. This was applied to example files (`stt.rs`) and test files (`accuracy_test.rs` and `core_tests.rs`).
-   - Simplified function calls by removing arguments (`output_path`, `true`) that were unnecessary.
-   - Adjusted function calls to use an updated interface, such as changing `&audio_input` to `&audio_input.data`.
-
-2. **Vision Module:**
-   - Restructured code in `websocket.rs` to use a new `WindowFilters` struct instead of handling ignored and included windows directly.
-   - Removed the `window-filtering.rs` example file altogether, likely due to redundancy or integration of its features elsewhere.
-   - Changed the visibility of the function `get_apple_languages` in `core.rs` to be `pub`, allowing it to be used outside of its current module.
-   - Updated `apple_vision_test.rs` to include testing for both English and Chinese languages using `perform_ocr_apple`. The test confirms that OCR tasks identify specific keywords from images, using a new approach to handle language configurations.
-
-Overall, the commit streamlines the test setup, enhances the flexibility of handling language settings, and removes deprecated or inefficient code paths.
+The commit adds a changelog for version 0.22.9 of a project. It introduces a new feature where the memory pipe can provide AI-generated descriptions of recent memories, improving user experience. There are also fixes included, such as correcting the tray menu behavior on Windows to handle unhealthy states properly, and resolving an issue with the display of recent memories in the memory pipe. Changes were documented in the changelog files in two locations, reflecting updates for version 0.22.9.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 13 (e147b2ead56490714d3bb070a8b5365c0e8c4559)</summary>
+<summary>summary for commit 13 (973776d2b32bc37c06e06df5595546bc2f371522)</summary>
 
-The commit with the ID `e147b2e` introduces changes primarily related to documentation updates and fix implementations. It adds a new changelog file for version 0.22.4 and updates an existing changelog file in the `screenpipe-app-tauri` project. The key changes highlighted in the commit include:
+The commit introduces several updates and bug fixes across multiple files in a Git repository:
 
-- **Fixes:**
-  - Correction of a modal display issue to enhance user guidance.
-  - Resolution of problems related to building memories to improve functionality.
-  - Rectification of import issues to ensure application stability.
+1. **`pipe-store.tsx` Changes:**
+   - Added a new `isEnabling` state to manage the enabling process of a pipe.
+   - Updated the `handleToggleEnabled` function to set the loading state when enabling a pipe and to reset it afterward.
+   - Increased the timeout from 1000ms to 3000ms for pipe initialization.
+   - Buttons for opening the pipe (in a browser or as an app) are now disabled during the enabling process and show "initializing..." instead of "open in browser" or "open as app".
 
-The changelog was updated to reflect these fixes, and the previous entries for new features and improvements were removed or replaced, focusing the document on the recent fixes. The `Full Changelog` link was updated to a new comparison range between different commits.
+2. **Dependency Updates in Rust Files:**
+   - Updated the `once_cell` dependency from version 1.19.0 to 1.20.2 in `Cargo.lock`, along with its checksum.
+   - Updated `screenpipe-app` version from 0.22.6 to 0.22.8 in `Cargo.lock`.
+   - Updated the `screenpipe-app` version in `Cargo.toml` from 0.22.8 to 0.22.9.
+
+3. **`health.rs` Modifications:**
+   - Added a timeout of 5 seconds to the health check request to handle cases where it never times out on Windows.
+
+4. **`main.rs` Adjustments:**
+   - The health check service is now started on all operating systems, not just macOS. Previously, it was only enabled on macOS due to issues with Windows.
+
+These changes collectively enhance the app's functionality and stability, particularly for Windows users, and include version updates for package dependencies.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 14 (6683130a6ba34bf1f05936bda883aebe3d404291)</summary>
+<summary>summary for commit 14 (6874e4c6dd1966634783ce919b925f9bfffa254f)</summary>
 
-The git commit with hash `6683130a6ba34bf1f05936bda883aebe3d404291` by Louis Beaumont updates the version number of the "screenpipe-app" package from "0.22.3" to "0.22.4" in the `Cargo.toml` file. This change is part of a fix related to a modal for instructions in the "release-app" component.
+This Git commit introduces several changes to the `memories-gallery.tsx` and `video.tsx` components aimed at enhancing the functionality of the "memory pipe" feature.
+
+### Key Changes:
+1. **Dependencies Update**: 
+   - Added new imports including `OpenAI`, `useRef`, and `useSettings`.
+   - Updated existing ones like lucide-react icons and added `Loader2`.
+
+2. **New Interfaces**:
+   - `VideoDescription`: Added to manage video description states with `loading` and `content` properties.
+
+3. **State Management**:
+   - New states `videoDescriptions`, `collectiveDescription`, and `abortControllerRef` have been introduced for managing video descriptions and controlling asynchronous operations.
+
+4. **Memory Fetching**:
+   - Memories are now filtered to avoid showing recent ones, specifically omitting those from the last 5 minutes.
+   - Introduced a new logic to handle memory fetching attempts with a cap on the number of attempts (`MAX_ATTEMPTS`).
+
+5. **AI Descriptions**:
+   - Introduced functions `generateVideoDescription` and `generateCollectiveDescription` to provide AI-generated descriptions for individual video memories and a collective summary of fetched memories.
+   - Utilized the OpenAI API to generate these descriptions based on memory content.
+
+6. **Enhanced User Feedback**:
+   - Implemented loading states and error handling for the AI-generated content.
+   - Display pending messages like "generating description..." using animations with `motion.div`.
+
+7. **UI Components**:
+   - Updated `MemoriesGallery` UI with additional elements and buttons for generating summaries.
+   - Used `motion` for animations and improved user interactions with descriptions and summaries.
+
+8. **Video Component Enhancements**:
+   - Added an `onLoadStart` prop to initiate actions when a video starts loading.
+   - Improved memory management with cleanup in `useEffect`.
+
+9. **Error Handling**:
+   - Enhanced error reporting in video loading and media validation processes.
+
+Overall, this update significantly enhances the user experience by providing AI-assisted video descriptions and managing state more effectively to avoid recent memory display, alongside UI improvements and expanded functionality for video handling.
 </details>
 
 ------------------------------------------------------------------------
 
 <details>
-<summary>summary for commit 15 (ee6bf72f5dd9b6fd5df3978c59389cac9fd9c1c8)</summary>
+<summary>summary for commit 15 (1c48f4d1e6edd3b21d7b4093bfd8045fe3908c7f)</summary>
 
-The commit by Louis Beaumont focuses on fixing the build for the "memories" component. Here's a summary of the changes made:
+The commit authored by Louis Beaumont made the following changes to the `screenpipe-app`:
 
-1. **package.json Updates**: 
-   - Removed `eslint` and `eslint-config-next` dependencies.
-   - `bun-types` remains as `latest`, and `typescript` still uses version `^5`.
+1. **Version Update:**
+   - The version of the `screenpipe-app` has been incremented from `0.22.7` to `0.22.8` in the `Cargo.toml` file.
 
-2. **Memories Gallery Component (`memories-gallery.tsx`)**:
-   - The `newMemories` array is now explicitly typed as `any[]`.
-   - Added multiple `@ts-ignore` comments to ignore TypeScript errors possibly related to `item.content.frameId`, `item.content.timestamp`, `item.content.filePath`, `item.content.appName`, and using `item.content.text`.
-   
-3. **Breaking Changes Instructions Dialog (`breaking-changes-instructions-dialog.tsx`)**:
-   - Combined the asynchronous `init` function with the logic to fetch pipe data. It now initializes and also checks pipes within a single `useEffect`, reducing redundancy.
-   
-4. **Pipe Store Component (`pipe-store.tsx`)**:
-   - Removed a block of code involving an `iframe` that displayed content based on `selectedPipe.config.port`. This might have been unused or causing layout/build issues.
+2. **Health Check Service Adjustment:**
+   - Modifications were made in `main.rs` to conditionally start the health check service only on macOS. This was done because the service was causing crashes on Windows. The code block that spawns the health check service is now wrapped with `#[cfg(target_os = "macos")]`, ensuring it only executes when the app is running on macOS.
 
-These changes aim to improve the component's stability or address specific build errors, especially related to TypeScript configurations and dependencies.
-</details>
+3. **Tray Menu Icon based on Health Status:**
+   - The application’s tray menu icon now changes according to its health status, but this feature is implemented only for macOS. 
 
-------------------------------------------------------------------------
-
-<details>
-<summary>summary for commit 16 (80ce4eb4d2c8422db6a7ed7cedb514f74650c863)</summary>
-
-The git changes in the provided commit include:
-
-1. Deletion of several `bun.lockb` files across multiple directories within the project. These include:
-   - `pipes/archive/pipe-anthropic-computer-use-meeting-assistant`
-   - `pipes/archive/pipe-digital-clone`
-   - `pipes/archive/pipe-find-leads-with-exa-ai`
-   - `pipes/archive/pipe-keyword-notification`
-   - `pipes/archive/pipe-llama32-comment-linear-while-you-work`
-   - `pipes/archive/pipe-obsidian-time-logs`
-   - `pipes/archive/pipe-screen-time-storyteller`
-   - `pipes/data-table`
-   - `pipes/identify-speakers`
-   - `pipes/linkedin_ai_assistant`
-   - `pipes/memories`
-   - `pipes/obsidian`
-   - `pipes/pipe-email-exa-search`
-   - `pipes/pipe-for-loom`
-   - `pipes/pipe-notion-table-logs`
-   - `pipes/pipe-post-questions-on-reddit`
-   - `pipes/search`
-   - `pipes/timeline`
-
-2. An update to `pipes/memories/package.json`, where the version of `@screenpipe/js` was changed from `1.0.0` to `1.0.1`.
-
-3. Changes in import statements within TypeScript files:
-   - In `pipes/memories/src/app/api/settings/route.ts`, the import of `pipe` was changed from `@screenpipe/js/node` to `@screenpipe/js`.
-   - In `pipes/obsidian/src/app/api/log/route.ts` and `pipes/obsidian/src/app/api/settings/route.ts`, similar updates were made to the `pipe` import statement, changing it from `@screenpipe/js/node` to `@screenpipe/js`. 
-
-These changes primarily focus on the deletion of lock files and updating import paths for consistency or maintenance reasons.
+These changes aim to enhance the application’s functionality on macOS while avoiding issues on Windows.
 </details>
 
 ------------------------------------------------------------------------
 
 # Overall Summary of Changes
 
-The provided git changes detail a series of updates and improvements for the "screenpipe-app" across various commits. Here’s a consolidated summary:
+The git log outlines a series of updates, enhancements, and bug fixes across various components of a project, primarily focused on the `README.md`, `screenpipe-app`, `screenpipe-server`, and associated files. Here are the key points:
 
-1. **Version and Dependency Updates:**
-   - Incremental version updates in `Cargo.lock` and `Cargo.toml`, reflecting new patch releases and developments.
-   - Addition of the `once_cell` dependency.
+1. **README.md Updates**:
+   - Numerous wording changes for clarity and emphasis on project features, resource usage, and AI context.
+   - Image source updates and formatting clean-up for better presentation.
+   - Revised content about tools and integrations, such as replacing "Loom pipe" with "Reddit agent".
 
-2. **Feature Enhancements:**
-   - Implementation of a health check feature to monitor service health and integrate changes into the app's initialization.
-   - Improvements in shortcut handling, creating UI components for managing shortcuts, and enhancing backend logic to support new functionalities.
+2. **`screenpipe-app` Changes**:
+   - Version increments, reflecting new updates or bug fixes.
+   - Conditional logic for macOS-specific operations to avoid crashes on Windows, such as health check services and tray menu icons.
+   - Improvements in stop button functionality to ensure proper termination of processes and their children.
 
-3. **Refactoring and Code Optimization:**
-   - Code reorganization and style improvements for clarity.
-   - Optimization of the tray menu to update only when necessary, utilizing `once_cell`.
+3. **`screenpipe-server` Enhancements**:
+   - Improved logging mechanisms and process checking, especially for Windows, to ensure better auto-destruct functionality.
+   - Code refactoring for cleaner and more structured execution paths.
 
-4. **Bug Fixes and Miscellaneous Improvements:**
-   - Addressed casing issues and logging inaccuracies.
-   - Improved process monitoring and automatic termination reliability on Windows, addressing specific issues (e.g., #926).
-   - Minor fixes in unit tests and benchmarks, focusing on setup parameters and data structure optimizations.
+4. **Real-Time Audio and Transcription Features**:
+   - Introduced features like Whisper-live-transcript and Deepgram integration for real-time audio transcription.
+   - Modular enhancements for better handling of live audio processing, logging, and error reporting.
 
-5. **Documentation and Changelog Updates:**
-   - Addition and updates of changelog entries to document changes made in each version.
-   - Specific updates to changelogs to reflect new features, fixes, and improvements.
+5. **GitHub Actions Workflow Modifications**:
+   - Added verbosity settings for better logging during release operations.
 
-6. **Removed Debug Options and Deletions:**
-   - Removal of a debug option in `sidecar.rs`.
-   - Deletion of several lock files and adjustments to import paths in TypeScript files for maintenance.
+6. **UI and Functionality in Memory Handling**:
+   - Updates to components like `memory-gallery.tsx` for improved user experience, AI-generated video descriptions, and enhanced state management.
 
-Overall, these commits reflect a concerted effort to enhance the functionality, stability, and maintainability of the "screenpipe-app" project. They focus on new feature additions, especially regarding health checks and keyboard shortcuts, and include code optimizations and numerous fixes for robust application behavior.
+7. **Dependency and Configuration Adjustments**:
+   - Updated dependencies to newer versions for stability and security.
+   - Configuration tweaks to align with platform-specific requirements.
+
+Overall, these commits reflect a comprehensive effort to refine application functionality, enhance user interface components, improve platform-specific behaviors, and ensure robust operation across different environments.
